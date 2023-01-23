@@ -1,0 +1,108 @@
+<template>
+  <div>
+    <b-modal
+      centered
+      :title="title"
+      size="lg"
+      v-model="show"
+      no-close-on-backdrop
+      no-close-on-esc
+      hide-header-close>
+      <b-tabs>
+        <b-tab>
+          <template #title>
+            <span>Info</span>
+          </template>
+          <Data 
+            :keydata="id"
+            @s_code="scode"/>
+        </b-tab>
+        <b-tab>
+          <template #title>
+            <span>Riwayat</span>
+          </template>
+          <Log :keydata="id"/>
+        </b-tab>
+      </b-tabs>
+      <template #modal-footer>
+        <!-- <b-button
+          class="btn-icon rounded-circle"
+          type="button"
+          variant="flat-primary">
+          <feather-icon icon="Edit2Icon" size="14"/>
+        </b-button> -->
+        <b-button
+          type="button"
+          variant="flat-danger"
+          @click="closeModal()"
+          class="float-right">
+          <feather-icon icon="XIcon" size="14"/>
+        </b-button>
+      </template>
+    </b-modal>
+  </div>
+</template>
+
+<script>
+import {
+  BModal,
+  BButton,
+  BTabs, BTab,
+} from 'bootstrap-vue'
+import http from '@/customs/axios'
+
+export default {
+  components: {
+    BModal,
+    BButton,
+    BTabs, BTab,
+    Data: () => import('@/component/apps/gainventaris/_InventarisDetailData.vue'),
+    Log: () => import('@/component/apps/gainventaris/_InventarisDetailLog.vue')
+  },
+  data(){
+    return{
+      show: false,
+      title: '',
+      id: '',
+      code: '',
+    }
+  },
+  methods: {
+    closeModal(){
+      this.show = false
+      this.title = ''
+      this.id = 0
+      this.code = ''
+    },
+    showDetail(id){
+      // console.log(id)
+      this.show = true
+      this.id = id
+      // this.code = code
+      // this.title = 'Detail '+this.code
+    },
+    scode(val){
+      this.title = 'Detail '+val
+    }
+  },
+  created(){
+    called.$on('inventarisdetailshow', (id) => { this.showDetail(id) })
+    // this.show = this.testde
+  },
+  computed: {
+    testde(){
+      if(this.$route.name === 'apps-inventaris-showfromqr'){
+        return true
+      }
+      return false
+    }
+  },
+  watch: {
+    //
+  }
+}
+</script>
+
+<style>
+
+</style>

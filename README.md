@@ -1,0 +1,7 @@
+- This program build from Laravel and VueJS 2
+- cd ./backend/ folder, setting .env file
+- inside .env file: change Database name, username, password, and port if necessary
+- inside .env file: change IP Frontend and IP Backend
+- run php artisan key:generate
+- run php artisan storage:link
+- tun php artisan migrate
