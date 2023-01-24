@@ -67,6 +67,8 @@ export default [
         title: 'OKM',
         route: 'apps-elearning-dashboard',
         icon: 'AwardIcon',
+        resource: 'AppOKM',
+        action: 'read',
       },
       {
         title: 'Surat Jalan',
