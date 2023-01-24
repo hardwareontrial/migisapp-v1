@@ -58,7 +58,7 @@ class ElearningScheduleController extends Controller
       $emp[$i]->label = $ae->name;
       array_push($listparticipants, $emp[$i]);
     }
-    
+
     /** Single Position List */
     $allposition = AppPositions::whereNotIn('id', [1, 57])->orderBy('name', 'asc')->get();
     foreach($allposition as $k => $pos){
@@ -111,7 +111,10 @@ class ElearningScheduleController extends Controller
         ->orderBy(request()->sortby, request()->sortbydesc)
         ->paginate(request()->per_page);
     }elseif($frompage == 'elearningdashboard'){
-      $tmps = AppElearningSchedule::where('isactive', 1)->with('dataquestion.questions', 'participants_exam')->get();
+      $tmps = AppElearningSchedule::where('isactive', 1)
+          ->with('dataquestion.questions', 'participants_exam')
+          ->orderBy('id', 'desc')
+          ->get();
       $data = $tmps;
       // $data = array();
       // foreach ($tmps as $tmp){
@@ -121,7 +124,7 @@ class ElearningScheduleController extends Controller
       //   $data[] = $tmp;
       // }
     }
-    
+
     return response()->json(['message' => $data], 200);
   }
 
@@ -164,7 +167,7 @@ class ElearningScheduleController extends Controller
         unset($px->answers_user);
         $px->answers_user = [];
       }
-      
+
       /** Get Question */
       foreach ($shuffled_id as $id){
         /** shuffle answer_options */
@@ -282,7 +285,7 @@ class ElearningScheduleController extends Controller
       ->with('datalogin')
       ->get()
       ->pluck('nik');
-    
+
 
     $rawparticipants = array();
     $reqparticipants = $requestparticipant;
@@ -383,7 +386,7 @@ class ElearningScheduleController extends Controller
     // $d = $questions->shuffle();
     // return $d;
 
-    /** return question sortBy array shuffled id [WORKED]*/ 
+    /** return question sortBy array shuffled id [WORKED]*/
     // $shuffled_id = [3,1];
     // $dataquestions = AppElearningQuestionCollection::whereIn('id', $shuffled_id)->get();
     // $reorder = collect([]);
