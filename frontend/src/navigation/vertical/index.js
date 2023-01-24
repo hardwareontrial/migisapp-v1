@@ -124,6 +124,8 @@ export default [
         {
           title: 'Dashboard',
           route: 'apps-elearning-dashboard',
+          resource: 'AppOKM',
+          action: 'read',
         },
         {
           title: 'Raport',
@@ -135,10 +137,14 @@ export default [
            {
              title: 'Materi',
              route: 'apps-elearning-materials',
+             resource: 'AppOKMMaterial',
+             action: 'read',
            },
            {
              title: 'Soal',
              route: 'apps-elearning-questions',
+             resource: 'AppOKMQuestion',
+             action: 'read',
           },
           /**
           {
@@ -149,8 +155,12 @@ export default [
           {
             title: 'Ujian',
             route: 'apps-elearning-schedule',
+            resource: 'AppOKMSchedule',
+            action: 'read',
           },
-        ]
+        ],
+        resource: 'AppOKMAdmin',
+        action: 'read',
       },
     ]
   },
