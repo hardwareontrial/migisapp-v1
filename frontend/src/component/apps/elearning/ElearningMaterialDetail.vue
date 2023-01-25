@@ -35,6 +35,7 @@
       </template>
       <template v-slot:cstmbtndetail>
         <b-button
+          v-if="$can('edit', 'AppOKMMaterial')"
           :to="{ name: 'apps-elearning-materials-edit', params: { id: materialdata.id } }"
           variant="flat-primary"
           class="btn-icon rounded-circle">
@@ -44,7 +45,7 @@
     </material-detail-card>
     
     <b-card
-      v-if="!materialdata.data"
+      v-if="!materialdata.data && $can('edit', 'AppOKMMaterial')"
       title="Upload File">
       <b-row>
         <b-col cols="9">
@@ -94,12 +95,14 @@
       <b-card-header>
         <b-card-title>Soal</b-card-title>
         <feather-icon
+          v-if="$can('create', 'AppOKMQuestion')"
           @click="$router.push({name: 'apps-elearning-questions-create'})"
           icon="PlusCircleIcon"
           size="18"
           class="cursor-pointer"
         />
       </b-card-header>
+      
       <b-card-body>
         <div v-if="qstlist.length <= 0">Tidak ada data.</div>
         <div v-else>
@@ -111,7 +114,7 @@
               <span>{{ qsl.title }}</span>
               <div>
                 <b-badge
-                  class="mr-25"
+                  class="mr-50"
                   :variant="qsl.isactive === 1 ? 'success':'secondary'"
                   pill>
                   {{ qsl.isactive === 1 ? 'Aktif':'Tidak Aktif' }}
@@ -123,6 +126,14 @@
                   size="sm"
                   type="button">
                   <feather-icon icon="EyeIcon" class="mr-25"/>
+                </b-button>
+                <b-button
+                  v-if="qsl.scheduled.length <= 0"
+                  variant="flat-danger"
+                  class="btn-icon"
+                  size="sm"
+                  type="button">
+                  <feather-icon icon="Trash2Icon" class="mr-25"/>
                 </b-button>
               </div>
             </b-list-group-item>

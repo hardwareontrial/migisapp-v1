@@ -19,7 +19,7 @@ class AppElearningQuestion extends Model
     'isactive',
     'slug',
   ];
-  
+
   protected $appends = [
     'questionscount'
   ];
@@ -38,5 +38,10 @@ class AppElearningQuestion extends Model
   {
     $x = AppElearningQuestionCollection::where('questions_id', $this->attributes['id'])->get();
     return count($x);
+  }
+
+  public function scheduled()
+  {
+    return $this->hasMany(AppElearningSchedule::class, 'question_id', 'id');
   }
 }

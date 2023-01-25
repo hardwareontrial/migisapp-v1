@@ -26,15 +26,23 @@ class AppElearningSchedule extends Model
     'participant_id' => 'array',
   ];
 
+  protected $appends = [
+    'participantscount'
+  ];
+
   public function dataquestion()
   {
-    // return $this->hasOne(AppElearningQuestion::class, 'id', 'question_id');
     return $this->hasOne(AppElearningQuestion::class, 'id', 'question_id');
   }
 
   public function participants_exam()
   {
-    // return $this->hasMany(AppElearningUserdataExam::class, 'schedule_id', 'id');
     return $this->hasMany(AppElearningUserdataExam::class, 'schedule_id', 'id');
+  }
+
+  public function getParticipantscountAttribute()
+  {
+    $x = AppElearningUserdataExam::where('schedule_id', $this->attributes['id'])->get();
+    return count($x);
   }
 }

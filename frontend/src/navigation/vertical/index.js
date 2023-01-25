@@ -1,3 +1,5 @@
+let datauser = JSON.parse(localStorage.getItem('userdata'));
+
 export default [
   {
     header: 'Main Menu',
@@ -130,6 +132,8 @@ export default [
         {
           title: 'Raport',
           route: 'apps-elearning-raport',
+          resource: 'AppOKM',
+          action: 'read',
         },
         {
          title: 'Admin',

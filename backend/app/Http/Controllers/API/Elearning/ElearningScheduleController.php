@@ -195,6 +195,7 @@ class ElearningScheduleController extends Controller
 
     if($frompage == 'elearningscheduleform'){
       $data = AppElearningSchedule::create([
+        'title' => strtoupper($request->input('title')),
         'question_id' => $soalid,
         'type' => $request->input('type'),
         'startdate_exam' => Carbon::parse($request->input('s_datetime'))->format('Y-m-d H:i:s'),
@@ -379,6 +380,21 @@ class ElearningScheduleController extends Controller
     return $final;
   }
 
+  public function turnOffSchedule()
+  {
+    /** Run Automatic using Laravel Scheduler */
+    $now = Carbon::now()->format('Y-m-d');
+    $datas = AppElearningSchedule::where('isactive', 1)->where('enddate_exam', '<', $now)->get();
+    $datas_count = $datas->count();
+    if($datas_count > 0) {
+      foreach($datas as $d){
+        $x = AppElearningSchedule::find($d->id);
+        $x->isactive = 0;
+        $x->save();
+      }
+    }
+  }
+
   public function testfunction()
   {
     /** shuffled question [WORKED] */
@@ -403,20 +419,20 @@ class ElearningScheduleController extends Controller
 
   public function testfunction3(Request $request)
   {
-    /** SHUFFLED QUESTION WITH RANDOM USING SPESIFIED NUMBER OF QUESTION */
-    $final = [];
-    $questions = AppElearningQuestionCollection::where('questions_id', 1)->get()->pluck('id');
-    $d = $questions->shuffle();
-    $numRandomQst = $request->input('qstnumrandoms');
-    $count = count($questions);
-    if($count >= $numRandomQst){
-      while(count($final) < $numRandomQst){
-        $random = $d[rand(0, $count -1)];
-        if(!in_array($random, $final)){
-          array_push($final, $random);
-        }
-      }
-    }
-    return $final;
+    // /** SHUFFLED QUESTION WITH RANDOM USING SPESIFIED NUMBER OF QUESTION */
+    // $final = [];
+    // $questions = AppElearningQuestionCollection::where('questions_id', 1)->get()->pluck('id');
+    // $d = $questions->shuffle();
+    // $numRandomQst = $request->input('qstnumrandoms');
+    // $count = count($questions);
+    // if($count >= $numRandomQst){
+    //   while(count($final) < $numRandomQst){
+    //     $random = $d[rand(0, $count -1)];
+    //     if(!in_array($random, $final)){
+    //       array_push($final, $random);
+    //     }
+    //   }
+    // }
+    // return $final;
   }
 }

@@ -28,6 +28,7 @@
           label="text"
           class="w-50" />
         <b-button
+          v-if="$can('create', 'AppOKMSchedule')"
           :to="{ name: 'apps-elearning-schedule-create' }"
           type="button"
           variant="flat-primary"
@@ -36,7 +37,7 @@
         </b-button>
       </template>
       <template #cell(name)="data">
-        {{ data.item.dataquestion.title }}
+        {{ data.item.title }}
         <br><small>{{ data.item.note }}</small>
       </template>
       <template #cell(tipe)="data">
@@ -64,6 +65,8 @@
             <feather-icon icon="InfoIcon" size="14"/>
           </b-button>
           <b-button
+            :disabled="data.item.participantscount > 0"
+            v-if="data.item.participantscount <= 0 || $can('edit', 'AppOKMSchedule')"
             @click="setactive({isactive: data.item.isactive, id: data.item.id})"
             class="btn-icon"
             size="sm"

@@ -12,15 +12,17 @@
     </b-alert>
     <b-row>
       <b-col
-        v-for="(exam, i) in exams_schedules"
+        v-for="(exam, i) in filteredexam"
         :key="i"
         cols="12"
+        sm="6"
         md="4"
+        lg="4"
         xl="3">
         <b-overlay :show="!exam.quizavailable.date" variant="secondary" opacity="0.8" rounded="sm">
           <b-card
-            :style="`background-color: ${exam.type === 1 ? 'DarkSeaGreen' : 'Orchid'}`">
-            <h5 class="text-white"> {{ exam.dataquestion ? exam.dataquestion.title : '' }} </h5>
+            :style="`background-color: ${exam.type === 1 ? 'DarkSeaGreen' : 'LightSeaGreen'}`">
+            <h5 class="text-white"> {{ exam.title }} </h5>
             <b-card-text class="font-small-3 text-white">
               <div>
                 <feather-icon :icon="exam.type === 1 ? 'Edit2Icon' : 'RepeatIcon'" class="m-25"/>
@@ -80,6 +82,11 @@ import {
 } from 'bootstrap-vue'
 
 export default {
+  props:{
+    userdata: {
+      type: Object,
+    }
+  },
   components: {
     BCard, BCardText,
     BRow,BCol,
@@ -105,10 +112,8 @@ export default {
       .then((res) => {
         if(res.data.message.length > 0){
           this.alertprops = { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
-          // this.exams_schedules = res.data.message
           let z = res.data.message
           this.exams_schedules = z.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
-          // console.log(this.exams_schedules)
         }else{
           this.alertprops = { show: true, variant: 'primary', message: 'Ujian belum tersedia.', icon: 'InfoIcon' }
         }
@@ -144,14 +149,18 @@ export default {
     this.getdata()
   },
   computed:{
-    arrexams(){
-      if(this.exams_schedules.length > 0){
-        const arr = this.exams_schedules
-        // const newArr = arr.map(d => ({...d, exam_ongoing: this.$moment(timenow).isSameOrAfter(this.$moment(d.startdate_exam, 'YYYY-MM-DD HH:mm:ss')) && this.$moment(timenow).isSameOrBefore(this.$moment(d.enddate_exam, 'YYYY-MM-DD HH:mm:ss')) }))
-        // const newArr = arr.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
-        // return newArr
+    filteredexam(){
+      let data = this.exams_schedules
+      let userdataNik = this.userdata.nik
+      let userdataAdmin = this.userdata.admin
+      let filter
+      if(userdataAdmin === 0 && userdataNik < 8000000){
+        filter = data.filter(x => x.participants_exam.some(y => parseInt(y.user_nik) === userdataNik))
+        return filter
+      }else if(userdataAdmin === 1){
+        return data
       }
-    },
+    }
   },
   beforeCreate() {
     this.$store.commit('appConfig/UPDATE_LAYOUT_TYPE', 'vertical')

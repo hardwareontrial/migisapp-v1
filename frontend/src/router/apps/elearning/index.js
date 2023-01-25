@@ -26,6 +26,8 @@ export default [
           breadcrumb: [
             { text: 'OKM', active: true },
           ],
+          resource: 'AppOKM',
+          action: 'read',
         },
       },
       /** ----------------------------- Raport Area ------------------------------------ */
@@ -40,6 +42,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
             { text: 'Raport', active: true },
           ],
+          resource: 'AppOKM',
+          action: 'read',
         },
       },
       {
@@ -54,6 +58,8 @@ export default [
             { text: 'Raport', to: { name: 'apps-elearning-raport'} },
             { text: 'Raport Detail', active: true },
           ],
+          resource: 'AppOKM',
+          action: 'read',
         },
       },
       /** ----------------------------- Material Area ------------------------------------ */
@@ -189,6 +195,8 @@ export default [
         meta: {
           pageTitle: 'Quiz',
           title: 'OKM',
+          resource: 'AppOKM',
+          action: 'read',
         },
       },
     ]

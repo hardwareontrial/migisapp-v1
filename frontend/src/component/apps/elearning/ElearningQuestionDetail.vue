@@ -125,12 +125,14 @@
         <span class="ml-25">{{ alert.text }}</span>
       </div>
     </b-alert>
-
+    
     <b-card
       v-if="questiondata.data.length > 0 && !editquestionmodalprop.show"
       no-body>
       <question-table
         :data="questiondata.data"
+        :disDeleteBtn="questiondata.scheduled > 0"
+        :disEditBtn="questiondata.scheduled > 0"
         @editquestion="editquestiondb"
         @deletequestion="deleteqstcolldb"
         ref="tabledwtailqst"/>
@@ -280,6 +282,7 @@ export default {
         duration: 0,
         data: [],
         material_id: null,
+        scheduled: [],
       },
       statusupload: null,
       breadcrumbs: [],
@@ -372,6 +375,7 @@ export default {
           duration: res.data.duration,
           data: res.data.questions,
           material_id: res.data.material_id,
+          scheduled: res.data.scheduled.length,
         }
         this.setBreadcrumb(this.questiondata.title)
       })

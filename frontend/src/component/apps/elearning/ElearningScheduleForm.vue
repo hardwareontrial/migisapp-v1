@@ -6,6 +6,23 @@
       <b-row>
         <b-col cols="12">
           <b-form-group
+            label="Judul"
+            label-for="h-judul-soal"
+            label-cols-md="4">
+            <validation-provider
+              #default="{errors}"
+              name="Judul Soal"
+              vid="elr-f-tqst"
+              rules="required">
+              <b-form-input
+                v-model="form.title"
+                id="h-note"/>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+        <b-col cols="12">
+          <b-form-group
             label="Soal"
             label-for="h-soal"
             label-cols-md="4">
@@ -211,6 +228,7 @@ export default {
         { value: 2, text: 'Remedial' },
       ],
       form: {
+        title: '',
         soal: null,
         soal_id: null,
         type: null,
@@ -236,6 +254,7 @@ export default {
     storeschedule(){
       called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       let newschedule = new FormData()
+      newschedule.append('title', this.form.title)
       newschedule.append('soal_id', this.form.soal_id)
       newschedule.append('type', this.form.type)
       newschedule.append('s_datetime', this.form.s_datetime)

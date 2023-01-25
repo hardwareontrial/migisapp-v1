@@ -46,5 +46,4 @@ class AppElearningMaterial extends Model
     // return $this->hasMany(AppElearningQuestion::class, 'material_id', 'id');
     return $this->hasMany(AppElearningQuestion::class, 'material_id', 'id');
   }
-
 }

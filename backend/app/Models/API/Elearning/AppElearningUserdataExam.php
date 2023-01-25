@@ -32,7 +32,7 @@ class AppElearningUserdataExam extends Model
   public function schedule()
   {
     // return $this->hasOne(AppElearningSchedule::class, 'schedule_id', 'id');
-    return $this->hasOne(AppElearningSchedule::class, 'schedule_id', 'id');
+    return $this->hasOne(AppElearningSchedule::class, 'id', 'schedule_id');
   }
 
   public function datauser()

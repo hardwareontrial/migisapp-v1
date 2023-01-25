@@ -6,6 +6,7 @@ use App\Http\Controllers\API\DeliveryNote\AppSuratJalanExportController;
 use App\Http\Controllers\API\Elearning\ElearningMaterialController;
 use App\Http\Controllers\API\Elearning\ElearningQuestionController;
 use App\Http\Controllers\API\Elearning\ElearningScheduleController;
+use App\Http\Controllers\API\Elearning\ElearningUserdataExamController;
 use App\Http\Controllers\API\GaInventaris\AppGaInventarisController;
 use App\Http\Controllers\API\GaInventaris\AppGaInventarisExportController;
 use App\Http\Controllers\API\Hr\AppAttendanceController;
@@ -158,6 +159,9 @@ Route::prefix('okm')->group(function(){
       Route::delete('{id}', [ElearningQuestionController::class, 'deleteQuestionCollection']);
       Route::post('{id}/addfromfile', [ElearningQuestionController::class ,'addQuesitionCollectionUploadFile']);
     });
+  });
+  Route::prefix('userexam')->group(function(){
+    Route::get('all', [ElearningUserdataExamController::class, 'index']);
   });
 });
 

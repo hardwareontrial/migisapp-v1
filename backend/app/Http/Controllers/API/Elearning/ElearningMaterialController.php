@@ -18,14 +18,14 @@ class ElearningMaterialController extends Controller
     $tablename = app(AppElearningMaterial::class)->getTable();
     $db = DB::select("SHOW TABLE STATUS LIKE '".$tablename."'");
     $iddata = $db[0]->Auto_increment;
-    
+
     $authuser = auth('sanctum')->user()->detailuser->id;
     $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->input('title'))));
 
     if($request->hasFile('filematerial') && $request->file('filematerial')){
       $this->storefilematerial($iddata, $request->file('filematerial'));
     };
-    
+
     AppElearningMaterial::create([
       'm_title' => strtoupper($request->input('title')),
       'dept_id' => $request->input('dept'),
@@ -84,7 +84,7 @@ class ElearningMaterialController extends Controller
     $cari = request()->q;
     $isactive = request()->isactive;
 
-    $data = AppElearningMaterial::with('deptname', 'creator', 'questionslist')
+    $data = AppElearningMaterial::with('deptname', 'creator', 'questionslist.scheduled')
       ->where(function ($query) use ($cari, $isactive){
         $query->whereHas('deptname', function ($query2) use ($cari){
           $query2->where(function ($query3) use ($cari){
@@ -101,13 +101,13 @@ class ElearningMaterialController extends Controller
       })
       ->orderBy(request()->sortby, request()->sortbydesc)
       ->paginate(request()->per_page);
-    
+
     return response()->json(['message' => $data], 200);
   }
 
   public function detailmaterial($id)
   {
-    return AppElearningMaterial::find($id)->load('materialfile', 'questionslist');
+    return AppElearningMaterial::find($id)->load('materialfile', 'questionslist.scheduled');
   }
 
   public function updatematerial(Request $request, $id)

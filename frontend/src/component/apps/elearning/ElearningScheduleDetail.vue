@@ -13,7 +13,7 @@
             <p class="small hint-text m-0"><b>Nama Soal</b></p>
             <p class="font-montserrat bold">
               <feather-icon icon="FileIcon" class="mx-25"/>
-              {{ dataschedule.title }}
+              {{ dataschedule.title_question }}
             </p>
           </b-col>
           <b-col cols="4">
@@ -68,7 +68,7 @@
       </div>
       <div>
         <b-button
-          v-if="dataschedule.isactive === 1"
+          v-if="dataschedule.isactive === 1 || $can('edit', 'AppOKMSchedule')"
           @click="addparticipantprops.show = !addparticipantprops.show"
           size="sm"
           type="button"
@@ -256,6 +256,7 @@ export default {
         scheduleid: null,
         questionid: null,
         title: '',
+        title_question: '',
         total_questions: 0,
         total_participants: 0,
         participants: [],
@@ -295,10 +296,11 @@ export default {
         this.dataschedule = {
           scheduleid: res.data.id,
           questionid: res.data.question_id,
-          title: res.data.dataquestion ? res.data.dataquestion.title : '',
+          title: res.data.title,
+          title_question: res.data.dataquestion ? res.data.dataquestion.title : '',
           // total_questions: res.data.dataquestion ? res.data.dataquestion.qstcount : 0,questions_count
           total_questions: res.data.questions_count,
-          total_participants: res.data.participants_exam ? res.data.participants_exam.length : 0,
+          total_participants: res.data.participants_exam ? res.data.participantscount : 0,
           participants: res.data.participants_exam.length > 0 ? res.data.participants_exam : [],
           isactive: res.data.isactive,
         }

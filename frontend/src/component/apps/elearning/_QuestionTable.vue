@@ -55,16 +55,18 @@
               v-if="isub === 0" 
               :rowspan="mq.answer_options.length">
               <b-button
+                :disabled="disEditBtn"
                 @click="editquestion(mq, j)"
                 size="sm"
-                variant="flat-info"
+                :variant="disEditBtn ? 'flat-secondary':'flat-info'"
                 class="btn-icon rounded-circle">
                 <feather-icon icon="EditIcon" size="16"/>
               </b-button>
               <b-button
+                :disabled="disDeleteBtn"
                 @click="delquestion(mq, j)"
                 size="sm"
-                variant="flat-danger"
+                :variant="disDeleteBtn ? 'flat-secondary':'flat-danger'"
                 class="btn-icon rounded-circle">
                 <feather-icon icon="XCircleIcon" size="16"/>
               </b-button>
@@ -93,12 +95,20 @@ export default {
     data: {
       type: Array
     },
+    disEditBtn: {
+      type: Boolean,
+      default: false,
+    },
+    disDeleteBtn: {
+      type: Boolean,
+      default: false,
+    },
   },
   data(){
     return{
       imgprops: { width: 96, height: 72, class: 'm1' },
     }
-  },
+  }, 
   methods: {
     editquestion(data, j){
       this.$emit('editquestion', { data: data, index: j })

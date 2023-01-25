@@ -1,46 +1,15 @@
 <template>
   <div>
-    <!-- <quiz-detail v-show="stage.intro">
-      <template v-slot:cstmtitledetail>
-        <div>
-          <feather-icon icon="InfoIcon" size="18"/>
-          <span class="mx-50">INFO</span>
-        </div>
-      </template>
-      <template v-slot:datadetail>
-        <b-row>
-          <b-col cols="4">
-            <p class="small hint-text m-0"><b>Tipe</b></p>
-            <p class="font-montserrat bold">
-              <feather-icon :icon="dataexam.type === 1 ? 'Edit3Icon' : 'RepeatIcon'" class="mx-25"/>
-              {{ dataexam.type === 1 ? 'Ujian' : 'Remedial' }}
-            </p>
-          </b-col>
-          <b-col cols="4">
-            <p class="small hint-text m-0"><b>Jumlah Soal</b></p>
-            <p class="font-montserrat bold">
-              <feather-icon icon="MenuIcon" class="mx-25"/>
-              {{ dataexam.qstcount }} Soal
-            </p>
-          </b-col>
-          <b-col cols="4">
-            <p class="small hint-text m-0"><b>Waktu</b></p>
-            <p class="font-montserrat bold">
-              <feather-icon icon="ClockIcon" class="mx-25"/>
-              {{ dataexam.duration }} Menit
-            </p>
-          </b-col>
-        </b-row>
-      </template>
-    </quiz-detail> -->
-    
+
     <b-card v-if="isadmin">
       <material-reader :file="dataexam.materials" v-if="dataexam.materials"/>
       <span v-else>File Materi Kosong</span>
     </b-card>
+
     <div 
       v-for="(participantdata, i) in filteredparticipants" 
       :key="i">
+
       <div class="justify-content-center" v-if="stage.intro">
         <b-card
           class="text-center">
@@ -50,12 +19,32 @@
           <b-card-body>
             <b-row>
               <b-col cols="12">
-                <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader>
-                <span v-else>File Materi Kosong</span>
+                <!-- <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader>
+                <span v-else>File Materi Kosong</span> -->
+                <app-collapse
+                  accordion
+                  type="margin">
+                  <app-collapse-item title="Materi">
+                    <div v-if="dataexam.materials">
+                      <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader>
+                    </div>
+                    <div v-else>
+                      File materi kosong.
+                    </div>
+                  </app-collapse-item>
+                </app-collapse>
               </b-col>
               <b-col cols="12">
-                <b-button-group>
+                <b-button-group class="mt-1">
                   <b-button
+                    v-if="participantdata.isdone === 1"
+                    disabled
+                    variant="flat-success">
+                    <b-icon icon="check-circle-fill" class="mr-50" scale="0.8"></b-icon>
+                    <span class="align-middle">Selesai</span>
+                  </b-button>
+                  <b-button
+                    v-else
                     @click="participantdata.isdone === 2 ? setquiz(participantdata) : setContinueQuiz(participantdata)"
                     :variant="participantdata.isdone === 2 ? 'flat-primary' : 'flat-success'">
                     <b-icon icon="box-arrow-up-right" class="mr-50" scale="0.8"></b-icon>
@@ -199,7 +188,7 @@
 
 <script>
 import http from '@/customs/axios'
-import QuizDetail from '@/component/utils/CardDetail.vue'
+// import QuizDetail from '@/component/utils/CardDetail.vue'
 import { 
   BRow, BCol,
   BCard, BCardText, BCardHeader, BCardFooter, BCardTitle, BCardBody,
@@ -213,10 +202,12 @@ import MaterialReader from './_MaterialReader.vue'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 import vSelect from 'vue-select'
 import Timer from './_Countdown.vue'
+import AppCollapse from '@core/components/app-collapse/AppCollapse.vue'
+import AppCollapseItem from '@core/components/app-collapse/AppCollapseItem.vue'
 
 export default {
   components: {
-    QuizDetail,
+    // QuizDetail,
     BRow, BCol,
     BCard, BCardText, BCardHeader, BCardFooter, BCardTitle, BCardBody,
     BButtonGroup, BButton,
@@ -228,6 +219,7 @@ export default {
     BFormRadioGroup, BFormGroup, BFormRadio,
     BImg,
     Timer,
+    AppCollapse, AppCollapseItem,
   },
   data(){
     return{
@@ -410,6 +402,8 @@ export default {
       if(datapart !== null){
         if(this.isadmin){
           return datapart
+        }else{
+          return datapart.filter(item => (parseInt(item.user_nik) === this.usernik))
         }
       }
       // if(this.isadmin){

@@ -26,6 +26,7 @@
           class="w-50 mr-25">
         </v-select>
         <b-button
+          v-if="$can('create', 'AppOKMMaterial')"
           type="button"
           variant="flat-primary"
           class="btn-icon rounded-circle"
@@ -56,6 +57,8 @@
             <feather-icon icon="FileIcon" />
           </b-button>
           <b-button
+            :disabled="data.item.questionslist.length > 0"
+            v-if="(data.item.questionslist.length <= 0) || $can('edit', 'AppOKMMaterial')"
             @click="setactive(data.item)"
             :variant="!!data.item.isactive ? 'flat-secondary':'flat-warning'"
             class="btn-icon"
@@ -64,6 +67,8 @@
             <feather-icon :icon="!!data.item.isactive ? 'EyeOffIcon':'EyeIcon'" />
           </b-button>
           <b-button
+            :disabled="data.item.questionslist.length > 0"
+            v-if="(data.item.questionslist.length <= 0) || $can('delete', 'AppOKMMaterial')"
             @click="deletematerial(data.item.id)"
             variant="flat-danger"
             class="btn-icon"

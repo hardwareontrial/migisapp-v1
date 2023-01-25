@@ -25,7 +25,7 @@ class ElearningQuestionController extends Controller
     $cari = request()->q;
     $isactive = request()->isactive;
 
-    $data = AppElearningQuestion::with('material', 'questions')
+    $data = AppElearningQuestion::with('material', 'questions', 'scheduled')
       ->where(function ($query) use ($cari, $isactive){
         $query->whereHas('material', function ($query2) use ($cari){
           $query2->where(function ($query3) use ($cari){
@@ -43,21 +43,12 @@ class ElearningQuestionController extends Controller
       ->orderBy(request()->sortby, request()->sortbydesc)
       ->paginate(request()->per_page);
 
-    // $data = AppElearningQuestion::whereHas('material', function($q) use ($cari){
-    //   $q->where(function ($q) use ($cari){
-    //     $q->where('m_title', 'LIKE', '%'.$cari.'%');
-    //   })
-    //   ->orWhere('title', 'LIKE', '%'.$cari.'%');
-    // })
-    // ->orderBy(request()->sortby, request()->sortbydesc)
-    // ->with('material', 'questions')
-    // ->paginate(request()->per_page);
     return response()->json(['message' => $data], 200);
   }
 
   public function detailquestion($id)
   {
-    return AppElearningQuestion::find($id)->load('material', 'questions');
+    return AppElearningQuestion::find($id)->load('material', 'questions', 'scheduled');
   }
 
   public function updatedetailquestion(Request $request, $id)

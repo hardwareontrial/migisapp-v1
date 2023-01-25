@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Elearning;
 
 use App\Http\Controllers\Controller;
+use App\Models\API\Elearning\AppElearningUserdataExam;
 use Illuminate\Http\Request;
 
 class ElearningUserdataExamController extends Controller
@@ -14,7 +15,7 @@ class ElearningUserdataExamController extends Controller
   */
   public function index()
   {
-    //
+    return AppElearningUserdataExam::where('user_nik', request()->userdataNik)->orderBy('id', 'desc')->with('schedule.dataquestion')->get();
   }
 
   /**

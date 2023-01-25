@@ -95,6 +95,11 @@ import {
 } from 'bootstrap-vue'
 
 export default {
+  props: {
+    userdata: {
+      type: Object,
+    }
+  },
   components: {
     BCard, BCardBody, BCardText,
     BRow, BCol,
@@ -159,7 +164,19 @@ export default {
     this.handleGetuserList()
   },
   computed:{
-    
+    //
+  },
+  beforeRouteEnter(from, to, next){
+    let userdata = JSON.parse(localStorage.getItem('userdata'));
+    let userdataAdmin = userdata.admin
+    let userdataNik = userdata.nik
+    let userdataSNik = userdata.s_nik
+    let userdataID = userdata.detailuser.id
+    if(userdataAdmin === 1){
+      next()
+    }else if(userdataAdmin === 0 && userdataNik < 8000000){
+      next({name: 'apps-elearning-raport-detail', params: {id: userdataID, nik: userdataNik } })
+    }
   }
 }
 </script>

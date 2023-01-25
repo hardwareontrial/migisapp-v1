@@ -59,31 +59,36 @@
 
       <template #cell(opt)="data">
         <div class="text-center">
-          <b-dropdown
-            variant="link"
-            no-caret>
-            <template #button-content>
-              <feather-icon
-                icon="MoreVerticalIcon"
-                size="16"
-                class="align-middle text-body"/>
-            </template>
-            <b-dropdown-item 
-              :to="{ name: 'apps-elearning-questions-detail', params: { id: data.item.id, slug: data.item.slug, title: data.item.title } }">
+          <b-button-group>
+            <b-button
+              :to="{ name: 'apps-elearning-questions-detail', params: { id: data.item.id, slug: data.item.slug, title: data.item.title } }"
+              variant="flat-primary"
+              class="btn-icon"
+              size="sm"
+              type="button">
               <feather-icon icon="ListIcon"/>
-              <span class="align-middle ml-50">Detail</span>
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="setactivequestion({id: data.item.id, active: !!data.item.isactive })">
+            </b-button>
+            <b-button
+              v-if="data.item.scheduled.length <= 0"
+              :disabled="data.item.scheduled.length > 0"
+              @click="setactivequestion({id: data.item.id, active: !!data.item.isactive })"
+              :variant="!!data.item.isactive ? 'flat-warning':'flat-warning'"
+              class="btn-icon"
+              size="sm"
+              type="button">
               <feather-icon :icon="!!data.item.isactive ? 'EyeOffIcon' : 'EyeIcon'"/>
-              <span class="align-middle ml-50">{{ !!data.item.isactive ? 'Set Non-Aktif' : 'Set Aktif' }}</span>
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="deletequestions(data.item.id)">
+            </b-button>
+            <b-button
+              v-if="data.item.scheduled.length <= 0"
+              :disabled="data.item.scheduled.length > 0"
+              @click="deletequestions(data.item.id)"
+              variant="flat-danger"
+              class="btn-icon"
+              size="sm"
+              type="button">
               <feather-icon icon="Trash2Icon"/>
-              <span class="align-middle ml-50">Hapus</span>
-            </b-dropdown-item>
-          </b-dropdown>
+            </b-button>
+          </b-button-group>
         </div>
       </template>
 
@@ -97,7 +102,7 @@
 
 <script>
 import { 
-  BButton,
+  BButton, BButtonGroup,
   BBadge,
   BDropdown, BDropdownItem,
 } from 'bootstrap-vue'
@@ -113,7 +118,7 @@ export default {
   },
   components: {
     DataTable: () => import('@/component/utils/Datatable.vue'),
-    BButton,
+    BButton, BButtonGroup,
     BBadge,
     BDropdown, BDropdownItem,
     vSelect,
