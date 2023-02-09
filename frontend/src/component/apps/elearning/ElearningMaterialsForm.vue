@@ -266,39 +266,39 @@ export default {
       this.form.filematerial = e.target.files[0]
     },
     storedatamateri(){
-      if(!window.confirm('Apakah Anda Yakin?')){
-        return
-      }
-      console.log('submitted')
-      // called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
-      // let materialFormData = new FormData
-      // materialFormData.append('title', this.form.title)
-      // materialFormData.append('dept', this.form.dept)
-      // materialFormData.append('level', this.form.level)
-      // materialFormData.append('duration', this.form.duration)
-      // materialFormData.append('desc', this.form.desc)
-      // materialFormData.append('filematerial', this.form.filematerial)
-      // http
-      // .post('okm/material/new', materialFormData, {
-      //   headers: { 'content-type': 'multipart/form-data' } 
-      // })
-      // .then((res) => {
-      //   called.$emit('hideloading')
-      //   this.$toast({
-      //     component: ToastificationContent,
-      //     props: {
-      //       icon: 'CheckCircleIcon',
-      //       variant: 'success',
-      //       title: res.data.message
-      //     },
-      //   },
-      //   { position: 'top-right' })
-      //   this.handleBack()
-      // })
-      // .catch((e) => {
-      //   called.$emit('hideloading')
-      //   console.error(e)
-      // })
+      // if(!window.confirm('Apakah Anda Yakin?')){
+      //   return
+      // }
+      // console.log('submitted')
+      called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
+      let materialFormData = new FormData
+      materialFormData.append('title', this.form.title)
+      materialFormData.append('dept', this.form.dept)
+      materialFormData.append('level', this.form.level)
+      materialFormData.append('duration', this.form.duration)
+      materialFormData.append('desc', this.form.desc)
+      materialFormData.append('filematerial', this.form.filematerial)
+      http
+      .post('okm/material/new', materialFormData, {
+        headers: { 'content-type': 'multipart/form-data' } 
+      })
+      .then((res) => {
+        called.$emit('hideloading')
+        this.$toast({
+          component: ToastificationContent,
+          props: {
+            icon: 'CheckCircleIcon',
+            variant: 'success',
+            title: res.data.message
+          },
+        },
+        { position: 'top-right' })
+        this.handleBack()
+      })
+      .catch((e) => {
+        called.$emit('hideloading')
+        console.error(e)
+      })
     },
     getdatamateri(){
       called.$emit('showloading', {show: true, text: 'Sedang memproses...'})

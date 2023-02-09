@@ -28,6 +28,7 @@ class AppElearningMaterialFile extends Model
 
   public function getFilematerialAttribute()
   {
-    return url('storage/app_elearning/material').'/m-'.$this->attributes['m_id'].'/'.$this->attributes['m_file'];
+    // return url('storage/app_elearning/material').'/m-'.$this->attributes['m_id'].'/'.$this->attributes['m_file'];
+    return 'data:application/pdf;base64,'.$this->attributes['m_file'];
   }
 }
