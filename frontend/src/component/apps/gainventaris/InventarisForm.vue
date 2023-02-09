@@ -489,7 +489,7 @@ export default {
         { value: 3, text: 'HSE' },
       ]
       if(isadmin !== 1){
-        const userdept = userdata.detailuser.position.dept_id
+        const userdept = userdata.detailuser.dept_id
         if(userdept === 6){
           return rawoptions.filter(item => item.value === 3)
         }else if(userdept === 8){
