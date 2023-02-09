@@ -95,7 +95,7 @@
       :size="addparticipantprops.size">
       <template v-slot:modalbody>
         <v-select 
-          v-model="form.additionalparticipants"
+          v-model="formap.additionalparticipants"
           :options="participantList"
           :reduce="label=>label.value"
           multiple
@@ -274,7 +274,7 @@ export default {
         title: 'Tambah Peserta',
         size: 'lg'
       },
-      form: {
+      formap: {
         additionalparticipants: [],
         frompage: 'elearningscheduledetail',
       },
@@ -351,12 +351,14 @@ export default {
       let newparticipant = new FormData()
       newparticipant.append('soal_id', this.dataschedule.questionid)
       newparticipant.append('schedule_id', this.dataschedule.scheduleid)
-      newparticipant.append('participant_id', JSON.stringify(this.form.additionalparticipants))
-      newparticipant.append('frompage', this.form.frompage)
+      newparticipant.append('participant_id', JSON.stringify(this.formap.additionalparticipants))
+      newparticipant.append('frompage', this.formap.frompage)
+      newparticipant.append('qstnumrandoms', this.dataschedule.total_questions) 
       http
       .post('okm/schedule/new', newparticipant)
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
+        this.formap.additionalparticipants = []
         this.addparticipantprops.show = false
         this.getdata(this.$route.params.id)
       })

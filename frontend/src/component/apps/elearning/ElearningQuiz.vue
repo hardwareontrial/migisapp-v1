@@ -22,11 +22,18 @@
                 <!-- <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader>
                 <span v-else>File Materi Kosong</span> -->
                 <app-collapse
+                  v-if="participantdata.isdone !== 1"
                   accordion
                   type="margin">
                   <app-collapse-item title="Materi">
                     <div v-if="dataexam.materials">
-                      <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader>
+                      <span v-if="isadmin">
+                        materi viewed admin
+                      </span>
+                      <span v-else>
+                        <material-reader :file="dataexam.materials" />
+                      </span>
+                      <!-- <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader> -->
                     </div>
                     <div v-else>
                       File materi kosong.
@@ -292,7 +299,8 @@ export default {
             participants: res.data.participants_exam,
           }
           if(res.data.dataquestion.material.materialfile !== null){
-            this.dataexam.materials = this.stream+res.data.dataquestion.material.materialfile.filematerial
+            // this.dataexam.materials = this.stream+res.data.dataquestion.material.materialfile.filematerial
+            this.dataexam.materials = res.data.dataquestion.material.materialfile.filematerial
           }
           this.setbreadcrumb(res.data.dataquestion.title)
           this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', true)
