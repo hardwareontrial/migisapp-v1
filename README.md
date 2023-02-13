@@ -7,7 +7,7 @@ PREPARATION
 Configuration Backend
 - cd backend
 - composer install
-- cp .env.old to .env
+- cp .envold to .env
   /** Base config database */
     + change DB_DATABASE='name_database'
     + change DB_USERNAME='your_db_username'
@@ -25,7 +25,7 @@ Configuration Backend
     + DB_PASSWORD_ABSENSI='your_db_password'
 - php artisan cache:clear
 - php artisan migrate
-- php artisan db:seed
+- php artisan db:seed X
 - php artisan key:generate
 - chmod ${USER}:www-data -R storage/app
 - chmod ${USER}:www-data -R storage/framework
