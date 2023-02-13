@@ -2,7 +2,7 @@ PREPARATION
 
 - clone application from github
 - cd migisapps-v1
-- chmod ${USER}:www-data -R backend
+- chown ${USER}:www-data -R backend
 
 Configuration Backend
 - cd backend
