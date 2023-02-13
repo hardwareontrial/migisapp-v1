@@ -9,6 +9,7 @@ Configuration Backend
 - composer install
 - cp .envold to .env
   /** Base config database */
+  <!--- Base config database -->
     + change DB_DATABASE='name_database'
     + change DB_USERNAME='your_db_username'
     + change DB_PASSWORD='your_db_password'
