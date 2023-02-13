@@ -22,7 +22,7 @@ class AppUserLoginTableSeeder extends Seeder
                 'email' => 'admin@molindointigas.co.id',
                 'password' => Hash::make('password'),
                 'active' => 1,
-                'admin' => null,
+                'admin' => 1,
                 'created_at' => '2022-03-01 07:01:01',
                 'updated_at' => '2022-03-01 07:01:01',
             ],
@@ -32,7 +32,7 @@ class AppUserLoginTableSeeder extends Seeder
                 'email' => 'adminokm@migisapp.co.id',
                 'password' => Hash::make('mig123!'),
                 'active' => 1,
-                'admin' => null,
+                'admin' => 0,
                 'created_at' => '2022-12-01 17:01:01',
                 'updated_at' => '2022-12-01 17:01:01',
             ]);
