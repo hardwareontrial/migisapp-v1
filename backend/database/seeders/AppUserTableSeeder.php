@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\API\User\AppUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +16,7 @@ class AppUserTableSeeder extends Seeder
     public function run()
     {
         if(DB::table('app_users')->count() == 0){
-            DB::table('app_users')->insert([
+            AppUser::create([
                 'nik' => '9000901',
                 'name' => 'ADMINISTRATOR',
                 'dept_id' => null,
@@ -23,8 +24,6 @@ class AppUserTableSeeder extends Seeder
                 'group_id' => null,
                 'avatar' => null,
                 'active' => 1,
-                'created_at' => '2022-03-01 07:01:01',
-                'updated_at' => '2022-03-01 07:01:01',
             ],
             [
                 'nik' => '7000701',
@@ -34,9 +33,29 @@ class AppUserTableSeeder extends Seeder
                 'group_id' => null,
                 'avatar' => null,
                 'active' => 1,
-                'created_at' => '2022-12-01 17:01:01',
-                'updated_at' => '2022-12-01 17:01:01',
             ]);
+            // DB::table('app_users')->insert([
+            //     'nik' => '9000901',
+            //     'name' => 'ADMINISTRATOR',
+            //     'dept_id' => null,
+            //     'position_id' => null,
+            //     'group_id' => null,
+            //     'avatar' => null,
+            //     'active' => 1,
+            //     'created_at' => '2022-03-01 07:01:01',
+            //     'updated_at' => '2022-03-01 07:01:01',
+            // ],
+            // [
+            //     'nik' => '7000701',
+            //     'name' => 'ADMIN OKM',
+            //     'dept_id' => null,
+            //     'position_id' => null,
+            //     'group_id' => null,
+            //     'avatar' => null,
+            //     'active' => 1,
+            //     'created_at' => '2022-12-01 17:01:01',
+            //     'updated_at' => '2022-12-01 17:01:01',
+            // ]);
         }else{
             echo 'Table not empty';
         }
