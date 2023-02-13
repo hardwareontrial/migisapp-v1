@@ -38,7 +38,7 @@ Configuration Frontend
   /** For production */
   + nano .env.prod
   + change VUE_APP_API_ENDPOINT='your_api_address'
-  + npm run build --production
+  + npm run build --mode production
   + chmod -R dist/
   /** For staging or testing */
   + nano .env
