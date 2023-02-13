@@ -18,6 +18,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        
+        /** Commented this out in staging or production env */
         // $schedule->call(function(){
         //   app(AppAttendanceController::class)->autosync();
         // })->cron('58 0,7,11,16 * * *')->description('Sync Attendance from DB att_log');
@@ -27,9 +29,9 @@ class Kernel extends ConsoleKernel
         // $schedule->call(function(){
         //   app(AppAttendanceController::class)->scanNewPegawai();
         // })->everySixHours()->description('Sync New Employee from DB att_log');
-        $schedule->call(function(){
-          app(ElearningScheduleController::class)->turnOffSchedule();
-        })->cron('13 0 * * *')->description('Turn Off Exam Schedule.');
+        // $schedule->call(function(){
+        //   app(ElearningScheduleController::class)->turnOffSchedule();
+        // })->cron('13 0 * * *')->description('Turn Off Exam Schedule.');
     }
 
     /**

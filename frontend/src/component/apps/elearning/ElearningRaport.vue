@@ -124,6 +124,7 @@ export default {
   },
   methods:{
     handleGetuserList(){
+      called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       http
       .get('user/all', {
         params: {
@@ -146,6 +147,7 @@ export default {
           from: res.data.message.from,
           to: res.data.message.to
         }
+        called.$emit('hideloading')
       })
       .catch((err) => {
         console.error(err)

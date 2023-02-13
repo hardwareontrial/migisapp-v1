@@ -72,7 +72,7 @@
             size="sm"
             type="button"
             variant="flat-danger">
-            <feather-icon icon="PowerIcon" size="14" :class="data.item.isactive === 1 ? 'text-dark' : 'text-danger'"/>
+            <feather-icon icon="PowerIcon" size="14" :class="data.item.isactive === 1 ? 'text-danger' : 'text-success'"/>
           </b-button>
         </b-button-group>
       </template>

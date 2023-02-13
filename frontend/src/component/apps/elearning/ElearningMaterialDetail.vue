@@ -227,7 +227,7 @@ export default {
           // this.materialdata.data = this.stream+res.data.materialfile.filematerial
           this.materialdata.data = res.data.materialfile.filematerial
           this.materialdata.m_id = res.data.materialfile.id
-          console.log(this.materialdata.data)
+          // console.log(this.materialdata.data)
         }
         this.qstlist = res.data.questionslist
         this.setbreadcrumb(res.data.m_title)

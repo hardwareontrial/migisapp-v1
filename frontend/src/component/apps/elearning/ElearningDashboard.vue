@@ -1,16 +1,17 @@
 <template>
   <div>
     <b-alert
-      :show="alertprops.show"
-      :variant="alertprops.variant">
+      :show="filteredexam.length <= 0"
+      variant="primary">
       <div class="alert-body">
         <feather-icon
           class="mr-25"
-          :icon="alertprops.icon"/>
-        <span class="ml-25">{{ alertprops.message }}</span>
+          icon="InfoIcon"/>
+        <span class="ml-25"><b> Ujian tidak tersedia.</b></span>
       </div>
     </b-alert>
     <b-row>
+      {{  }}
       <b-col
         v-for="(exam, i) in filteredexam"
         :key="i"
@@ -99,7 +100,7 @@ export default {
   data(){
     return{
       exams_schedules: [],
-      alertprops: { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
+      alertprops: { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' },
     }
   },
   methods: {
@@ -110,13 +111,18 @@ export default {
         params: { frompage: 'elearningdashboard' }
       })
       .then((res) => {
-        if(res.data.message.length > 0){
-          this.alertprops = { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
-          let z = res.data.message
-          this.exams_schedules = z.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
-        }else{
-          this.alertprops = { show: true, variant: 'primary', message: 'Ujian belum tersedia.', icon: 'InfoIcon' }
-        }
+        let z = res.data.message
+        this.exams_schedules = z.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
+        this.alertprops = { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
+
+        // if(res.data.message.length > 0){
+        //   this.alertprops = { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
+        //   let z = res.data.message
+        //   this.exams_schedules = z.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
+        //   console.log(this.exams_schedules)
+        // }else{
+        //   this.alertprops = { show: true, variant: 'primary', message: 'Ujian belum tersedia.', icon: 'InfoIcon' }
+        // }
       })
       .catch((e) => { console.error(e) })
     },
@@ -153,7 +159,7 @@ export default {
       let data = this.exams_schedules
       let userdataNik = this.userdata.nik
       let userdataAdmin = this.userdata.admin
-      let filter
+      let filter, filtered
       if(userdataAdmin === 0 && userdataNik < 8000000){
         filter = data.filter(x => x.participants_exam.some(y => parseInt(y.user_nik) === userdataNik))
         return filter
