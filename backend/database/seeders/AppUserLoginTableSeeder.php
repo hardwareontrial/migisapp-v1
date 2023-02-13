@@ -17,11 +17,11 @@ class AppUserLoginTableSeeder extends Seeder
     {
         if(DB::table('app_user_logins')->count() == 0){
             DB::table('app_user_logins')->insert([
-                'nik' => '9000901',
+                'nik' => 9000901,
                 's_nik' => '901',
                 'email' => 'admin@molindointigas.co.id',
                 'password' => Hash::make('password'),
-                'active' => null,
+                'active' => 1,
                 'admin' => null,
                 'created_at' => '2022-03-01 07:01:01',
                 'updated_at' => '2022-03-01 07:01:01',
@@ -31,7 +31,7 @@ class AppUserLoginTableSeeder extends Seeder
                 's_nik' => '701',
                 'email' => 'adminokm@migisapp.co.id',
                 'password' => Hash::make('mig123!'),
-                'active' => null,
+                'active' => 1,
                 'admin' => null,
                 'created_at' => '2022-12-01 17:01:01',
                 'updated_at' => '2022-12-01 17:01:01',
