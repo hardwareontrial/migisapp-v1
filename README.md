@@ -25,11 +25,14 @@ Configuration Backend
     + DB_PASSWORD_ABSENSI='your_db_password'
 - php artisan cache:clear
 - php artisan migrate
-- php artisan db:seed X
+- php artisan db:seed
 - php artisan key:generate
-- chmod ${USER}:www-data -R storage/app
-- chmod ${USER}:www-data -R storage/framework
-- chmod ${USER}:www-data -R storage/logs
+- chown ${USER}:www-data -R storage/app
+- chown ${USER}:www-data -R storage/framework
+- chown ${USER}:www-data -R storage/logs
+- chmod 777 -R storage/app
+- chmod 777 -R storage/framework
+- chmod 777 -R storage/logs
 - uncomment cron script in app/Console/Kernel.php
 
 Configuration Frontend
