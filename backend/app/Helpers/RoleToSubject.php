@@ -9,5 +9,5 @@ function transformRoleToSubject($user)
     $parray[] = $obj;
   }
   return $parray;
-  // dd($parray);
+  // dd($permissions);
 }

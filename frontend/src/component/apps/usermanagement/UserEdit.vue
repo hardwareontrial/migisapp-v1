@@ -1,7 +1,7 @@
 <template>
   
   <component :is="(edit && datauser === undefined || datauser === null) ? 'div' : 'b-card'">
-  <b-overlay :show="overlay" rounded="sm" :opacity="0.90">
+  <!-- <b-overlay :show="overlay" rounded="sm" :opacity="0.90"> -->
 
     <b-alert
       variant="danger"
@@ -66,7 +66,7 @@
 
     </b-tabs>
   
-  </b-overlay>
+  <!-- </b-overlay> -->
   
   </component>
 
@@ -106,7 +106,8 @@ export default {
   },
   methods: {
     getdata(val){
-      this.overlay = true
+      // this.overlay = true
+      called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       http
       .get('user/detail', { 
         params: { nik: val }
@@ -122,7 +123,8 @@ export default {
           this.datauser_info = this.datauser
           this.datauser_akun = this.datauser.datalogin
         }
-        this.overlay = false
+        // this.overlay = false
+        called.$emit('hideloading')
       })
       .catch((e) => { console.error(e) })
     },

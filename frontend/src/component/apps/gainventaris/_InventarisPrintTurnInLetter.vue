@@ -304,7 +304,7 @@ export default {
         }
       }else if(level === 5){
         const parent = datauser.detailuser.position.parent
-        console.log(parent)
+        // console.log(parent)
         this.signmgr = {
           name: parent.user.length > 0 ? parent.user[0].name : '',
           level: parent.level,

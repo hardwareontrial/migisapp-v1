@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    
     <b-alert
       :variant="alertresetpass.variant"
       :show="alertresetpass.show">
@@ -8,13 +8,8 @@
         <span>{{ alertresetpass.message }}</span>
       </div>
     </b-alert>
-    <!-- <b-alert
-      variant="success"
-      show>
-      <div class="alert-body">
-        <span>Info</span>
-      </div>
-    </b-alert> -->
+
+    
     
     <Table
       :items="items"
@@ -117,6 +112,12 @@
             <feather-icon icon="KeyIcon" />
             <span class="align-middle ml-50">Reset Password</span>
           </b-dropdown-item>
+          <b-dropdown-item
+            @click="handleDeleteUser()"
+            v-if="userdata.admin === 1 && data.item.nik !== '9000901'" >
+            <feather-icon icon="Trash2Icon" />
+            <span class="align-middle ml-50">Hapus</span>
+          </b-dropdown-item>
         </b-dropdown>
       </template>
 
@@ -142,6 +143,11 @@ import http from '@/customs/axios'
 import { avatarText } from '@core/utils/filter'
 
 export default {
+  props: {
+    userdata: {
+      type: Object,
+    }
+  },
   components: {
     BButton, 
     BMedia, BAvatar,
@@ -296,11 +302,13 @@ export default {
           message: e.response.data.errors.message
         }
       })
+    },
+    handleDeleteUser(){
+      alert('Available soon.')
     }
   },
   mounted(){
     this.fetchData()
-    
   },
   created(){
     // console.clear()

@@ -48,6 +48,8 @@ export default [
         title: 'HR',
         route: 'apps-hris-index',
         icon: 'BriefcaseIcon',
+        resource: 'AppHRPosition',
+        action: 'read',
       },
       {
         title: 'Inventaris',
@@ -88,6 +90,8 @@ export default [
         title: 'User Management',
         route: 'apps-usermgt-list',
         icon: 'UsersIcon',
+        resource: 'AppUserMgt',
+        action: 'read',
       },
     ],
   },

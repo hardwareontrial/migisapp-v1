@@ -27,8 +27,9 @@
           sm="4"
           lg="3"
           v-for="(permission, j) in permissions" :key="j">
+          <!-- :disabled="userAdmin === 1 ? true : (['manage.all', 'read.Auth', 'read.ACL']).includes(permission.name)" -->
           <b-form-checkbox
-            :disabled="userAdmin === 1 ? true : (['manage.all', 'read.Auth', 'read.ACL']).includes(permission.name)"
+            :disabled="userAdmin === 1 ? true : (['manage.all']).includes(permission.name)"
             :value="permission.name"
             v-model="formpermission.selectedPermission">
             {{ permission.text }} 
@@ -42,7 +43,7 @@
           type="button"
           :disabled="processing"
           @click="submitUpdatePermission()"
-          variant="primary"
+          variant="outline-primary"
           class="mb-1 mb-sm-0 mr-0 mr-sm-1"
           :block="$store.getters['app/currentBreakPoint'] === 'xs'">
           Update
@@ -51,7 +52,7 @@
           type="button"
           :disabled="processing"
           @click="closeForm"
-          variant="outline-secondary"
+          variant="danger"
           :block="$store.getters['app/currentBreakPoint'] === 'xs'">
           Tutup
         </b-button>

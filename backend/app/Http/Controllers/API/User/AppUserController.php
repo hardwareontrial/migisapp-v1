@@ -80,7 +80,7 @@ class AppUserController extends Controller
   public function update(Request $request, $id)
   {
     $keyword = request()->keyword;
-
+    
     if($keyword == 'update-from-usermgmt'){
       $data = AppUser::find($id)->load('datalogin');
       // $datalogin = AppUserLogin::where('nik', $request->input('usernik'))->get()->first();
@@ -104,7 +104,7 @@ class AppUserController extends Controller
 
       $data->update([
         'name' => strtoupper($request->input('name')),
-        'position_id' => $request->input('position_id'),
+        'position_id' => $request->input('position_id') !== 'null' ? $request->input('position_id') : null,
         'active' => $request->input('isactive'),
       ]);
 

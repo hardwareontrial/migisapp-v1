@@ -2,7 +2,9 @@
   <div>
 
     <transition :name="transition">
-      <router-view></router-view>
+      <router-view
+        :userdata="userdata">
+      </router-view>
     </transition>
 
     <user-add-new />
@@ -22,6 +24,10 @@ export default {
   computed: {
     transition(){
       return store.state.appConfig.layout.routerTransition
+    },
+    userdata(){
+      let data = JSON.parse(localStorage.getItem('userdata'))
+      return data
     }
   },
   beforeCreate() {

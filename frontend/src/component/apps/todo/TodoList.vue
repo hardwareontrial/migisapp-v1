@@ -219,7 +219,7 @@ export default {
         // console.log(res)
         this.taskuserid.push(userid)
         if(!isAdmin) {
-          const child = data.detail.position.children
+          const child = data.detailuser.position.children
           this.nestedobject(child)
 
         const result = res.data.filter((item) => 
