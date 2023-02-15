@@ -10,6 +10,7 @@ use App\Models\API\GaInventaris\ListLocation;
 use App\Models\API\GaInventaris\ListMerk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AppGaInventarisController extends Controller
@@ -67,6 +68,11 @@ class AppGaInventarisController extends Controller
       $kode = $base.'0001';
     }
 
+    $storedir = storage_path('app/public/app_inventaris').'qrcode';
+    if(!File::exists($storedir)){
+      File::makeDirectory($storedir, 0777, true);
+    }
+
     $db = DB::select("SHOW TABLE STATUS LIKE '".$tablename."'");
     $id = $db[0]->Auto_increment;
 
@@ -77,7 +83,8 @@ class AppGaInventarisController extends Controller
       ->format('png')
       ->style('round')
       ->merge('/public/image/mig.png', .25)
-      ->generate($url, storage_path('app/public/app_inventaris/qrcode/'.$qrname));
+      // ->generate($url, storage_path('app/public/app_inventaris/qrcode/'.$qrname));
+      ->generate($url, $storedir);
     
     
     if ($request->input('status') == 1 || $request->input('status') == 3) {
