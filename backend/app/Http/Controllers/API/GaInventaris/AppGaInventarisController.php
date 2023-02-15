@@ -68,7 +68,7 @@ class AppGaInventarisController extends Controller
       $kode = $base.'0001';
     }
 
-    $storedir = storage_path('app/public/app_inventaris').'qrcode';
+    $storedir = storage_path('app/public/app_inventaris/').'qrcode';
     if(!File::exists($storedir)){
       File::makeDirectory($storedir, 0777, true);
     }
