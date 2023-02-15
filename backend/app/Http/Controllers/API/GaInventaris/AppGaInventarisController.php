@@ -83,8 +83,7 @@ class AppGaInventarisController extends Controller
       ->format('png')
       ->style('round')
       ->merge('/public/image/mig.png', .25)
-      // ->generate($url, storage_path('app/public/app_inventaris/qrcode/'.$qrname));
-      ->generate($url, $storedir);
+      ->generate($url, storage_path('app/public/app_inventaris/qrcode/'.$qrname));
     
     
     if ($request->input('status') == 1 || $request->input('status') == 3) {
