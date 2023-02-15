@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class AppTableSeeder extends Seeder
@@ -16,6 +17,10 @@ class AppTableSeeder extends Seeder
     public function run()
     {
         // User
+        $storeavatar = storage_path('app/public/app_user/').'avatar';
+        if(!File::exists($storeavatar)){
+            File::makeDirectory($storeavatar, 0777, true);
+        }
         $users = [
             [
                 'nik' => '9000901',

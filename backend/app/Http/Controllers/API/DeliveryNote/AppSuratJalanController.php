@@ -10,6 +10,7 @@ use App\Models\API\DeliveryNote\AppSuratJalanLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AppSuratJalanController extends Controller
@@ -201,6 +202,11 @@ class AppSuratJalanController extends Controller
 
   public function export()
   {
+    $storedir = storage_path('app/public/app_suratjalan/').'export';
+    if(!File::exists($storedir)){
+      File::makeDirectory($storedir, 0777, true);
+    }
+
     $creatorid = json_decode(request('creator'));
     $sentstartdate = request('sentstartdate');
     $sentenddate = request('sentenddate');

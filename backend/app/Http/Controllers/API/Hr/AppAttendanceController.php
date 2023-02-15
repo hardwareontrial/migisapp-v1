@@ -10,6 +10,7 @@ use App\Models\API\Hr\AppKaryawanSource;
 use App\Models\API\User\AppUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class AppAttendanceController extends Controller
@@ -84,6 +85,11 @@ class AppAttendanceController extends Controller
 
   public function autosync()
   {
+    $storelog = storage_path('app/public/app_hris/').'autosync_log';
+    if(!File::exists($storelog)){
+      File::makeDirectory($storelog, 0777, true);
+    }
+
     $check = AppAttendace::count();
 
     if($check == 0){
@@ -125,6 +131,11 @@ class AppAttendanceController extends Controller
   {
     $checkpresence = AppAttendace::count();
     $checkexport = AppAttendaceLog::count();
+
+    $storedir = storage_path('app/public/app_hris/').'presence_txt';
+    if(!File::exists($storedir)){
+      File::makeDirectory($storedir, 0777, true);
+    }
 
     if($checkpresence == 0){
       AppAttendaceLog::create([

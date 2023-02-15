@@ -51,10 +51,10 @@ class ElearningMaterialController extends Controller
 
   private function storefilematerial($dataid, $datafile)
   {
-    // $storedir = storage_path('app/public/app_elearning/material/').'m-'.$dataid;
-    // if(!File::exists($storedir)){
-    //   File::makeDirectory($storedir, 0777, true);
-    // }
+    $storedir = storage_path('app/public/app_elearning/material/').'m-'.$dataid;
+    if(!File::exists($storedir)){
+      File::makeDirectory($storedir, 0777, true);
+    }
 
     // $filename = Carbon::now()->timestamp.'_'.$datafile->getClientOriginalName();
     // $datafile->move($storedir, $filename);
