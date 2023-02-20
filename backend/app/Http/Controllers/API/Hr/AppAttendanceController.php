@@ -67,20 +67,20 @@ class AppAttendanceController extends Controller
     
     dd($data);
 
-    // foreach($data as $d){
-    //   $pin = $d->pin;
-    //   $scandate = date('Y-m-d H:i:s', strtotime($d->scan_date));
-    //   $pin_name = $d->name ? $d->name['name'] : 'NULL';
+    foreach($data as $d){
+      $pin = $d->pin;
+      $scandate = date('Y-m-d H:i:s', strtotime($d->scan_date));
+      $pin_name = $d->name ? $d->name['name'] : 'NULL';
       
-    //   $store = AppAttendace::create([
-    //     'pin' => $pin,
-    //     'name' => $pin_name,
-    //     'scan_date' => $scandate,
-    //   ]);
-    // }
+      $store = AppAttendace::create([
+        'pin' => $pin,
+        'name' => $pin_name,
+        'scan_date' => $scandate,
+      ]);
+    }
 
-    // if(!$store){ return response()->json(['message' => 'Data gagal disimpan.'], 500); }
-    // return response()->json(['message' => 'Data berhasil disimpan.'], 200);
+    if(!$store){ return response()->json(['message' => 'Data gagal disimpan.'], 500); }
+    return response()->json(['message' => 'Data berhasil disimpan.'], 200);
   }
 
   public function autosync()
