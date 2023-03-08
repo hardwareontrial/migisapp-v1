@@ -65,7 +65,7 @@ class AppAttendanceController extends Controller
         ->with('name')
         ->get();
     
-    dd($data);
+    // dd($data);
 
     foreach($data as $d){
       $pin = $d->pin;
