@@ -9,6 +9,12 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        Commands\API\HR\AutoSyncPresence::class,
+        Commands\API\HR\GeneratePresenceTextFile::class,
+        Commands\API\HR\ScanNewEmp::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
@@ -18,20 +24,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        
-        /** Commented this out in staging or production env */
-        // $schedule->call(function(){
-        //   app(AppAttendanceController::class)->autosync();
-        // })->cron('58 0,7,11,16 * * *')->description('Sync Attendance from DB att_log');
-        // $schedule->call(function(){
-        //   app(AppAttendanceController::class)->generateAutoText();
-        // })->cron('2 1,8,12,17 * * *')->description('Sync Text Upload File from DB app_hr_attendances');
-        // $schedule->call(function(){
-        //   app(AppAttendanceController::class)->scanNewPegawai();
-        // })->everySixHours()->description('Sync New Employee from DB att_log');
-        // $schedule->call(function(){
-        //   app(ElearningScheduleController::class)->turnOffSchedule();
-        // })->cron('13 0 * * *')->description('Turn Off Exam Schedule.');
+
+        /** Command running using supervisor */
+        $schedule->command('hr:syncpresence')->cron('58 0,7,11,16 * * *')->description('Sync Attendance from DB att_log');
+        $schedule->command('hr:genpresencefile')->cron('2 1,8,12,17 * * *')->description('Generate data presence to txt file');
+        $schedule->command('hr:scannewemp')->everySixHours()->description('Sync New Employee from DB att_log');
+        // $schedule->command('elearning:turnofflearning')->cron('13 0 * * *')->description('Turn Off Exam Schedule');
     }
 
     /**
