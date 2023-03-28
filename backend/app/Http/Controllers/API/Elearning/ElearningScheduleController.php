@@ -392,45 +392,4 @@ class ElearningScheduleController extends Controller
       }
     }
   }
-
-  public function testfunction()
-  {
-    /** shuffled question [WORKED] */
-    // $questions = AppElearningQuestionCollection::where('questions_id', 1)->get()->pluck('id');
-    // $d = $questions->shuffle();
-    // return $d;
-
-    /** return question sortBy array shuffled id [WORKED]*/
-    // $shuffled_id = [3,1];
-    // $dataquestions = AppElearningQuestionCollection::whereIn('id', $shuffled_id)->get();
-    // $reorder = collect([]);
-    // foreach ($shuffled_id as $id){
-    //   $reorder->push($dataquestions->where('id', $id)->first());
-    // }
-    // return $reorder;
-  }
-
-  public function testfunction2()
-  {
-    // return AppSuratJalan::with('detail', 'creator')->get();
-  }
-
-  public function testfunction3(Request $request)
-  {
-    // /** SHUFFLED QUESTION WITH RANDOM USING SPESIFIED NUMBER OF QUESTION */
-    // $final = [];
-    // $questions = AppElearningQuestionCollection::where('questions_id', 1)->get()->pluck('id');
-    // $d = $questions->shuffle();
-    // $numRandomQst = $request->input('qstnumrandoms');
-    // $count = count($questions);
-    // if($count >= $numRandomQst){
-    //   while(count($final) < $numRandomQst){
-    //     $random = $d[rand(0, $count -1)];
-    //     if(!in_array($random, $final)){
-    //       array_push($final, $random);
-    //     }
-    //   }
-    // }
-    // return $final;
-  }
 }
