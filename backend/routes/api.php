@@ -122,9 +122,6 @@ Route::prefix('okm')->group(function(){
     Route::get('data', [ElearningScheduleController::class, 'schedulelist']);
     Route::get('detail/{id}', [ElearningScheduleController::class, 'detailschedule']);
     Route::post('new', [ElearningScheduleController::class, 'storeschedule']);
-    Route::get('testfunction', [ElearningScheduleController::class, 'testfunction']);
-    Route::get('testfunction2', [ElearningScheduleController::class, 'testfunction2']);
-    Route::post('testfunction3', [ElearningScheduleController::class, 'testfunction3']);
     Route::post('setactive/{id}', [ElearningScheduleController::class, 'setactive']);
     Route::prefix('participant')->group(function(){
       Route::post('{id}', [ElearningScheduleController::class, 'updateexamparticipant']);
@@ -176,8 +173,4 @@ Route::group(['prefix' => 'misc'], function(){
     Route::get('location', [ListController::class, 'listlocation']);
     Route::get('gainventaris', [ListController::class, 'gainventaris']);
   });
-});
-
-Route::group(['prefix' => 'test'], function(){
-  Route::get('create-qr', [AppSuratJalanExportController::class, 'secondmethod']);
 });
