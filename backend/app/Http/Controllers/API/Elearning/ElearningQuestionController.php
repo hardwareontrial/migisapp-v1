@@ -280,16 +280,4 @@ class ElearningQuestionController extends Controller
       'title' => $data->title,
     ], 200);
   }
-
-  // public function shuffledquestion()
-  // {
-  //   $shuffled_id = json_decode(request()->qstpattern);
-  //   $dataquestions = AppElearningQuestionCollection::whereIn('id', $shuffled_id)->get();
-  //   $reorder = collect([]);
-  //   foreach ($shuffled_id as $id){
-  //     $reorder->push($dataquestions->where('id', $id)->first());
-  //   }
-  //   return $reorder;
-  // }
-
 }
