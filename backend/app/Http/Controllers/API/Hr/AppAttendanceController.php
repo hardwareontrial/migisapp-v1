@@ -44,8 +44,6 @@ class AppAttendanceController extends Controller
   {
     $input_start = request()->startdate;
     $input_end = request()->enddate;
-    // $input_start = '2023-02-14 10:35';
-    // $input_end = '2023-02-14 14:35';
 
     $check = AppAttendace::count();
 
@@ -64,8 +62,6 @@ class AppAttendanceController extends Controller
         ->whereBetween('scan_date', [$start, $end])
         ->with('name')
         ->get();
-
-    // dd($data);
 
     foreach($data as $d){
       $pin = $d->pin;
