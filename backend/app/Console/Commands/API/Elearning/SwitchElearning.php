@@ -13,7 +13,7 @@ class SwitchElearning extends Command
      *
      * @var string
      */
-    protected $signature = 'elearning:turnofflearning';
+    protected $signature = 'migisapp:turnofflearning';
 
     /**
      * The console command description.

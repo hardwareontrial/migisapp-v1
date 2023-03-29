@@ -15,7 +15,7 @@ class GeneratePresenceTextFile extends Command
      *
      * @var string
      */
-    protected $signature = 'hr:genpresencefile';
+    protected $signature = 'migisapp:genpresencefile';
 
     /**
      * The console command description.

@@ -16,7 +16,7 @@ class AutoSyncPresence extends Command
      *
      * @var string
      */
-    protected $signature = 'hr:syncpresence';
+    protected $signature = 'migisapp:syncpresence';
 
     /**
      * The console command description.
@@ -64,13 +64,13 @@ class AutoSyncPresence extends Command
             ->whereBetween('scan_date', [$start, $end])
             ->with('name')
             ->get();
-        
+
         if($data->count() > 0 ){
             foreach($data as $d){
                 $pin = $d->pin;
                 $scandate = date('Y-m-d H:i:s', strtotime($d->scan_date));
                 $pin_name = $d->name ? $d->name['name'] : 'NULL';
-                
+
                 $store = AppAttendace::create([
                 'pin' => $pin,
                 'name' => $pin_name,

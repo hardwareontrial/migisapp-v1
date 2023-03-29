@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
         Commands\API\HR\AutoSyncPresence::class,
         Commands\API\HR\GeneratePresenceTextFile::class,
         Commands\API\HR\ScanNewEmp::class,
+        Commands\General\FirstTime::class,
     ];
 
     /**
@@ -26,10 +27,10 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         /** Command running using supervisor */
-        $schedule->command('hr:syncpresence')->cron('58 0,7,11,16 * * *')->description('Sync Attendance from DB att_log');
-        $schedule->command('hr:genpresencefile')->cron('2 1,8,12,17 * * *')->description('Generate data presence to txt file');
-        $schedule->command('hr:scannewemp')->everySixHours()->description('Sync New Employee from DB att_log');
-        // $schedule->command('elearning:turnofflearning')->cron('13 0 * * *')->description('Turn Off Exam Schedule');
+        $schedule->command('migisapp:syncpresence')->cron('58 0,7,11,16 * * *')->description('Sync Attendance from DB att_log');
+        $schedule->command('migisapp:genpresencefile')->cron('2 1,8,12,17 * * *')->description('Generate data presence to txt file');
+        $schedule->command('migisapp:scannewemp')->everySixHours()->description('Sync New Employee from DB att_log');
+        // $schedule->command('migisapp:turnofflearning')->cron('13 0 * * *')->description('Turn Off Exam Schedule');
     }
 
     /**

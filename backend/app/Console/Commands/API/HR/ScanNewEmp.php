@@ -14,7 +14,7 @@ class ScanNewEmp extends Command
      *
      * @var string
      */
-    protected $signature = 'hr:scannewemp';
+    protected $signature = 'migisapp:scannewemp';
 
     /**
      * The console command description.
