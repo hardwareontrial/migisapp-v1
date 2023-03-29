@@ -59,28 +59,25 @@ class AppAttendanceController extends Controller
       $start = $source_lastdata;
       $end = $input_end;
     }
-    
+
     $data = AppAttendaceSource::tanpaHarianLepas()
         ->whereBetween('scan_date', [$start, $end])
         ->with('name')
         ->get();
-    
+
     // dd($data);
 
     foreach($data as $d){
       $pin = $d->pin;
       $scandate = date('Y-m-d H:i:s', strtotime($d->scan_date));
       $pin_name = $d->name ? $d->name['name'] : 'NULL';
-      
+
       $store = AppAttendace::create([
         'pin' => $pin,
         'name' => $pin_name,
         'scan_date' => $scandate,
       ]);
     }
-
-    if(!$store){ return response()->json(['message' => 'Data gagal disimpan.'], 500); }
-    return response()->json(['message' => 'Data berhasil disimpan.'], 200);
   }
 
   public function autosync()
@@ -107,13 +104,13 @@ class AppAttendanceController extends Controller
         ->whereBetween('scan_date', [$start, $end])
         ->with('name')
         ->get();
-    
+
     if($data->count() > 0 ){
       foreach($data as $d){
         $pin = $d->pin;
         $scandate = date('Y-m-d H:i:s', strtotime($d->scan_date));
         $pin_name = $d->name ? $d->name['name'] : 'NULL';
-        
+
         $store = AppAttendace::create([
           'pin' => $pin,
           'name' => $pin_name,
@@ -222,7 +219,7 @@ class AppAttendanceController extends Controller
   {
     $lastpin = AppUser::registeredkaryawan()->get()->pluck('nik')->last();
     $lastpinsource = AppKaryawanSource::pluck('pegawai_pin')->last();
-    
+
     if($lastpin !== $lastpinsource){
       $nextpin = AppKaryawanSource::where('pegawai_pin', '>', $lastpin)->min('pegawai_pin');
       $getdata = AppKaryawanSource::whereBetween('pegawai_pin', [$nextpin, $lastpinsource])->get();
