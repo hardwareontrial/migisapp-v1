@@ -79,12 +79,16 @@
               </b-input-group>
           </b-form-group>
           <b-button
-            @click="signin"
-            :disabled="processing"
+            @click="signin()"
             type="submit"
-            :variant="processing? 'secondary':'primary'"
             class="mt-3"
+            variant="primary"
+            :disabled="processing"
             block>
+            <b-spinner
+              v-if="processing"
+              small
+              class="mr-25"/>
             {{ processing ? 'Proses':'Masuk' }}
           </b-button>
         </b-col>
@@ -97,31 +101,19 @@
 /* eslint-disable global-require */
 import {
   BRow, BCol, BLink, BFormGroup, BFormInput, BInputGroupAppend, BInputGroup, BFormCheckbox, BCardText, BCardTitle, BImg, BForm, BButton,
-  BAlert,
+  BAlert, BSpinner,
 } from 'bootstrap-vue'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-import { password } from '@/@core/utils/validations/validations'
 import http from '@/customs/axios'
-import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
-    BRow,
-    BCol,
-    BLink,
-    BFormGroup,
-    BFormInput,
-    BInputGroupAppend,
-    BInputGroup,
-    BFormCheckbox,
-    BCardText,
-    BCardTitle,
-    BImg,
-    BForm,
-    BButton,
-    BAlert,
+    BRow, BCol,
+    BForm, BFormGroup, BFormInput, BInputGroupAppend, BInputGroup, BFormCheckbox,
+    BCardText, BCardTitle,
+    BLink, BImg, BButton, BAlert, BSpinner,
   },
   mixins: [togglePasswordVisibility],
   data() {
@@ -188,11 +180,10 @@ export default {
         this.processing = false
       })
       .catch((e) => {
-        this.showAlert()
-        // console.error(e.response)
-        this.errors.message = e.response.data.message;
-        this.errors.code = e.response.status;
         this.processing = false
+        this.showAlert()
+        this.errors.message = e.response === undefined ? 'Internal Server Error':e.response.data.message;
+        this.errors.code = e.response === undefined ? '500':e.response.status;
       });
     },
     countDownChanged(dismissCountDown) {
