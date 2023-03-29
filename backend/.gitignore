@@ -15,3 +15,4 @@ yarn-error.log
 /.vscode
 
 /app/Http/Controllers/API/Test
+/database/old_migrations
