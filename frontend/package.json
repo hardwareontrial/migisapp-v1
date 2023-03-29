@@ -1,6 +1,6 @@
 {
-  "name": "mig-is-apps",
-  "version": "1.0.0",
+  "name": "migisapp",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
