@@ -55,6 +55,7 @@
               v-if="isub === 0" 
               :rowspan="mq.answer_options.length">
               <b-button
+                v-if="$can('create', 'AppOKMQuestion')"
                 :disabled="disEditBtn"
                 @click="editquestion(mq, j)"
                 size="sm"
@@ -63,6 +64,7 @@
                 <feather-icon icon="EditIcon" size="16"/>
               </b-button>
               <b-button
+                v-if="$can('create', 'AppOKMQuestion')"
                 :disabled="disDeleteBtn"
                 @click="delquestion(mq, j)"
                 size="sm"

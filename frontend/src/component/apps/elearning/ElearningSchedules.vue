@@ -57,6 +57,7 @@
       <template #cell(opt)="data">
         <b-button-group>
           <b-button
+            v-if="$can('read', 'AppOKMSchedule')"
             :to="{ name: 'apps-elearning-schedule-detail', params: { id: data.item.id } }"
             class="btn-icon"
             size="sm"
@@ -66,7 +67,7 @@
           </b-button>
           <b-button
             :disabled="data.item.participantscount > 0"
-            v-if="data.item.participantscount <= 0 || $can('edit', 'AppOKMSchedule')"
+            v-if="data.item.participantscount <= 0 || $can('update', 'AppOKMSchedule')"
             @click="setactive({isactive: data.item.isactive, id: data.item.id})"
             class="btn-icon"
             size="sm"

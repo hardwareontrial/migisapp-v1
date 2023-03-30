@@ -73,7 +73,7 @@
                 <feather-icon icon="InfoIcon" size="18"/>
                 </b-button>
                 <b-button
-                  v-if="participant.isdone === 2"
+                  v-if="participant.isdone === 2 && $can('update', 'AppOKMSchedule')"
                   @click="$emit('deletedata', participant.id)"
                   class="btn-icon"
                   size="sm"

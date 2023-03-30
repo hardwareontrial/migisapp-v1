@@ -49,6 +49,7 @@
       <template #cell(opt)="data">
         <b-button-group>
           <b-button
+            v-if="$can('read', 'AppOKMMaterial')"
             :to="{ name: 'apps-elearning-materials-detail', params: { id: data.item.id, slug: data.item.slug, title: data.item.title } }"
             variant="flat-primary"
             class="btn-icon"

@@ -28,6 +28,7 @@
           class="w-50">
         </v-select>
         <b-button
+          v-if="$can('create', 'AppOKMQuestion')"
           type="button"
           variant="flat-primary"
           class="btn-icon rounded-circle"
@@ -61,6 +62,7 @@
         <div class="text-center">
           <b-button-group>
             <b-button
+              v-if="$can('read', 'AppOKMQuestion')"
               :to="{ name: 'apps-elearning-questions-detail', params: { id: data.item.id, slug: data.item.slug, title: data.item.title } }"
               variant="flat-primary"
               class="btn-icon"
@@ -69,7 +71,7 @@
               <feather-icon icon="ListIcon"/>
             </b-button>
             <b-button
-              v-if="data.item.scheduled.length <= 0"
+              v-if="data.item.scheduled.length <= 0 && $can('update', 'AppOKMQuestion')"
               :disabled="data.item.scheduled.length > 0"
               @click="setactivequestion({id: data.item.id, active: !!data.item.isactive })"
               :variant="!!data.item.isactive ? 'flat-warning':'flat-warning'"
@@ -79,7 +81,7 @@
               <feather-icon :icon="!!data.item.isactive ? 'EyeOffIcon' : 'EyeIcon'"/>
             </b-button>
             <b-button
-              v-if="data.item.scheduled.length <= 0"
+              v-if="data.item.scheduled.length <= 0 && $can('delete', 'AppOKMQuestion')"
               :disabled="data.item.scheduled.length > 0"
               @click="deletequestions(data.item.id)"
               variant="flat-danger"

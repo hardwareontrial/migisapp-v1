@@ -84,28 +84,28 @@
       </template>
       <template v-slot:cstmbtndetail>
         <b-button
-          v-if="!editdetail"
+          v-if="!editdetail && $can('update', 'AppOKMQuestion')"
           @click="editdetailqst()"
           variant="flat-primary"
           class="btn-icon rounded-circle">
           <feather-icon icon="EditIcon" size="18"/>
         </b-button>
-        <div v-else>
-          <b-button
-            @click="updateqstdetail()"
-            variant="flat-primary"
-            class="btn-icon rounded-circle">
-            <feather-icon icon="SaveIcon" size="18"/>
-          </b-button>
-          <b-button
-            @click="canceleditdtl()"
-            variant="flat-danger"
-            class="btn-icon rounded-circle">
-            <feather-icon icon="XCircleIcon" size="18"/>
-          </b-button>
-        </div>
+        <b-button
+          v-if="!editdetail && $can('update', 'AppOKMQuestion')"
+          @click="updateqstdetail()"
+          variant="flat-primary"
+          class="btn-icon rounded-circle">
+          <feather-icon icon="SaveIcon" size="18"/>
+        </b-button>
+        <b-button
+          v-if="!editdetail && $can('update', 'AppOKMQuestion')"
+          @click="canceleditdtl()"
+          variant="flat-danger"
+          class="btn-icon rounded-circle">
+          <feather-icon icon="XCircleIcon" size="18"/>
+        </b-button>
         <b-dropdown
-          v-show="!editdetail"
+          v-show="!editdetail && $can('create', 'AppOKMQuestion')"
           text="Tambah"
           right
           variant="flat-primary">

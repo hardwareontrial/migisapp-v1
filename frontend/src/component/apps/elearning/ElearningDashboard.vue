@@ -19,6 +19,7 @@
         md="4"
         lg="4"
         xl="3">
+        {{ exam.quizavailable }}
         <b-overlay :show="!exam.quizavailable.date" variant="secondary" opacity="0.8" rounded="sm">
           <b-card
             :style="`background-color: ${exam.type === 1 ? 'DarkSeaGreen' : 'LightSeaGreen'}`">

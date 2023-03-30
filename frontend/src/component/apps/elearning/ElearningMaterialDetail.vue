@@ -120,6 +120,7 @@
                   {{ qsl.isactive === 1 ? 'Aktif':'Tidak Aktif' }}
                 </b-badge>
                 <b-button
+                  v-if="$can('read', 'AppOKMQuestion')"
                   :to="{ name: 'apps-elearning-questions-detail', params: { id: qsl.id, slug: qsl.slug, title: qsl.title } }"
                   variant="flat-primary"
                   class="btn-icon"
@@ -128,7 +129,7 @@
                   <feather-icon icon="EyeIcon" class="mr-25"/>
                 </b-button>
                 <b-button
-                  v-if="qsl.scheduled.length <= 0"
+                  v-if="qsl.scheduled.length <= 0 && $can('delete', 'AppOKMQuestion')"
                   variant="flat-danger"
                   class="btn-icon"
                   size="sm"

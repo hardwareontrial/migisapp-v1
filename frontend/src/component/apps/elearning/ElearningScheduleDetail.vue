@@ -68,7 +68,7 @@
       </div>
       <div>
         <b-button
-          v-if="dataschedule.isactive === 1 || $can('edit', 'AppOKMSchedule')"
+          v-if="dataschedule.isactive === 1 || $can('update', 'AppOKMSchedule')"
           @click="addparticipantprops.show = !addparticipantprops.show"
           size="sm"
           type="button"

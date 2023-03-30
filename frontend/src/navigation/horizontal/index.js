@@ -76,7 +76,7 @@ export default [
         title: 'OKM-Admin',
         route: 'apps-elearning-dashboard-admin',
         icon: 'AwardIcon',
-        resource: 'AppOKMMaterial',
+        resource: 'AppOKMAdmin',
         action: 'read',
       },
       {

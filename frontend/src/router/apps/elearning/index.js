@@ -27,7 +27,7 @@ export default [
           breadcrumb: [
             { text: 'OKM', active: true },
           ],
-          resource: 'AppOKMMaterial',
+          resource: 'AppOKMAdmin',
           action: 'read',
         },
       },
@@ -90,9 +90,9 @@ export default [
             { text: 'Materi', to: { name: 'apps-elearning-materials'} },
             { text: 'Tambah Materi', active: true },
           ],
+          resource: 'AppOKMMaterial',
+          action: 'create',
         },
-        resource: 'AppOKMMaterial',
-        action: 'create',
       },
       {
         path: 'materials/show/:id/:slug',
@@ -130,9 +130,11 @@ export default [
           pageTitle: 'Daftar Soal',
           title: 'OKM',
           breadcrumb: [
-            { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+            { text: 'OKM', to: { name: 'apps-elearning-dashboard-admin'} },
             { text: 'Soal', active: true },
           ],
+          resource: 'AppOKMQuestion',
+          action: 'read',
         },
       },
       {
@@ -143,10 +145,12 @@ export default [
           pageTitle: 'Tambah Soal',
           title: 'OKM',
           breadcrumb: [
-            { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+            { text: 'OKM', to: { name: 'apps-elearning-dashboard-admin'} },
             { text: 'Daftar Soal', to: { name: 'apps-elearning-questions'} },
             { text: 'Tambah Soal', active: true },
           ],
+          resource: 'AppOKMQuestion',
+          action: 'create',
         },
       },
       {
@@ -156,6 +160,8 @@ export default [
         meta: {
           pageTitle: 'Detail Soal',
           title: 'OKM',
+          resource: 'AppOKMQuestion',
+          action: 'read',
         },
       },
       /** ----------------------------- Schedule Area ------------------------------------ */
@@ -170,6 +176,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
             { text: 'Jadwal Ujian', active: true },
           ],
+          resource: 'AppOKMSchedule',
+          action: 'read',
         },
       },
       {
@@ -184,6 +192,8 @@ export default [
             { text: 'Jadwal Ujian', to: { name: 'apps-elearning-schedule'} },
             { text: 'Form Jadwal Ujian', active: true },
           ],
+          resource: 'AppOKMSchedule',
+          action: 'create',
         },
       },
       {
@@ -193,6 +203,8 @@ export default [
         meta: {
           pageTitle: 'Detail Ujian',
           title: 'OKM',
+          resource: 'AppOKMSchedule',
+          action: 'read',
         },
       },
       /** ----------------------------- Quiz Area ------------------------------------ */
