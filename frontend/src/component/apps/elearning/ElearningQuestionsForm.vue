@@ -9,10 +9,12 @@
       :start-index.sync="stepIndex"
       @on-complete="handlestore"
       class="mb-3">
+      <!-- Detail Soal -->
       <tab-content
         title="Detail Soal"
         icon="feather icon-info">
         <b-row>
+          <!-- Judul -->
           <b-col cols="12" md="6">
             <b-form-group
               label="Judul Soal"
@@ -23,6 +25,7 @@
                 placeholder="Judul Soal"/>
             </b-form-group>
           </b-col>
+          <!-- Materi -->
           <b-col cols="12" md="6">
             <b-form-group
               label="Materi"
@@ -46,6 +49,7 @@
               </v-select>
             </b-form-group>
           </b-col>
+          <!-- Durasi -->
           <b-col cols="12" md="6">
             <b-form-group
               label="Durasi (Menit)"
@@ -57,6 +61,7 @@
                 placeholder="Menit"/>
             </b-form-group>
           </b-col>
+          <!-- Level Soal -->
           <b-col cols="12" md="6">
             <b-form-group
               label="Level Soal"
@@ -74,6 +79,7 @@
               </select>
             </b-form-group>
           </b-col>
+          <!-- Nilai Min -->
           <b-col cols="12" md="6">
             <b-form-group
               label="Nilai Minimum"
@@ -87,6 +93,7 @@
           </b-col>
         </b-row>
       </tab-content>
+      <!-- Soal -->
       <tab-content
         title="Tambah Soal"
         icon="feather icon-upload">
@@ -119,6 +126,7 @@
           </b-col>
         </b-row>
       </tab-content>
+      <!-- Summary/Ringkasan -->
       <tab-content
         title="Ringkasan"
         icon="feather icon-send">
@@ -372,14 +380,15 @@ export default {
       })
       .then((res) => {
         // console.log(res)
+        called.$emit('hideloading')
         this.$toast({
           component: ToastificationContent,
           props: { icon: 'CheckCircleIcon', variant: 'success', title: res.data.message },
         }, { position: 'top-right' })
-        called.$emit('hideloading')
-        this.$router.push({ 
-          name: 'apps-elearning-questions-detail', 
-          params: { id: res.data.id, slug: res.data.slug } 
+        this.$router.push({
+          name: 'apps-elearning-questions'
+          // name: 'apps-elearning-questions-detail',
+          // params: { id: res.data.id, slug: res.data.slug }
         })
       })
       .catch((e) => {
@@ -481,6 +490,9 @@ export default {
         return true
       }
     }
+  },
+  mounted(){
+    called.$emit('loadMaterial')
   }
 }
 </script>

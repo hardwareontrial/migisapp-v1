@@ -73,6 +73,13 @@ export default [
         action: 'read',
       },
       {
+        title: 'OKM-Admin',
+        route: 'apps-elearning-dashboard-admin',
+        icon: 'AwardIcon',
+        resource: 'AppOKMMaterial',
+        action: 'read',
+      },
+      {
         title: 'Surat Jalan',
         route: 'apps-sj-list',
         icon: 'TruckIcon',
@@ -92,6 +99,11 @@ export default [
         icon: 'UsersIcon',
         resource: 'AppUserMgt',
         action: 'read',
+      },
+      {
+        title: 'Test Page',
+        route: 'testpage',
+        icon: 'SettingsIcon',
       },
     ],
   },

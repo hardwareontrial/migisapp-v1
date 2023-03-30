@@ -280,9 +280,11 @@ export default {
     userList(){
       http
       .get('misc/list/userlist')
-      .then((res) => { 
-        // console.log(res.data)
-        this.userlist = res.data
+      .then((res) => {
+        var filtered = res.data.filter(function (el) {
+          return el.active === 1
+        })
+        this.userlist = filtered
       })
       .catch((e) => { console.error(e) })
     },

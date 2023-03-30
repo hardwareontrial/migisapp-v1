@@ -26,8 +26,8 @@
           class="w-50 mr-25">
         </v-select>
         <b-button
-          v-if="$can('create', 'AppOKMMaterial')"
           type="button"
+          v-if="$can('create', 'AppOKMMaterial')"
           variant="flat-primary"
           class="btn-icon rounded-circle"
           :to="{ name: 'apps-elearning-materials-create' }">
@@ -58,7 +58,7 @@
           </b-button>
           <b-button
             :disabled="data.item.questionslist.length > 0"
-            v-if="(data.item.questionslist.length <= 0) || $can('edit', 'AppOKMMaterial')"
+            v-if="(data.item.questionslist.length <= 0) || $can('update', 'AppOKMMaterial')"
             @click="setactive(data.item)"
             :variant="!!data.item.isactive ? 'flat-secondary':'flat-warning'"
             class="btn-icon"

@@ -35,7 +35,7 @@
       </template>
       <template v-slot:cstmbtndetail>
         <b-button
-          v-if="$can('edit', 'AppOKMMaterial')"
+          v-if="$can('update', 'AppOKMMaterial')"
           :to="{ name: 'apps-elearning-materials-edit', params: { id: materialdata.id } }"
           variant="flat-primary"
           class="btn-icon rounded-circle">
@@ -45,7 +45,7 @@
     </material-detail-card>
     
     <b-card
-      v-if="!materialdata.data && $can('edit', 'AppOKMMaterial')"
+      v-if="!materialdata.data && $can('update', 'AppOKMMaterial')"
       title="Upload File">
       <b-row>
         <b-col cols="9">

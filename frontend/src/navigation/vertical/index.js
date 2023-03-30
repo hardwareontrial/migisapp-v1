@@ -131,42 +131,42 @@ export default [
         },
         {
           title: 'Raport',
-          route: 'apps-elearning-raport',
-          resource: 'AppOKM',
-          action: 'read',
-        },
-        {
-         title: 'Admin',
-         children: [
-           {
-             title: 'Materi',
-             route: 'apps-elearning-materials',
-             resource: 'AppOKMMaterial',
-             action: 'read',
-           },
-           {
-             title: 'Soal',
-             route: 'apps-elearning-questions',
-             resource: 'AppOKMQuestion',
-             action: 'read',
-          },
-          /**
-          {
-            title: 'Test Page',
-            route: 'apps-elearning-testpage',
-          },
-           */
-          {
-            title: 'Ujian',
-            route: 'apps-elearning-schedule',
-            resource: 'AppOKMSchedule',
-            action: 'read',
-          },
-        ],
-        resource: 'AppOKMAdmin',
+          route: 'apps-elearning-raport-detail',
+          resource: 'AppOKMRaport',
+          action: 'single',
+        }
+    ]
+  },
+  {
+    title: 'OKM Admin',
+    route: 'apps-elearning-dashboard-admin',
+    icon: 'AwardIcon',
+    children: [
+      {
+        title: 'Materi',
+        route: 'apps-elearning-materials',
+        resource: 'AppOKMMaterial',
         action: 'read',
       },
-    ]
+      {
+        title: 'Soal',
+        route: 'apps-elearning-questions',
+        resource: 'AppOKMQuestion',
+        action: 'read',
+      },
+      {
+        title: 'Ujian',
+        route: 'apps-elearning-schedule',
+        resource: 'AppOKMSchedule',
+        action: 'read',
+      },
+      {
+        title: 'Rekap Raport',
+        route: 'apps-elearning-raport',
+        resource: 'AppOKMRaport',
+        action: 'all',
+      },
+    ],
   },
   /** News */
   {
@@ -248,5 +248,10 @@ export default [
         action: 'read',
       },
     ]
+  },
+  {
+    title: 'Test Page',
+    route: 'testpage',
+    icon: 'SettingsIcon',
   },
 ]

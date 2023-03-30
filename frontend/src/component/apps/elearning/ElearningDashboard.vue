@@ -11,7 +11,6 @@
       </div>
     </b-alert>
     <b-row>
-      {{  }}
       <b-col
         v-for="(exam, i) in filteredexam"
         :key="i"
@@ -114,15 +113,6 @@ export default {
         let z = res.data.message
         this.exams_schedules = z.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
         this.alertprops = { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
-
-        // if(res.data.message.length > 0){
-        //   this.alertprops = { show: false, variant: 'info', message: 'insert message', icon: 'InfoIcon' }
-        //   let z = res.data.message
-        //   this.exams_schedules = z.map(d => ({...d, quizavailable: this.quizAvailableAttribute({today: this.$moment().format('YYYY-MM-DD HH:mm:ss'), startexam: d.startdate_exam, endexam: d.enddate_exam}) }))
-        //   console.log(this.exams_schedules)
-        // }else{
-        //   this.alertprops = { show: true, variant: 'primary', message: 'Ujian belum tersedia.', icon: 'InfoIcon' }
-        // }
       })
       .catch((e) => { console.error(e) })
     },

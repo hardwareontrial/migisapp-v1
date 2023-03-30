@@ -39,7 +39,6 @@ export default {
   },
   methods: {
     loadDeptList(){
-      // http.get('okm/material/deptlist')
       http.get('misc/list/depts')
       .then((res) => {
         this.deptlist = res.data
@@ -52,7 +51,6 @@ export default {
       http
         .get('okm/material/list')
         .then((res) => {
-          // console.log(res.data)
           this.materialsList = res.data
         })
         .catch((e) => {
@@ -77,14 +75,21 @@ export default {
       return data
     }
   },
-  beforeCreate() {
-    // store.commit('appConfig/UPDATE_LAYOUT_TYPE', 'vertical')
+  beforeDestroy() {
+    called.$off('loadDeptList', () => this.loadDeptList())
+    called.$off('loadMaterial', () => this.loadMaterial())
+    called.$off('loadParticipant', () => this.loadParticipant())
   },
   mounted(){
     this.loadDeptList()
     this.loadMaterial()
     this.loadParticipant()
   },
+  created(){
+    called.$on('loadDeptList', () => this.loadDeptList())
+    called.$on('loadMaterial', () => this.loadMaterial())
+    called.$on('loadParticipant', () => this.loadParticipant())
+  }
 }
 </script>
 

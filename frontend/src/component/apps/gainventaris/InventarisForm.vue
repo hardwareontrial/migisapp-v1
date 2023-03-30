@@ -440,7 +440,6 @@ export default {
       http
       .put('inventaris/data/'+id, this.form, { params: { keyword: 'update-from-form' } })
       .then((data) => {
-        console.log(data)
         this.processing = false
         this.handleBack()
         this.$toast({

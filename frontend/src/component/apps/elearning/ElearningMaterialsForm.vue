@@ -298,6 +298,15 @@ export default {
       .catch((e) => {
         called.$emit('hideloading')
         console.error(e)
+        this.$toast({
+          component: ToastificationContent,
+          props: {
+            icon: 'XCircleIcon',
+            variant: 'danger',
+            title: 'Gagal menyimpan data'
+          },
+        },
+        { position: 'top-right' })
       })
     },
     getdatamateri(){

@@ -4,18 +4,6 @@ export default [
     name: 'apps-elearning',
     component: () => import('@/views/apps/elearning/ElearningView.vue'),
     children: [
-      /** ----------------------------- Test Page Area ------------------------------------ */
-      {
-        path: 'testpage',
-        name: 'apps-elearning-testpage',
-        component: () => import('@/component/apps/elearning/ElearningTestPage.vue'),
-        meta: {
-          pageTitle: 'Tespage',
-          breadcrumb: [
-            { text: 'OKM', active: true },
-          ],
-        },
-      },
       /** ----------------------------- Dashboard Area ------------------------------------ */
       {
         path: 'dashboard',
@@ -27,6 +15,19 @@ export default [
             { text: 'OKM', active: true },
           ],
           resource: 'AppOKM',
+          action: 'read',
+        },
+      },
+      {
+        path: 'dashboard-admin',
+        name: 'apps-elearning-dashboard-admin',
+        component: () => import('@/component/apps/elearning/ElearningDashboardAdmin.vue'),
+        meta: {
+          pageTitle: 'Dashboard',
+          breadcrumb: [
+            { text: 'OKM', active: true },
+          ],
+          resource: 'AppOKMMaterial',
           action: 'read',
         },
       },
@@ -42,8 +43,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
             { text: 'Raport', active: true },
           ],
-          resource: 'AppOKM',
-          action: 'read',
+          resource: 'AppOKMRaport',
+          action: 'all',
         },
       },
       {
@@ -55,11 +56,10 @@ export default [
           title: 'OKM',
           breadcrumb: [
             { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
-            { text: 'Raport', to: { name: 'apps-elearning-raport'} },
             { text: 'Raport Detail', active: true },
           ],
-          resource: 'AppOKM',
-          action: 'read',
+          resource: 'AppOKMRaport',
+          action: 'single',
         },
       },
       /** ----------------------------- Material Area ------------------------------------ */
@@ -71,9 +71,11 @@ export default [
           pageTitle: 'Materi',
           title: 'OKM',
           breadcrumb: [
-            { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+            { text: 'OKM', to: { name: 'apps-elearning-dashboard-admin'} },
             { text: 'Materi', active: true },
           ],
+          resource: 'AppOKMMaterial',
+          action: 'read',
         },
       },
       {
@@ -84,11 +86,13 @@ export default [
           pageTitle: 'Tambah Materi',
           title: 'OKM',
           breadcrumb: [
-            { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+            { text: 'OKM', to: { name: 'apps-elearning-dashboard-admin'} },
             { text: 'Materi', to: { name: 'apps-elearning-materials'} },
             { text: 'Tambah Materi', active: true },
           ],
         },
+        resource: 'AppOKMMaterial',
+        action: 'create',
       },
       {
         path: 'materials/show/:id/:slug',
@@ -97,6 +101,8 @@ export default [
         meta: {
           pageTitle: 'Detail Materi',
           title: 'OKM',
+          resource: 'AppOKMMaterial',
+          action: 'read',
         },
       },
       {
@@ -107,10 +113,12 @@ export default [
           pageTitle: 'Edit Materi',
           title: 'OKM',
           breadcrumb: [
-            { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+            { text: 'OKM', to: { name: 'apps-elearning-dashboard-admin'} },
             { text: 'Materi', to: { name: 'apps-elearning-materials'} },
             { text: 'Edit Materi', active: true },
           ],
+          resource: 'AppOKMMaterial',
+          action: 'update',
         },
       },
       /** ----------------------------- Question Area ------------------------------------ */

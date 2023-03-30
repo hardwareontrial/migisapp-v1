@@ -124,7 +124,7 @@ export default {
   },
   methods:{
     handleGetuserList(){
-      called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
+      // called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       http
       .get('user/all', {
         params: {
@@ -147,7 +147,7 @@ export default {
           from: res.data.message.from,
           to: res.data.message.to
         }
-        called.$emit('hideloading')
+        // called.$emit('hideloading')
       })
       .catch((err) => {
         console.error(err)
@@ -168,18 +168,19 @@ export default {
   computed:{
     //
   },
-  beforeRouteEnter(from, to, next){
-    let userdata = JSON.parse(localStorage.getItem('userdata'));
-    let userdataAdmin = userdata.admin
-    let userdataNik = userdata.nik
-    let userdataSNik = userdata.s_nik
-    let userdataID = userdata.detailuser.id
-    if(userdataAdmin === 1){
-      next()
-    }else if(userdataAdmin === 0 && userdataNik < 8000000){
-      next({name: 'apps-elearning-raport-detail', params: {id: userdataID, nik: userdataNik } })
-    }
-  }
+  // beforeRouteEnter(from, to, next){
+    // let userdataAdmin = userdata.admin
+    // if(userdataAdmin === 1){
+    //   next()
+    // }else if(userdataAdmin === 0 && userdataNik < 8000000){
+    //   next({name: 'apps-elearning-raport-detail', params: {id: userdataID, nik: userdataNik } })
+    // }
+    // let userdata = JSON.parse(localStorage.getItem('userdata'));
+    // let userdataNik = userdata.nik
+    // let userdataSNik = userdata.s_nik
+    // let userdataID = userdata.detailuser.id
+    // let permission = userdata.permissions
+  // }
 }
 </script>
 

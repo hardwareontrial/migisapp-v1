@@ -26,6 +26,17 @@ export default [
           ],
           resource: 'ACL',
           action: 'read',
+        }
+      },
+      {
+        path: 'testpage',
+        name: 'testpage',
+        component: () => import('@/views/TestPage.vue'),
+        meta: {
+          pageTitle: 'Tespage',
+          breadcrumb: [
+            { text: 'Test', active: true },
+          ],
         },
       },
       ...elearning,
