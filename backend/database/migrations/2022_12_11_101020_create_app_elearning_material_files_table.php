@@ -16,7 +16,7 @@ class CreateAppElearningMaterialFilesTable extends Migration
         Schema::create('app_elearning_material_files', function (Blueprint $table) {
             $table->id();
             $table->integer('m_id')->unsigned();
-            $table->text('m_file');
+            $table->longText('m_file');
             $table->integer('view_count');
             $table->integer('download_count');
             $table->timestamps();
