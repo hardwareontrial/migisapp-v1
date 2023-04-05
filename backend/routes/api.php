@@ -76,6 +76,7 @@ Route::group(['prefix' => 'inventaris'], function(){
     Route::get('byuser', [AppGaInventarisExportController::class, 'exportbyuser']);
     Route::get('bylocation', [AppGaInventarisExportController::class, 'exportbylocation']);
   });
+  Route::get('user', [AppGaInventarisController::class, 'detailbyuser']);
   Route::get('data', [AppGaInventarisController::class, 'index']);
   Route::get('data/{id}', [AppGaInventarisController::class, 'detail']);
   Route::post('new', [AppGaInventarisController::class, 'store']);

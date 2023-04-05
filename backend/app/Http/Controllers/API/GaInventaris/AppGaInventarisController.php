@@ -274,4 +274,13 @@ class AppGaInventarisController extends Controller
   {
     //
   }
+
+  public function detailbyuser()
+  {
+    $userid = request()->id;
+    $data = AppGaInventaris::where('user1_id', $userid)->orWhere('user2_id', $userid)
+      ->with('locname', 'merkname', 'user1name.position.deptname', 'user2name.position.deptname', 'logs.creator', 'logs.user1namenew', 'logs.user1nameold', 'logs.user2nameold', 'logs.user2namenew', 'logs.locnamenew', 'logs.locnameold', 'logs.merknamenew', 'logs.merknameold')
+      ->get();
+    return response()->json(['message' => $data]);
+  }
 }
