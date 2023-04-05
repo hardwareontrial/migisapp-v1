@@ -18,7 +18,7 @@ class CreateAppElearningMaterialsTable extends Migration
             $table->text('m_title');
             $table->integer('dept_id')->unsigned();
             $table->integer('m_level');
-            $table->integer('m_duration');
+            $table->integer('m_duration')->nullable();
             $table->text('m_desc');
             $table->integer('created_by')->unsigned();
             $table->integer('isactive');

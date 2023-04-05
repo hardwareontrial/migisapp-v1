@@ -16,6 +16,8 @@ class CreateAppElearningSchedulesTable extends Migration
         Schema::create('app_elearning_schedules', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->integer('nilai_min');
+            $table->integer('duraion');
             $table->integer('question_id')->unsigned();
             $table->integer('type');
             $table->dateTime('startdate_exam');

@@ -17,8 +17,8 @@ class CreateAppElearningQuestionsTable extends Migration
             $table->id();
             $table->integer('material_id')->unsigned();
             $table->string('title');
-            $table->integer('nilai_min');
-            $table->integer('duration');
+            $table->integer('nilai_min')->nullable();
+            $table->integer('duration')->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('level');
             $table->integer('isactive');
