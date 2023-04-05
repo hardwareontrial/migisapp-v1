@@ -12,6 +12,8 @@ class AppElearningSchedule extends Model
   protected $table = "app_elearning_schedules";
   protected $fillable = [
     'title',
+    'nilai_min',
+    'duration',
     'question_id',
     'type',
     'startdate_exam',
