@@ -11,6 +11,7 @@ import { canNavigate } from '@/customs/acl/routeProtection'
 import { isUserLoggedIn } from '@/customs/acl/utils'
 import store from '@/store'
 import misc from './misc'
+import dashboard from './dashboard'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,7 @@ const router = new VueRouter({
     ...apps,
     ...errors,
     ...misc,
+    ...dashboard,
     {
       path: '*',
       redirect: 'error-404',
@@ -71,7 +73,7 @@ router.beforeEach((to, _, next) => {
   }
   // Redirect if logged in
   if (to.meta.redirectIfLoggedIn && isLoggedIn) {
-    next({ name: 'dashboard' })
+    next({ name: 'new-dashboard' })
   }
 
   let documentTitle = `${ process.env.VUE_APP_TITLE }`
