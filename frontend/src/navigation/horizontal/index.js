@@ -10,7 +10,7 @@ export default [
    */
   {
     title: 'Dashboard',
-    route: 'dashboard',
+    route: 'new-dashboard',
     icon: 'SlackIcon',
     resource: 'ACL',
     action: 'read',

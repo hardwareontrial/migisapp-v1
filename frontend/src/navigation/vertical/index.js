@@ -1,5 +1,3 @@
-let datauser = JSON.parse(localStorage.getItem('userdata'));
-
 export default [
   {
     header: 'Main Menu',
@@ -20,7 +18,7 @@ export default [
     /** Dashboard */
     {
       title: 'Dashboard',
-      route: 'dashboard',
+      route: 'new-dashboard',
       icon: 'SlackIcon',
       resource: 'ACL',
       action: 'read',
@@ -131,9 +129,9 @@ export default [
         },
         {
           title: 'Raport',
-          route: 'apps-elearning-raport-detail',
+          route: 'apps-elearning-raport',
           resource: 'AppOKMRaport',
-          action: 'single',
+          action: 'read',
         }
     ]
   },
@@ -141,6 +139,8 @@ export default [
     title: 'OKM Admin',
     route: 'apps-elearning-dashboard-admin',
     icon: 'AwardIcon',
+    resource: 'AppOKMAdmin',
+    action: 'read',
     children: [
       {
         title: 'Materi',
@@ -164,7 +164,7 @@ export default [
         title: 'Rekap Raport',
         route: 'apps-elearning-raport',
         resource: 'AppOKMRaport',
-        action: 'all',
+        action: 'read',
       },
     ],
   },
