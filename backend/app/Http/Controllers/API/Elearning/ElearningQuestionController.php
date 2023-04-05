@@ -56,8 +56,8 @@ class ElearningQuestionController extends Controller
     $data = AppElearningQuestion::find($id);
     $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->input('exam_title'))));
     $data->update([
-      'nilai_min' => $request->input('exam_point'),
-      'duration' => $request->input('exam_duration'),
+      // 'nilai_min' => $request->input('exam_point'),
+      // 'duration' => $request->input('exam_duration'),
       'material_id' => $request->input('exam_material_id'),
       'title' => strtoupper($request->input('exam_title')),
       'slug' => $slug,
@@ -72,8 +72,8 @@ class ElearningQuestionController extends Controller
     $this->validate($request, [
       'exam_title' => 'required',
       'exam_material' => 'required',
-      'exam_point' => 'required',
-      'exam_duration' => 'required',
+      // 'exam_point' => 'required',
+      // 'exam_duration' => 'required',
     ]);
 
     $tablename = app(AppElearningQuestion::class)->getTable();

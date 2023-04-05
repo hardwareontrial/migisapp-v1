@@ -202,6 +202,8 @@ class ElearningScheduleController extends Controller
         'questions_count' => $questionmax,
         'created_by' => auth('sanctum')->user()->detailuser->id,
         'isactive' => 1,
+        'duration' => $request->input('duration'),
+        'nilai_min' => $request->input('nilai_min')
       ]);
       $scheduleid = $data->id;
       if(!$data){ return response()->json(['message' => 'Data gagal ditambah.'], 500); }
@@ -341,15 +343,19 @@ class ElearningScheduleController extends Controller
   private function setuserdataexams($schedule_id, $users_nik, $questionid, $questionmax)
   {
     foreach ($users_nik as $usernik){
-      // $shuffled_id = $this->shufflequestion($questionid);
       $shuffled_id = $this->randomQuestionUsingMaxCount($questionid, $questionmax);
-      AppElearningUserdataExam::create([
-        'schedule_id' => $schedule_id,
-        'user_nik' => $usernik,
-        'questions_pattern' => $shuffled_id,
-        'isdone' => 2,
-        'ispassed' => 2,
-      ]);
+      // $shuffled_id = $this->shufflequestion($questionid);
+      AppElearningUserdataExam::firstOrCreate(
+        ['user_nik' => $usernik, 'schedule_id' => $schedule_id],
+        ['questions_pattern' => $shuffled_id, 'isdone' => 2,'ispassed' => 2]
+      );
+      // AppElearningUserdataExam::create([
+      //   'schedule_id' => $schedule_id,
+      //   'user_nik' => $usernik,
+      //   'questions_pattern' => $shuffled_id,
+      //   'isdone' => 2,
+      //   'ispassed' => 2,
+      // ]);
     }
   }
 
