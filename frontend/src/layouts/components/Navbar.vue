@@ -79,6 +79,16 @@
           />
           <span>Pengaturan</span>
         </b-dropdown-item>
+        <b-dropdown-item 
+          :to="{ name: 'apps-elearning-raport-nik', params: {id: userdata.detailuser.id, nik: userdata.nik} }"
+          link-class="d-flex align-items-center">
+          <feather-icon
+            size="16"
+            icon="BookIcon"
+            class="mr-50"
+          />
+          <span>Raport</span>
+        </b-dropdown-item>
 
         <b-dropdown-divider />
 
