@@ -137,14 +137,17 @@
           </b-col>
           <b-col cols="12" md="4" v-if="editmode">
             <b-button
+              v-b-tooltip.hover title="New Password: mig123!"
+              id="respass-btn"
+              size="sm"
               :block="$store.getters['app/currentBreakPoint'] === 'xs'"
               :disabled="processing"
-              @click="resetpassword()"
               class="mt-1"
               variant="outline-danger">
               <feather-icon icon="RefreshCwIcon" class="mr-50"/>
               <span>Reset Password</span>
             </b-button>
+            <!-- <b-tooltip placement="right" target="respass-btn" triggers="focus">tooltip!</b-tooltip> -->
           </b-col>
         </b-row>
         <b-row class="mt-3">
@@ -177,7 +180,7 @@
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
   BButton, BMedia, BAvatar, BRow, BCol, BFormGroup, BFormInput, BForm, BTable, BCard, BCardHeader, BCardTitle,
-  BAlert, BFormSelect, BFormSelectOption, BInputGroup, BInputGroupAppend, BOverlay,
+  BAlert, BFormSelect, BFormSelectOption, BInputGroup, BInputGroupAppend, BOverlay, VBTooltip, BTooltip,
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
@@ -194,8 +197,9 @@ export default {
     BRow, BCol,
     BFormGroup, BFormInput, BForm, BFormSelect, BFormSelectOption, BInputGroup, BInputGroupAppend,
     vSelect,
-    BButton,
+    BButton, BTooltip,
   },
+  directives: { 'b-tooltip': VBTooltip, },
   data(){
     return{
       formlogin: {
@@ -269,7 +273,7 @@ export default {
     resetpassword(){
       this.processing = true
       http
-      .post('user/auth/password/'+nik, { resetpassword: 'mig123!' })
+      .post('user/auth/update/password/'+this.userNik, { resetpassword: 'mig123!' })
       .then((res) => {
         this.processing = false
         called.$emit('userlistfetchData')
