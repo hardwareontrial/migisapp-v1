@@ -1,13 +1,4 @@
 export default [
-  /**
-  {
-    title: 'Home',
-    route: 'home',
-    icon: 'HomeIcon',
-    resource: 'Auth',
-    action: 'read',
-  },
-   */
   {
     title: 'Dashboard',
     route: 'new-dashboard',
@@ -15,15 +6,6 @@ export default [
     resource: 'ACL',
     action: 'read',
   },
-  /**
-  {
-    title: 'News',
-    route: 'apps-news',
-    icon: 'RssIcon',
-    resource: 'Auth',
-    action: 'read',
-  },
-   */
   {
     header: 'Applications',
     icon: 'ServerIcon',
@@ -35,15 +17,6 @@ export default [
         resource: 'AppPhonebook',
         action: 'read',
       },
-      /**
-      {
-        title: 'Buku Telepon Extension',
-        route: 'apps-phonebook-list-extension',
-        icon: 'PhoneIcon',
-        resource: 'AppPhoneExt',
-        action: 'read',
-      },
-       */
       {
         title: 'HR',
         route: 'apps-hris-index',
@@ -54,30 +27,31 @@ export default [
       {
         title: 'Inventaris',
         route: 'apps-inventaris-list',
-        icon: 'BookIcon',
+        icon: 'ArchiveIcon',
         resource: 'AppInventaris',
         action: 'read',
       },
-      /**
-      {
-        title: 'News Admin',
-        route: 'apps-news-admin',
-        icon: 'RssIcon',
-      },
-       */
       {
         title: 'OKM',
-        route: 'apps-elearning-dashboard',
         icon: 'AwardIcon',
-        resource: 'AppOKM',
-        action: 'read',
-      },
-      {
-        title: 'OKM-Admin',
-        route: 'apps-elearning-dashboard-admin',
-        icon: 'AwardIcon',
-        resource: 'AppOKMAdmin',
-        action: 'read',
+        children: [
+          {
+            title: 'Materi',
+            route: 'apps-elearning-materials',
+          },
+          {
+            title: 'Soal',
+            route: 'apps-elearning-questions',
+          },
+          {
+            title: 'Jadwal Ujian',
+            route: 'apps-elearning-schedule',
+          },
+          {
+            title: 'Raport',
+            route: 'apps-elearning-raport-all',
+          },
+        ]
       },
       {
         title: 'Surat Jalan',
