@@ -25,9 +25,10 @@
         <b-button
           type="button"
           v-if="$can('create', 'AppUserMgt')"
-          variant="primary"
+          variant="flat-info"
           @click="openAddForm">
-          <span class="text-nowrap"> Tambah </span>
+          <feather-icon icon="PlusCircleIcon" size="20"/>
+          <!-- <span class="text-nowrap"> Tambah </span> -->
         </b-button>
       </template>
 
@@ -42,12 +43,14 @@
         <b-media>
           <template #aside>
             <b-avatar
-              variant="primary"
+              variant="light-info"
               :src="data.item.avatar ? data.item.avatarlink : ''"
               :text="avatarText(data.item.name)"
               size="36"/>
           </template>
-          <b-link class="font-weight-bold d-block text-nowrap">
+          <b-link
+            :to="{ name: 'apps-usermgt-useredit', params: { id: data.item.nik } }"
+            class="font-weight-bold d-block text-nowrap">
             {{ data.item.name }}
           </b-link>
           <small>{{ data.item.nik }}</small>
@@ -68,7 +71,7 @@
 
       <template #cell(stuser)="data">
         <b-form-checkbox
-          class="custom-control-primary ml-1"
+          class="custom-control-info ml-1"
           @change="toggleSwitchUser(data.item.active, data.item.datalogin, data.item)"
           :checked="!!+data.item.active"
           switch>
@@ -78,7 +81,7 @@
       <template #cell(accesslogin)="data">
         <b-form-checkbox
           :disabled="data.item.datalogin === null || data.item.active === 0"
-          class="custom-control-primary ml-1"
+          class="custom-control-info ml-1"
           @change="toggleSwitchLogin(data.item.datalogin, data.item.datalogin.active)"
           :checked="data.item.datalogin !== null ? !!+data.item.datalogin.active : false"
           switch>
