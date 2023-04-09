@@ -10,7 +10,7 @@
 
         <!-- Elearning -->
         <b-col lg="4" md="6">
-          <user-elearning />
+          <user-elearning :user-nik="usernik" :user-id="userid" :user-admin="useradmin"/>
         </b-col>
 
       </b-row>
@@ -34,6 +34,7 @@ export default {
     return{
       usernik: null,
       userid: null,
+      useradmin: 0,
     }
   },
   computed: {
@@ -41,6 +42,7 @@ export default {
       const data = JSON.parse(localStorage.getItem('userdata'))
       this.usernik = data.nik
       this.userid = data.detailuser.id
+      this.useradmin = data.admin
     }
   },
   beforeCreate() {
