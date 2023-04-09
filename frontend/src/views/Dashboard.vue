@@ -1,21 +1,19 @@
 <template>
-  <section id="dashboard-ecommerce">
-    <b-row>
-      <b-col lg="6">
-        <!-- <InventarisSelf /> -->
-      </b-col>
-    </b-row>
+  
+
+
+
+    <!-- <b-row> -->
+      <!-- <b-col></b-col> -->
+      <!-- <b-col lg="6">
+        <InventarisSelf />
+      </b-col> -->
+    <!-- </b-row> -->
     <!-- <inventaris-detail /> -->
-  </section>  
+  <!-- </section>   -->
   
 
 </template>
-
-<script>
-export default {
-
-}
-</script>
 
 <script>
 import { 
@@ -27,9 +25,9 @@ import InventarisSelf from '@/component/apps/gainventaris/InventarisOwned.vue'
 export default {
   components: {
     BRow, BCol,
-    InventarisAddMerk: () => import('@/component/apps/gainventaris/_InventarisAddMerk.vue'),
-    InventarisAddLocation: () => import('@/component/apps/gainventaris/_InventarisAddLokasi.vue'),
-    InventarisDetail: () => import('@/component/apps/gainventaris/InventarisDetail.vue'),
+    // InventarisAddMerk: () => import('@/component/apps/gainventaris/_InventarisAddMerk.vue'),
+    // InventarisAddLocation: () => import('@/component/apps/gainventaris/_InventarisAddLokasi.vue'),
+    // InventarisDetail: () => import('@/component/apps/gainventaris/InventarisDetail.vue'),
     InventarisSelf,
   },
   beforeCreate() {
