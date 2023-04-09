@@ -37,35 +37,35 @@
         </div>
         <div v-else>
           <b-row>
-            <b-col cols="4">
+            <b-col cols="3">
               <p class="small hint-text m-0"><b>Nama Materi</b></p>
               <p class="font-montserrat bold">
                 <feather-icon icon="FileIcon" class="mx-25"/>
                 {{ questiondata.material_title }}
               </p>
             </b-col>
-            <b-col cols="4">
+            <b-col cols="3">
               <p class="small hint-text m-0"><b>Departemen</b></p>
               <p class="font-montserrat bold">
                 <feather-icon icon="ShieldIcon" class="mx-25"/>
                 {{ deptname }}
               </p>
             </b-col>
-            <b-col cols="4">
-              <p class="small hint-text m-0"><b>Level Materi</b></p>
+            <b-col cols="3">
+              <p class="small hint-text m-0"><b>Tingkat Soal</b></p>
               <p class="font-montserrat bold">
                 <feather-icon icon="TrendingUpIcon" class="mx-25"/>
                 {{ levelOptions[1][questiondata.level] }}
               </p>
             </b-col>
-            <b-col cols="4">
+            <b-col cols="3">
               <p class="small hint-text m-0"><b>Jumlah Soal</b></p>
               <p class="font-montserrat bold">
                 <feather-icon icon="ListIcon" class="mx-25"/>
                 {{ questiondata.totalqst }} Soal
               </p>
             </b-col>
-            <b-col cols="4">
+            <!-- <b-col cols="4">
               <p class="small hint-text m-0"><b>Nilai Minimum</b></p>
               <p class="font-montserrat bold">
                 <feather-icon icon="PercentIcon" class="mx-25"/>
@@ -78,27 +78,27 @@
                 <feather-icon icon="ClockIcon" class="mx-25"/>
                 {{ questiondata.duration }} Menit
               </p>
-            </b-col>
+            </b-col> -->
           </b-row>
         </div>
       </template>
       <template v-slot:cstmbtndetail>
-        <b-button
+        <!-- <b-button
           v-if="!editdetail && $can('update', 'AppOKMQuestion')"
           @click="editdetailqst()"
           variant="flat-primary"
           class="btn-icon rounded-circle">
           <feather-icon icon="EditIcon" size="18"/>
-        </b-button>
+        </b-button> -->
         <b-button
-          v-if="!editdetail && $can('update', 'AppOKMQuestion')"
+          v-if="editdetail && $can('update', 'AppOKMQuestion')"
           @click="updateqstdetail()"
           variant="flat-primary"
           class="btn-icon rounded-circle">
           <feather-icon icon="SaveIcon" size="18"/>
         </b-button>
         <b-button
-          v-if="!editdetail && $can('update', 'AppOKMQuestion')"
+          v-if="editdetail && $can('update', 'AppOKMQuestion')"
           @click="canceleditdtl()"
           variant="flat-danger"
           class="btn-icon rounded-circle">
