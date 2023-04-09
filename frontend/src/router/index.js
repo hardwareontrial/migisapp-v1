@@ -73,7 +73,7 @@ router.beforeEach((to, _, next) => {
   }
   // Redirect if logged in
   if (to.meta.redirectIfLoggedIn && isLoggedIn) {
-    next({ name: 'new-dashboard' })
+    next({ name: 'dashboard' })
   }
 
   let documentTitle = `${ process.env.VUE_APP_TITLE }`

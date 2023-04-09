@@ -14,22 +14,6 @@ export default [
     component: () => import('@/views/apps/AppView.vue'),
     children: [
       {
-        path: 'dashboard',
-        name: 'dashboard',
-        component: () => import('@/views/Dashboard.vue'),
-        meta: {
-          pageTitle: 'Dashboard',
-          breadcrumb: [
-            {
-              text: 'Dashboard',
-              active: true,
-            },
-          ],
-          resource: 'ACL',
-          action: 'read',
-        }
-      },
-      {
         path: 'testpage',
         name: 'testpage',
         component: () => import('@/views/TestPage.vue'),

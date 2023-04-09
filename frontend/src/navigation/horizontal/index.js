@@ -21,15 +21,49 @@ export default [
         title: 'HR',
         route: 'apps-hris-index',
         icon: 'BriefcaseIcon',
-        resource: 'AppHRPosition',
-        action: 'read',
+        children: [
+          {
+            title: 'Departemen',
+            route: 'apps-hris-dept-list',
+          },
+          {
+            title: 'Jabatan',
+            route: 'apps-hris-position-list',
+            resource: 'AppHRPosition',
+            action: 'read',
+          },
+          {
+            title: 'Monitoring Absensi',
+            route: 'apps-hris-presence',
+            resource: 'AppHRPresence',
+            action: 'read',
+          },
+        ]
       },
       {
         title: 'Inventaris',
         route: 'apps-inventaris-list',
         icon: 'ArchiveIcon',
-        resource: 'AppInventaris',
-        action: 'read',
+        children: [
+          {
+            title: 'Database',
+            route: 'apps-inventaris-list',
+            resource: 'AppInventaris',
+            action: 'read',
+          },
+          {
+            title: 'Tambah Data',
+            route: 'apps-inventaris-add',
+            resource: 'AppInventaris',
+            action: 'create',
+          },
+          {
+            title: 'Export',
+            route: 'apps-inventaris-export',
+            resource: 'AppInventaris',
+            action: 'read',
+          },
+        ]
       },
       {
         title: 'OKM',
@@ -57,8 +91,26 @@ export default [
         title: 'Surat Jalan',
         route: 'apps-sj-list',
         icon: 'TruckIcon',
-        resource: 'AppDelivery',
-        action: 'read',
+        children: [
+          {
+            title: 'List',
+            route: 'apps-sj-list',
+            resource: 'AppDelivery',
+            action: 'read',
+          },
+          {
+            title: 'Form',
+            route: 'apps-sj-create',
+            resource: 'AppDelivery',
+            action: 'create',
+          },
+          {
+            title: 'Export',
+            route: 'apps-sj-export',
+            resource: 'AppDelivery',
+            action: 'export',
+          },
+        ]
       },
       {
         title: 'Todo',
@@ -71,8 +123,27 @@ export default [
         title: 'User Management',
         route: 'apps-usermgt-list',
         icon: 'UsersIcon',
-        resource: 'AppUserMgt',
-        action: 'read',
+        children: [
+          {
+            title: 'List',
+            route: 'apps-usermgt-list',
+            resource: 'AppUserMgt',
+            action: 'read',
+          },
+          /**
+           * Temporary disable for Backend reason.
+           * {
+           * title: 'Roles',
+           * route: 'apps-usermgt-roles',
+           * },
+           */
+          {
+            title: 'Permissions',
+            route: 'apps-usermgt-permissions',
+            resource: 'AppUserMgt',
+            action: 'read',
+          },
+        ]
       },
       {
         title: 'Test Page',
