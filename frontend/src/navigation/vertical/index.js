@@ -5,16 +5,6 @@ export default [
     resource: 'Auth',
     action: 'read',
   },
-    /** Home */
-    /**
-    {
-      title: 'Home',
-      route: 'home',
-      icon: 'HomeIcon',
-      resource: 'Auth',
-      action: 'read',
-    },
-     */
     /** Dashboard */
     {
       title: 'Dashboard',
@@ -23,16 +13,6 @@ export default [
       resource: 'ACL',
       action: 'read',
     },
-    /** News */
-    /**
-    {
-      title: 'News',
-      route: 'apps-news',
-      icon: 'RssIcon',
-      resource: 'Auth',
-      action: 'read',
-    },
-     */
   {
     header: 'Applications',
     resource: 'Auth',
@@ -70,8 +50,8 @@ export default [
     icon: 'BriefcaseIcon',
     children: [
       {
-       title: 'Departemen',
-       route: 'apps-hris-dept-list',
+        title: 'Departemen',
+        route: 'apps-hris-dept-list',
       },
       {
         title: 'Jabatan',
@@ -80,13 +60,11 @@ export default [
         action: 'read',
       },
       {
-       title: 'Monitoring Absensi',
-       route: 'apps-hris-presence',
-       resource: 'AppHRPresence',
-       action: 'read',
+        title: 'Monitoring Absensi',
+        route: 'apps-hris-presence',
+        resource: 'AppHRPresence',
+        action: 'read',
       },
-        
-      
     ]
   },
   /** GA Inventaris */
@@ -118,56 +96,78 @@ export default [
   /** OKM */
   {
     title: 'OKM',
-    route: 'apps-elearning',
     icon: 'AwardIcon',
-    children: [
-        {
-          title: 'Dashboard',
-          route: 'apps-elearning-dashboard',
-          resource: 'AppOKM',
-          action: 'read',
-        },
-        {
-          title: 'Raport',
-          route: 'apps-elearning-raport',
-          resource: 'AppOKMRaport',
-          action: 'read',
-        }
-    ]
-  },
-  {
-    title: 'OKM Admin',
-    route: 'apps-elearning-dashboard-admin',
-    icon: 'AwardIcon',
-    resource: 'AppOKMAdmin',
-    action: 'read',
     children: [
       {
         title: 'Materi',
         route: 'apps-elearning-materials',
-        resource: 'AppOKMMaterial',
-        action: 'read',
       },
       {
         title: 'Soal',
         route: 'apps-elearning-questions',
-        resource: 'AppOKMQuestion',
-        action: 'read',
       },
       {
-        title: 'Ujian',
+        title: 'Jadwal Ujian',
         route: 'apps-elearning-schedule',
-        resource: 'AppOKMSchedule',
-        action: 'read',
       },
       {
-        title: 'Rekap Raport',
-        route: 'apps-elearning-raport',
-        resource: 'AppOKMRaport',
-        action: 'read',
+        title: 'Raport',
+        route: 'apps-elearning-raport-all',
       },
-    ],
+    ]
   },
+  // {
+  //   title: 'OKM',
+  //   route: 'apps-elearning',
+  //   icon: 'AwardIcon',
+  //   children: [
+  //       {
+  //         title: 'Dashboard',
+  //         route: 'apps-elearning-dashboard',
+  //         resource: 'AppOKM',
+  //         action: 'read',
+  //       },
+  //       {
+  //         title: 'Raport',
+  //         route: 'apps-elearning-raport',
+  //         resource: 'AppOKMRaport',
+  //         action: 'read',
+  //       }
+  //   ]
+  // },
+  // {
+  //   title: 'OKM Admin',
+  //   route: 'apps-elearning-dashboard-admin',
+  //   icon: 'AwardIcon',
+  //   resource: 'AppOKMAdmin',
+  //   action: 'read',
+  //   children: [
+  //     {
+  //       title: 'Materi',
+  //       route: 'apps-elearning-materials',
+  //       resource: 'AppOKMMaterial',
+  //       action: 'read',
+  //     },
+  //     {
+  //       title: 'Soal',
+  //       route: 'apps-elearning-questions',
+  //       resource: 'AppOKMQuestion',
+  //       action: 'read',
+  //     },
+  //     {
+  //       title: 'Ujian',
+  //       route: 'apps-elearning-schedule',
+  //       resource: 'AppOKMSchedule',
+  //       action: 'read',
+  //     },
+  //     {
+  //       title: 'Rekap Raport',
+  //       route: 'apps-elearning-raport',
+  //       resource: 'AppOKMRaport',
+  //       action: 'read',
+  //     },
+  //   ],
+  // },
   /** News */
   {
     title: 'News ',
