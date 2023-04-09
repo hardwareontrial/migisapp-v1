@@ -50,12 +50,13 @@
       </template>
 
       <template #cell(status)="data">
-        <b-badge
+        <feather-icon :icon="status[0][data.item.status_id]" size="20" :class="`text-${status[1][data.item.status_id]}`"/>
+        <!-- <b-badge
           pill
           :variant="status[1][data.item.status_id]"
           class="badge-glow">
           {{ status[0][data.item.status_id] }}
-        </b-badge>
+        </b-badge> -->
       </template>
 
       <template #cell(location)="data">
@@ -65,9 +66,10 @@
       </template>
 
       <template #cell(is_active)="data">
-        <b-badge 
+        <b-badge
+          pill
           :variant="active[1][data.item.active]"
-          class="badge">
+          class="badge-glow">
           {{ active[0][data.item.active] }}
         </b-badge>
       </template>
@@ -280,7 +282,7 @@ export default {
       busy: false,
 
       status: [
-        { 1: 'Stock', 2: 'User', 3: 'Properti', 4: 'Perawatan' },
+        { 1: 'BoxIcon', 2: 'UsersIcon', 3: 'BoxIcon', 4: 'ToolIcon' },
         { 1: 'secondary', 2: 'info', 3: 'info', 4: 'warning' }
       ],
       active: [
