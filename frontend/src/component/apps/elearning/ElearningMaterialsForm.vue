@@ -70,7 +70,7 @@
               </b-form-group>
             </validation-provider>
           </b-col>
-          <b-col cols="12">
+          <!-- <b-col cols="12">
             <validation-provider
               #default="{errors}"
               name="Bobot Durasi"
@@ -88,7 +88,7 @@
                 <small class="text-danger">{{ errors[0] }}</small>
               </b-form-group>
             </validation-provider>
-          </b-col>
+          </b-col> -->
           <b-col cols="12">
             <validation-provider
               #default="{errors}"

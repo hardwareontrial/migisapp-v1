@@ -50,7 +50,7 @@
             </b-form-group>
           </b-col>
           <!-- Durasi -->
-          <b-col cols="12" md="6">
+          <!-- <b-col cols="12" md="6">
             <b-form-group
               label="Durasi (Menit)"
               label-for="i-duration">
@@ -60,7 +60,7 @@
                 id="i-duration"
                 placeholder="Menit"/>
             </b-form-group>
-          </b-col>
+          </b-col> -->
           <!-- Level Soal -->
           <b-col cols="12" md="6">
             <b-form-group
@@ -80,7 +80,7 @@
             </b-form-group>
           </b-col>
           <!-- Nilai Min -->
-          <b-col cols="12" md="6">
+          <!-- <b-col cols="12" md="6">
             <b-form-group
               label="Nilai Minimum"
               label-for="i-point-min">
@@ -90,7 +90,7 @@
                 id="i-point-min"
                 placeholder="Nilai Minimum"/>
             </b-form-group>
-          </b-col>
+          </b-col> -->
         </b-row>
       </tab-content>
       <!-- Soal -->
@@ -153,7 +153,7 @@
                 plaintext/>
             </b-form-group>
           </b-col>
-          <b-col cols="12">
+          <!-- <b-col cols="12">
             <b-form-group
               label="Durasi (Menit)"
               label-for="s-duration"
@@ -173,7 +173,7 @@
                 id="s-point"
                 :value="form.exam_point"
                 plaintext/>
-            </b-form-group>
+            </b-form-group> -->
           </b-col>
           <b-col cols="12" v-if="detailfile">
             <b-form-group
@@ -451,8 +451,8 @@ export default {
        */
       if(this.form.exam_title && 
         this.form.exam_material && 
-        this.form.exam_point &&
-        this.form.exam_duration &&
+        // this.form.exam_point &&
+        // this.form.exam_duration &&
         this.form.exam_level && 
         this.qstsource && 
         this.validationfile){ 
