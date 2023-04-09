@@ -1,7 +1,7 @@
 export default [
   {
     title: 'Dashboard',
-    route: 'new-dashboard',
+    route: 'dashboard',
     icon: 'SlackIcon',
     resource: 'ACL',
     action: 'read',
@@ -82,7 +82,7 @@ export default [
             route: 'apps-elearning-schedule',
           },
           {
-            title: 'Raport',
+            title: 'Rekap Raport',
             route: 'apps-elearning-raport-all',
           },
         ]
