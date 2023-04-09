@@ -1,81 +1,55 @@
 <template>
   <div>
+    <!-- Materi -->
+    <b-row v-if="stage.intro">
+      <b-col cols="12">
+        <app-collapse
+          type="margin"
+          accordion>
+          <app-collapse-item title="Materi">
+            <div v-if="dataexam.materials">
+              <material-reader :file="dataexam.materials" />
+            </div>
+            <div v-else>
+              Tidak Ada Materi.
+            </div>
+          </app-collapse-item>
+        </app-collapse>
+      </b-col>
+    </b-row>
 
-    <b-card v-if="isadmin">
-      <material-reader :file="dataexam.materials" v-if="dataexam.materials"/>
-      <span v-else>File Materi Kosong</span>
-    </b-card>
+    <!-- Quiz -->
+    <div v-for="(participantexam, i) in filteredUser" :key="i">
 
-    <div 
-      v-for="(participantdata, i) in filteredparticipants" 
-      :key="i">
-
-      <div class="justify-content-center" v-if="stage.intro">
-        <b-card
-          class="text-center">
-          <b-card-title class="text-left" v-show="isadmin">
-            {{ participantdata.datauser.name }}
-          </b-card-title>
-          <b-card-body>
-            <b-row>
-              <b-col cols="12">
-                <!-- <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader>
-                <span v-else>File Materi Kosong</span> -->
-                <app-collapse
-                  v-if="participantdata.isdone !== 1"
-                  accordion
-                  type="margin">
-                  <app-collapse-item title="Materi">
-                    <div v-if="dataexam.materials">
-                      <span v-if="isadmin">
-                        materi viewed admin
-                      </span>
-                      <span v-else>
-                        <material-reader :file="dataexam.materials" />
-                      </span>
-                      <!-- <material-reader :file="dataexam.materials" v-if="dataexam.materials && !isadmin"></material-reader> -->
-                    </div>
-                    <div v-else>
-                      File materi kosong.
-                    </div>
-                  </app-collapse-item>
-                </app-collapse>
-              </b-col>
-              <b-col cols="12">
-                <b-button-group class="mt-1">
-                  <b-button
-                    v-if="participantdata.isdone === 1"
-                    disabled
-                    variant="flat-success">
-                    <b-icon icon="check-circle-fill" class="mr-50" scale="0.8"></b-icon>
-                    <span class="align-middle">Selesai</span>
-                  </b-button>
-                  <b-button
-                    v-else
-                    @click="participantdata.isdone === 2 ? setquiz(participantdata) : setContinueQuiz(participantdata)"
-                    :variant="participantdata.isdone === 2 ? 'flat-primary' : 'flat-success'">
-                    <b-icon icon="box-arrow-up-right" class="mr-50" scale="0.8"></b-icon>
-                    <span class="align-middle">{{ participantdata.isdone === 2 ? 'Mulai' : 'Lanjutkan' }}</span>
-                  </b-button>
-                </b-button-group>
-              </b-col>
-            </b-row>
-          </b-card-body>
-        </b-card>
+      <!-- intro Stage -->
+      <div class="text-center mt-1"  v-if="stage.intro">
+        <span
+          v-if="participantexam.isdone === 1"
+          class="text-success">
+          <b-icon icon="check-circle-fill" class="mr-50" scale="0.8"></b-icon>
+          Selesai
+        </span>
+        <b-link
+          v-else
+          @click="participantexam.isdone === 2 ? setStartQuiz(participantexam) : setContinueQuiz(participantexam)"
+          class="card-link">
+          <b-icon icon="box-arrow-up-right" class="mr-50" scale="0.8"></b-icon>
+          <span class="align-middle">{{ participantexam.isdone === 2 ? 'Mulai' : 'Lanjutkan' }} Quiz</span>
+        </b-link>
       </div>
       
+      <!-- quiz Stage -->
       <div class="d-flex justify-content-center" v-if="stage.quiz">
-        <b-card
-          style="width: 75%;">
+        <b-card style="width: 75%;">
           <b-card-text>
             <div class="d-flex justify-content-between">
               <div>
-                <timer :time-minute="quiz.timer" v-bind:timeleft.sync="timeleft" @timeisup="submitquiz"/>
+                <timer :time-minute="quiz.timer" v-bind:timeleft.sync="timeleft" @timeisup="submitQuiz()"/>
               </div>
               <div>
                 <label class="text-muted" for="pagelist">Halaman</label>
                 <v-select
-                  @input="changepage"
+                  @input="changePage"
                   v-model="quiz.currentQuestion"
                   :options="pagelist"
                   label="text"
@@ -86,46 +60,47 @@
               </div>
             </div>
           </b-card-text>
-          <b-card-title class="text-center">
+          <b-card-title>
             <b-row>
               <b-col
-                class="mb-50"
-                cols="12" 
-                v-show="quiz.userqstlist[quiz.currentQuestion].question.image">
+                class="mb-50 text-center"
+                cols="12"
+                v-if="quiz.userQstList[quiz.currentQuestion].question.image">
                 <b-img
-                  :src="quiz.userqstlist[quiz.currentQuestion].question.image"
+                  :src="quiz.userQstList[quiz.currentQuestion].question.image"
                   v-bind="imgQstProps"/>
               </b-col>
-              <b-col cols="12">
-                <span>{{ quiz.userqstlist[quiz.currentQuestion].question.text }}</span>
+              <b-col cols="12" class="text-left">
+                <h3 class="text-bold">{{ quiz.userQstList[quiz.currentQuestion].question.text }}</h3>
               </b-col>
             </b-row>
           </b-card-title>
           <b-card-text>
             <b-form-radio-group
-              v-model="quiz.choosenoption[quiz.currentQuestion]"
+              v-model="quiz.choosenOpt[quiz.currentQuestion]"
               id="rd-ans-opt">
               <b-row>
-                <b-col cols="6" v-for="(ao, iao) in quiz.userqstlist[quiz.currentQuestion].answer_options" 
-                :key="iao">
-                <b-form-radio
-                  :value="{id: quiz.userqstlist[quiz.currentQuestion].id, value: ao.value}"
-                  class="m-1">
-                  <div>
-                    <b-row v-if="ao.image" class="mb-50">
-                      <b-col cols="12">
-                        <b-img
-                        :src="ao.image"
-                        v-bind="imgAnsProps" />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col cols="12">
-                        <span>{{ ao.text }}</span>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </b-form-radio>
+                <b-col cols="6"
+                  v-for="(ao, iao) in quiz.userQstList[quiz.currentQuestion].answer_options" :key="iao">
+                  <b-form-radio
+                    @change="choosen({index: quiz.currentQuestion, data: {id: quiz.userQstList[quiz.currentQuestion].id, value: ao.value} })"
+                    :value="{id: quiz.userQstList[quiz.currentQuestion].id, value: ao.value}"
+                    class="m-1">
+                    <div>
+                      <b-row v-if="ao.image" class="mb-50">
+                        <b-col cols="12">
+                          <b-img
+                            :src="ao.image"
+                            v-bind="imgAnsProps" />
+                        </b-col>
+                      </b-row>
+                      <b-row>
+                        <b-col cols="12">
+                          <span>{{ ao.text }}</span>
+                        </b-col>
+                      </b-row>
+                    </div>
+                  </b-form-radio>
                 </b-col>
               </b-row>
             </b-form-radio-group>
@@ -133,41 +108,39 @@
           <template #footer>
             <b-row class="text-center">
               <b-col cols="4">
-                <b-button
-                  @click="prevbtn(quiz.currentQuestion)"
+                <b-link
+                  @click="prevBtn(quiz.currentQuestion)"
                   v-show="quiz.currentQuestion !== 0"
-                  size="sm" 
-                  variant="primary" >
-                  <feather-icon icon="ChevronsLeftIcon" />
-                </b-button>
+                  class="card-link">
+                  <feather-icon icon="ChevronsLeftIcon" class="mr-25" /> Sebelumnya
+                </b-link>
               </b-col>
               <b-col cols="4">
               </b-col>
               <b-col cols="4">
-                <b-button
-                  v-if="quiz.currentQuestion !== (quiz.userqstlist.length -1)"
-                  @click="nextbtn(quiz.currentQuestion)"
-                  size="sm"
-                  variant="primary">
-                  <feather-icon icon="ChevronsRightIcon" />
-                </b-button>
-                <b-button 
+                <b-link
+                  v-if="quiz.currentQuestion !== (quiz.userQstList.length -1)"
+                  @click="nextBtn(quiz.currentQuestion)"
+                  class="card-link">
+                  Lanjut <feather-icon icon="ChevronsRightIcon" class="ml-25" />
+                </b-link>
+                <b-link
                   v-else
-                  @click="submitquiz()"
-                  size="sm" 
-                  variant="success">
-                  <feather-icon icon="SendIcon" />
-                </b-button>
+                  @click="submitQuiz()"
+                  class="card-link">
+                  Proses <feather-icon icon="SendIcon" class="ml-25" />
+                </b-link>
               </b-col>
             </b-row>
           </template>
         </b-card>
       </div>
-      
+
+      <!-- result Stage -->
       <div class="d-flex justify-content-center" v-if="stage.result">
         <b-card
-          class="text-center"
-          style="width: 50%;">
+          style="width: 50%;"
+          class="text-center">
           <b-card-text>
             <b-row>
               <b-col cols="12" class="mb-5 mt-1">
@@ -177,11 +150,11 @@
                 <b-icon :icon="result.icon.name" :variant="result.icon.variant" scale="10"/>
               </b-col>
               <b-col cols="12" class="mb-1 mt-3">
-                <p class="h4 mb-1">{{ result.message }}</p>
+                <p :class="`h4 mb-1 ${result.score.variant}`"><strong>{{ result.message }}</strong></p>
                 <p :class="`h1 ${result.score.variant}`"><strong>{{ result.score.value }}</strong></p>
               </b-col>
               <b-col cols="12" class="mb-0 mt-1">
-                <b-button variant="flat-primary" :to="{ name: 'apps-elearning-dashboard'}">
+                <b-button variant="flat-primary" :to="{ name: 'new-dashboard'}">
                   Tutup
                 </b-button>
               </b-col>
@@ -189,21 +162,16 @@
           </b-card-text>
         </b-card>
       </div>
+      
     </div>
   </div>
 </template>
 
 <script>
 import http from '@/customs/axios'
-// import QuizDetail from '@/component/utils/CardDetail.vue'
-import { 
-  BRow, BCol,
-  BCard, BCardText, BCardHeader, BCardFooter, BCardTitle, BCardBody,
-  BButtonGroup, BButton,
-  BIcon,
-  BContainer,
-  BFormRadioGroup, BFormGroup, BFormRadio,
-  BImg,
+import {
+  BRow, BCol, BCard, BCardText, BCardHeader, BCardFooter, BCardTitle, BCardBody, BButtonGroup, BButton,
+  BIcon, BContainer, BFormRadioGroup, BFormGroup, BFormRadio, BImg, BLink,
 } from 'bootstrap-vue'
 import MaterialReader from './_MaterialReader.vue'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
@@ -214,19 +182,9 @@ import AppCollapseItem from '@core/components/app-collapse/AppCollapseItem.vue'
 
 export default {
   components: {
-    // QuizDetail,
-    BRow, BCol,
-    BCard, BCardText, BCardHeader, BCardFooter, BCardTitle, BCardBody,
-    BButtonGroup, BButton,
-    BIcon,
-    BContainer,
-    MaterialReader,
-    FeatherIcon,
-    vSelect,
-    BFormRadioGroup, BFormGroup, BFormRadio,
-    BImg,
-    Timer,
-    AppCollapse, AppCollapseItem,
+    BRow, BCol, BCard, BCardText, BCardHeader, BCardFooter, BCardTitle, BCardBody, BButtonGroup, BButton,
+    BIcon, BContainer, BFormRadioGroup, BFormGroup, BFormRadio, BImg, BLink,
+    MaterialReader, FeatherIcon, vSelect, Timer, AppCollapse, AppCollapseItem,
   },
   data(){
     return{
@@ -243,19 +201,18 @@ export default {
         participants: null,
       },
       breadcrumbs: [],
-      stream: 'http://'+process.env.VUE_APP_API_ENDPOINT+'/storage/ViewerJS/#',
       stage: { intro: false, quiz: false, result: false, },
       quiz: {
-        idparticipant: null,
-        userqstlist: [],
+        idPartcpt: null,
+        userQstList: [],
         currentQuestion: 0,
-        choosenoption: null,
+        choosenOpt: null,
         score: null,
         done: null,
         passed: null,
         timer: 0,
-        datetimeuserstart: null,
-        datetimeuserend: null
+        dtUserStart: null,
+        dtUserEnd: null
       },
       result: {
         title: '',
@@ -275,165 +232,157 @@ export default {
         class: 'm1'
       },
       menuHidden: this.$store.state.appConfig.layout.menu.hidden,
-      layoutType: this.$store.state.appConfig.layout.type
+      layoutType: this.$store.state.appConfig.layout.type,
     }
   },
   methods: {
-    getdata(){
-      called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
-      http
-      .get('okm/schedule/detail/'+this.$route.params.id)
-      .then((res) => {
-        // console.log(res.data)
+    fetchData(){
+      called.$emit('showloading', {show: true, text: 'Mengambil data...'})
+      http.get('okm/schedule/detail/'+this.$route.params.id)
+        .then((res) => {
           this.dataexam = {
-            title: res.data.dataquestion.title,
+            title: res.data.title,
             type: res.data.type,
-            period: {
-              start: res.data.startdate_exam,
-              end: res.data.enddate_exam
-            },
+            period: { start: res.data.startdate_exam, end: res.data.enddate_exam },
             qstcount: res.data.dataquestion.qstcount,
-            duration: res.data.dataquestion.duration,
-            scoremin: res.data.dataquestion.nilai_min,
-            // materials: this.stream+res.data.dataquestion.material.materialfile.filematerial,
+            duration: res.data.duration,
+            scoremin: res.data.nilai_min,
             participants: res.data.participants_exam,
           }
           if(res.data.dataquestion.material.materialfile !== null){
-            // this.dataexam.materials = this.stream+res.data.dataquestion.material.materialfile.filematerial
             this.dataexam.materials = res.data.dataquestion.material.materialfile.filematerial
           }
-          this.setbreadcrumb(res.data.dataquestion.title)
+          this.setBreadcrumb(res.data.title)
           this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', true)
           this.stage = { intro: true, quiz: false, result: false, }
-        called.$emit('hideloading')
-      })
-      .catch((e) => { console.error(e) })
+          called.$emit('hideloading')
+        })
+        .catch((e) => {
+          console.error(e)
+        })
     },
-    setbreadcrumb(title){
-      this.breadcrumbs = [
-        { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
-        { text: ' QUIZ - '+title, active: true },
-      ]
+    setBreadcrumb(title) {
+      this.breadcrumbs = [{ text: 'QUIZ '+title, active: true }]
       called.$emit('appbreadcrumbcustomBreadCrumbs', this.breadcrumbs)
     },
-    setquiz(val){
-      var timenow = this.$moment.now()
-      var seconds = this.dataexam.duration *60
+    setStartQuiz(val){
+      var dtnow = new Date().getTime();
+      const timer = this.dataexam.duration *60;
       this.quiz = {
-        idparticipant: val.id,
-        userqstlist: val.qstpattern,
+        idPartcpt: val.id,
+        userQstList: val.qstpattern,
         currentQuestion: 0,
-        choosenoption: [],
-        score: 0,
-        passed: val.ispassed,
+        choosenOpt: [],
+        score: val.score,
         done: 3,
-        timer: seconds,
-        datetimeuserstart: this.$moment(timenow).format('YYYY-MM-DD HH:mm:ss'),
-        datetimeuserend: ''
-      }
-      this.stage = { intro: false, quiz: true, result: false, }
-      this.updatedata({timeleft: this.quiz.timer})
-    },
-    nextbtn(index){
-      this.quiz.done = 3
-      this.updatedata({timeleft: this.timeleft})
-      this.quiz.currentQuestion = index +1
-    },
-    prevbtn(index){
-      this.quiz.currentQuestion = index -1
-    },
-    submitquiz(){
-      var timenow = this.$moment.now()
-      this.quiz.datetimeuserend = this.$moment(timenow).format('YYYY-MM-DD HH:mm:ss')
-      this.quiz.done = 1
-      this.updatedata({timeleft: this.timeleft})
-      this.result = { 
-        message: this.quiz.score >= this.dataexam.scoremin ? 'Selamat Anda LULUS!' : 'Anda TIDAK LULUS.',
-        icon: { 
-          name: this.quiz.score >= this.dataexam.scoremin ? 'patch-check' : 'x-circle',
-          variant: this.quiz.score >= this.dataexam.scoremin ? 'success' : 'danger',
-        },
-        score: { 
-          value: this.quiz.score, 
-          variant: this.quiz.score >= this.dataexam.scoremin ? 'text-success' : 'text-danger',
-        },
-        title: this.timeleft <= 0 ? 'Waktu Habis' : 'Selesai'
-      }
-      this.stage = { intro: false, quiz: false, result: true, }
-    },
-    updatedata(options){
-      var ispassed = this.dataexam.scoremin <= this.quiz.score ? 1 : 2
-      let dataupdate = new FormData()
-      dataupdate.append('answersuser', JSON.stringify(this.quiz.choosenoption))
-      dataupdate.append('userstartexam', this.quiz.datetimeuserstart)
-      dataupdate.append('userendexam', this.quiz.datetimeuserend)
-      dataupdate.append('timeleft', options.timeleft)
-      dataupdate.append('isdone', this.quiz.done)
-      dataupdate.append('ispassed', ispassed)
-      dataupdate.append('score', this.quiz.score)
-      http
-      .post('okm/schedule/participant/'+this.quiz.idparticipant, dataupdate)
-      .then((res) => { console.log() })
-      .catch((e) => { console.error(e) })
+        passed: val.ispassed,
+        timer: timer,
+        dtUserStart: this.$moment(dtnow).format('YYYY-MM-DD HH:mm:ss'),
+        dtUserEnd: ''
+      };
+      this.stage = {intro: false, quiz: true, result: false};
+      this.timeleft = this.timeleft
+      this.updateUserExam()
     },
     setContinueQuiz(val){
-      console.log(val)
       this.quiz = {
-        idparticipant: val.id,
-        userqstlist: val.qstpattern,
-        currentQuestion: val.answers_user.length >= 0 ? val.answers_user.length -1 : 0,
-        score: val.scored,
+        idPartcpt: val.id,
+        userQstList: val.qstpattern,
+        currentQuestion: val.answers_user.length > 0 ? val.answers_user.length -1 : 0,
+        score: val.score,
         done: val.isdone,
         passed: val.ispassed,
         timer: val.timeleft_seconds,
-        datetimeuserstart: val.user_start_exam,
-        datetimeuserend: ''
+        dtUserStart: val.user_start_exam,
+        dtUserEnd: '',
       }
-      if(val.answers_user.length >= 0){
-        this.quiz.choosenoption = val.answers_user.map(data => {
-          return {id: data.id, value: data.value}
+      if(val.answers_user.length > 0){
+        this.quiz.choosenOpt = val.answers_user.map(d => {
+          return {id: d.id, value: d.value}
         })
-      }else{ this.quiz.choosenoption = [] }
+      }else{ this.quiz.choosenOpt = val.answers_user }
       this.stage = { intro: false, quiz: true, result: false}
     },
-    changepage(){
-      this.quiz.done = 3
-      this.updatedata({timeleft: this.timeleft})
+    updateUserExam(){
+      // console.log(this.quiz)
+      let dataUpdate = new FormData()
+      dataUpdate.append('answersuser', JSON.stringify(this.quiz.choosenOpt))
+      dataUpdate.append('userstartexam', this.quiz.dtUserStart)
+      dataUpdate.append('userendexam', this.quiz.dtUserEnd)
+      dataUpdate.append('timeleft', this.quiz.timer)
+      dataUpdate.append('isdone', this.quiz.done)
+      dataUpdate.append('ispassed', this.quiz.passed)
+      dataUpdate.append('score', this.quiz.score)
+      http.post('okm/schedule/participant/'+this.quiz.idPartcpt, dataUpdate)
+      .then((res) => { console.log('success') })
+      .catch((e) => { console.error(e) })
+    },
+    submitQuiz(){
+      var dtnow = new Date().getTime();
+      this.quiz.dtUserEnd = this.$moment(dtnow).format('YYYY-MM-DD HH:mm:ss')
+      this.quiz.done = 1
+      this.quiz.passed = this.quiz.score >= this.dataexam.scoremin ? 1 : 2
+      // console.log(this.quiz)
+      this.updateUserExam()
+      this.stage = { intro: false, quiz: false, result: true, }
+    },
+    changePage(){
+      this.quiz.timer = this.timeleft
+      this.quiz.done = 3;
+    },
+    prevBtn(index){
+      this.quiz.currentQuestion = index -1;
+    },
+    nextBtn(index){
+      this.quiz.timer = this.timeleft
+      this.quiz.done = 3;
+      this.quiz.currentQuestion = index +1;
+      this.updateUserExam()
+    },
+    async choosen(values){
+      let t1 = await this.quiz.choosenOpt.splice(values.index, 1, values.data);
+      if(t1){
+        var ppq = 100 / this.quiz.userQstList.length
+        var x = this.quiz.userQstList.filter((el) => {
+          return this.quiz.choosenOpt.some((d) => {
+            return d.id === el.id && d.value === el.answer_key
+          })
+        })
+        this.quiz.score = Math.round(ppq * x.length)
+      }
     }
   },
-  mounted(){
-    this.getdata()
-  },
-  computed: {
-    filteredparticipants(){
-      var datapart = this.dataexam.participants
-      if(datapart !== null){
-        if(this.isadmin){
-          return datapart
-        }else{
-          return datapart.filter(item => (parseInt(item.user_nik) === this.usernik))
+  watch:{
+    'quiz.score':{
+      handler(newValue){
+        this.result = { 
+          message: newValue >= this.dataexam.scoremin ? 'Selamat Anda LULUS!' : 'Anda TIDAK LULUS.',
+          icon: { 
+            name: newValue >= this.dataexam.scoremin ? 'patch-check' : 'x-circle',
+            variant: newValue >= this.dataexam.scoremin ? 'success' : 'danger',
+          },
+          score: { 
+            value: newValue, 
+            variant: newValue >= this.dataexam.scoremin ? 'text-success' : 'text-danger',
+          },
+          title: this.timeleft <= 0 ? 'Waktu Habis' : 'Selesai'
         }
       }
-      // if(this.isadmin){
-      //   if(datapart){
-      //     var filter = datapart.filter(item => 
-      //       item.isdone === 2 || item.isdone === 3
-      //     )
-      //     return filter
-      //   }
-      // }else{
-      //   if(datapart){
-      //     var filter = datapart.filter(item => 
-      //       (parseInt(item.user_nik) === this.usernik) && (item.isdone === 2 || item.isdone === 3)
-      //     )
-      //   }
-      // }
-      // return filter
+    }
+  },
+  computed: {
+    filteredUser(){
+      let partcptExams = this.dataexam.participants
+      if(partcptExams != null ){
+        if(this.isadmin === 0){
+          return partcptExams.filter(item => (this.usernik === parseInt(item.user_nik) ));
+        }else{ return partcptExams }
+      }
     },
     pagelist(){
-      if(this.quiz.userqstlist.length > 0){
-        var tmplist = []
-        this.quiz.userqstlist.forEach((data, i) => {
+      if(this.quiz.userQstList.length > 0){
+        let tmplist = [];
+        this.quiz.userQstList.forEach((data, i) => {
           tmplist.push({value: i, text: i +1})
         })
         return tmplist
@@ -441,49 +390,23 @@ export default {
       return [{value: 0, text: 1}]
     },
   },
-  watch: {
-    'quiz.choosenoption': {
-      immediate: true,
-      deep: true,
-      handler(newValue){
-        if(newValue){
-          var answuser = newValue
-          var answuserlength = newValue.length
-          var qstlist = this.quiz.userqstlist
-          var qstlistlength = this.quiz.userqstlist.length
-          var point = 100/qstlistlength
-          var correct = 0
-          if(answuserlength > 0){
-            this.quiz.score = 0
-            answuser.forEach((ans) => {
-              if(ans){
-                var qstl = qstlist.find(qst => { return qst.id === ans.id })
-                if(ans.value === qstl.answer_key){ correct ++ }
-              }
-            })
-            this.quiz.score = Math.round(correct*point)
-          }
-        }
-      }
-    }
-  },
-  beforeDestroy(){
-    if(this.quiz.done === 3){ 
-      this.updatedata({timeleft: this.timeleft})
-    }
-    this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', false)
-    // this.$store.commit('appConfig/UPDATE_LAYOUT_TYPE', 'vertical')
-  },
-  created(){
-    var user = JSON.parse(localStorage.getItem('userdata'))
-    this.isadmin = user.admin
-    this.usernik = user.nik
+  mounted() {
+    this.fetchData()
   },
   beforeCreate(){
     this.$store.commit('appConfig/UPDATE_LAYOUT_TYPE', 'horizontal')
   },
-  destroy(){
-    //    
+  created() {
+    var user = JSON.parse(localStorage.getItem('userdata'))
+    this.isadmin = user.admin
+    this.usernik = user.nik
+  },
+  beforeDestroy() {
+    if(this.quiz.done === 3){
+      this.quiz.timer = this.timeleft
+      this.updateUserExam()
+    }
+    this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', false)
   }
 }
 </script>
