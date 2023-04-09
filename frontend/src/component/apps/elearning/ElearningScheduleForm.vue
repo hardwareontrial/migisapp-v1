@@ -4,6 +4,7 @@
       ref="formdelivery"
       #default="{invalid}">
       <b-row>
+        <!-- Judul -->
         <b-col cols="12">
           <b-form-group
             label="Judul"
@@ -21,6 +22,7 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- List Soal -->
         <b-col cols="12">
           <b-form-group
             label="Soal"
@@ -40,43 +42,82 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Total Soal -->
         <b-col cols="12">
           <b-form-group
             label="Jumlah Soal"
             label-for="h-max-soal"
             label-cols-md="4">
-            <validation-provider
-              #default="{errors}"
-              name="Jumlah Soal"
-              vid="elr-f-max-qst"
-              rules="required">
-              <b-form-input
-                readonly
-                v-model="form.qstcount_exam_max"
-                class="w-25"
-                id="h-note"/>
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
+              <b-row>
+                <b-col cols="3">
+                  <validation-provider
+                    #default="{errors}"
+                    name="Jumlah Soal"
+                    vid="elr-f-max-qst"
+                    rules="required">
+                    <b-form-input
+                      readonly
+                      v-model="form.qstcount_exam_max"
+                      class="w-100"
+                      id="h-note"/>
+                    <small class="text-danger">{{ errors[0] }}</small>
+                  </validation-provider>
+                </b-col>
+                <b-col cols="3">
+                  <validation-provider
+                    #default="{errors}"
+                    name="Jumlah Soal"
+                    vid="elr-f-qstcount"
+                    :rules="'required|max_value:'+`${form.qstcount_exam_max}`">
+                    <b-form-input
+                      v-model="form.qstcount_exam"
+                      class="w-100"
+                      id="h-note"/>
+                    <small class="text-danger">{{ errors[0] }}</small>
+                  </validation-provider>
+                </b-col>
+              </b-row>
           </b-form-group>
         </b-col>
+        <!-- Durasi Ujian -->
         <b-col cols="12">
           <b-form-group
-            label="Jumlah Soal Digunakan"
-            label-for="h-note"
+            label="Durasi Ujian (Menit)"
+            label-for="h-duration"
             label-cols-md="4">
             <validation-provider
               #default="{errors}"
-              name="Jumlah Soal"
-              vid="elr-f-qstcount"
-              :rules="'required|max_value:'+`${form.qstcount_exam_max}`">
+              name="Durasi Ujian"
+              vid="elr-f-duration"
+              rules="required">
               <b-form-input
-                v-model="form.qstcount_exam"
-                class="w-25"
+                v-model="form.duration"
+                class="w-50"
                 id="h-note"/>
               <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Durasi Ujian -->
+        <b-col cols="12">
+          <b-form-group
+            label="Nilai Min."
+            label-for="h-nilai_min"
+            label-cols-md="4">
+            <validation-provider
+              #default="{errors}"
+              name="Nilai Minimal"
+              vid="elr-f-duration"
+              rules="required|max_value:100">
+              <b-form-input
+                v-model="form.nilai_min"
+                class="w-50"
+                id="h-note"/>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+        <!-- Program -->
         <b-col cols="12">
           <b-form-group
             label="Program"
@@ -95,6 +136,7 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Note -->
         <b-col cols="12">
           <b-form-group
             label="Note"
@@ -112,6 +154,7 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Waktu Mulai -->
         <b-col cols="12">
           <b-form-group
             label="Waktu Mulai"
@@ -130,6 +173,7 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Waktu Akhir -->
         <b-col cols="12">
           <b-form-group
             label="Waktu Berakhir"
@@ -148,6 +192,7 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- List Peserta -->
         <b-col cols="12">
           <b-form-group
             label="Peserta"
@@ -168,6 +213,7 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Button -->
         <b-col cols="12">
           <b-form-group
             label=""
@@ -239,6 +285,8 @@ export default {
         qstcount_exam: null,
         qstcount_exam_max: 0,
         frompage: 'elearningscheduleform',
+        duration: null,
+        nilai_min: null,
       },
       qstlist: [],
       required, max
@@ -253,18 +301,20 @@ export default {
     },
     storeschedule(){
       called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
-      let newschedule = new FormData()
-      newschedule.append('title', this.form.title)
-      newschedule.append('soal_id', this.form.soal_id)
-      newschedule.append('type', this.form.type)
-      newschedule.append('s_datetime', this.form.s_datetime)
-      newschedule.append('e_datetime', this.form.e_datetime)
-      newschedule.append('participant_id', JSON.stringify(this.form.participant_id))
-      newschedule.append('note', this.form.note)
-      newschedule.append('qstnumrandoms', this.form.qstcount_exam)
-      newschedule.append('frompage', this.form.frompage)
+      let schedule = new FormData()
+      schedule.append('title', this.form.title)
+      schedule.append('soal_id', this.form.soal_id)
+      schedule.append('type', this.form.type)
+      schedule.append('s_datetime', this.form.s_datetime)
+      schedule.append('e_datetime', this.form.e_datetime)
+      schedule.append('participant_id', JSON.stringify(this.form.participant_id))
+      schedule.append('note', this.form.note)
+      schedule.append('qstnumrandoms', this.form.qstcount_exam)
+      schedule.append('frompage', this.form.frompage)
+      schedule.append('duration', this.form.duration)
+      schedule.append('nilai_min', this.form.nilai_min)
       http
-      .post('okm/schedule/new', newschedule)
+      .post('okm/schedule/new', schedule)
       .then((res) => {
         // console.log(res.data)
         this.$router.push({name: 'apps-elearning-schedule'})
