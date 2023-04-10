@@ -398,4 +398,15 @@ class ElearningScheduleController extends Controller
       }
     }
   }
+
+  public function deleteschedule($id)
+  {
+    $tmp = AppElearningSchedule::findOrFail($id);
+
+    //related user
+    $related_user = $tmp->participants_exam()->get();
+    if(count($related_user) > 0){ $tmp->participants_exam()->delete(); }
+    $tmp->delete();
+    return response()->json(['message' => 'Deleted!'],200);
+  }
 }

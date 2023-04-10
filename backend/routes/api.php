@@ -124,6 +124,7 @@ Route::prefix('okm')->group(function(){
     Route::get('detail/{id}', [ElearningScheduleController::class, 'detailschedule']);
     Route::post('new', [ElearningScheduleController::class, 'storeschedule']);
     Route::post('setactive/{id}', [ElearningScheduleController::class, 'setactive']);
+    Route::delete('{id}', [ElearningScheduleController::class, 'deleteschedule']);
     Route::prefix('participant')->group(function(){
       Route::post('{id}', [ElearningScheduleController::class, 'updateexamparticipant']);
       Route::delete('{id}', [ElearningScheduleController::class, 'deleteparticipant']);

@@ -225,7 +225,19 @@ export default {
         buttonsStyling: false,
       }).then(result => {
         if (result.value) {
-          alert('deleted')
+          called.$emit('showloading', {show: true, text: 'Sedang proses...'})
+          http.delete('okm/schedule/'+dataID)
+          .then((res) => {
+            console.log(res)
+            this.$toast({ component: ToastificationContent, props: { icon: 'AlertTriangleIcon', variant: 'warning', title: 'Data berhasil dihapus!' }, }, { position: 'top-right' })
+            this.handleFetchData()
+            called.$emit('hideloading')
+          })
+          .catch((e) => {
+            console.error(e)
+            this.$toast({ component: ToastificationContent, props: { icon: 'ActivityIcon', variant: 'danger', title: 'Error !' }, }, { position: 'top-right' })
+            called.$emit('hideloading')
+          })
         }
       })
     }
