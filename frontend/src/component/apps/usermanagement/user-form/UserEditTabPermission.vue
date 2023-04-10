@@ -29,7 +29,7 @@
           v-for="(permission, j) in permissions" :key="j">
           <!-- :disabled="userAdmin === 1 ? true : (['manage.all', 'read.Auth', 'read.ACL']).includes(permission.name)" -->
           <b-form-checkbox
-            :disabled="userAdmin === 1 ? true : (['manage.all']).includes(permission.name)"
+            :disabled="userAdmin === 1 ? true : (['manage.all', 'read.Auth', 'read.ACL']).includes(permission.name)"
             :value="permission.name"
             v-model="formpermission.selectedPermission">
             {{ permission.text }} 
