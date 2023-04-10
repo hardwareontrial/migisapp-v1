@@ -2,6 +2,7 @@
   <div>
     <div>
       <b-table-simple
+        responsive
         style="width: 100%;"
         class="table">
         <b-thead>
