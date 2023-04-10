@@ -312,7 +312,7 @@ export default {
     },
     setBreadcrumbs(title){
       this.breadcrumbs = [
-        { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+        { text: 'OKM', to: { name: 'apps-elearning-schedule'} },
         { text: 'Jadwal Ujian', to: { name: 'apps-elearning-schedule'} },
         { text: title, active: true },
       ]

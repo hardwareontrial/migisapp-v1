@@ -383,7 +383,7 @@ export default {
     },
     setBreadcrumb(title){
       this.breadcrumbs = [
-        { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+        { text: 'OKM', to: { name: 'apps-elearning-questions'} },
         { text: 'Master Soal', to: { name: 'apps-elearning-questions'} },
         { text: title, active: true },
       ]
