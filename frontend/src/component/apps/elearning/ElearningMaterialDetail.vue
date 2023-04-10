@@ -203,7 +203,7 @@ export default {
   methods: {
     setbreadcrumb(title){
       this.breadcrumbs = [
-        { text: 'OKM', to: { name: 'apps-elearning-dashboard'} },
+        { text: 'OKM', to: { name: 'apps-elearning-materials'} },
         { text: 'Materi', to: { name: 'apps-elearning-materials'} },
         { text: title, active: true },
       ]
