@@ -46,7 +46,9 @@
       </template>
 
       <template #cell(level)="data">
-        <b-badge 
+        <b-badge
+          class="badge-glow"
+          pill
           :variant="levelOptions[2][data.item.level]"> 
           {{ levelOptions[1][data.item.level] }}
         </b-badge>
