@@ -118,97 +118,15 @@
 
     <info-participant
       :show="infoparticipantprops.show"
-      :title="infodataparticipant ? 'Info Hasil Ujian '+infodataparticipant.datauser.name : infoparticipantprops.title "
+      :title="infoparticipantprops.title "
       :size="infoparticipantprops.size">
       <template v-slot:modalbody>
-        <b-table-simple responsive small v-if="infodataparticipant">
-          <b-tbody>
-            <b-tr>
-              <b-th sticky-column style="width: 25%; font-size: 10pt;"> Nilai </b-th>
-              <b-td style="font-size: 10pt;"><strong>{{ infodataparticipant.score }}</strong></b-td>
-            </b-tr>
-            <b-tr>
-              <b-th sticky-column style="width: 25%; font-size: 10pt;"> Status </b-th>
-              <b-td style="font-size: 10pt;">
-                <b-badge :variant="infodataparticipant.ispassed === 1 ? 'success' : 'danger' " v-if="infodataparticipant.isdone !== 3">
-                  <feather-icon
-                    :icon="infodataparticipant.ispassed === 1 ? 'CheckCircleIcon' : 'XCircleIcon' "
-                    class="mr-25"
-                  />
-                  <span>{{infodataparticipant.ispassed === 1 ? 'Lulus' : 'Tidak Lulus'}}</span>
-                </b-badge>
-                <b-badge variant="success" v-else>
-                  Proses
-                </b-badge>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-th sticky-column style="width: 25%; font-size: 10pt;"> Tanggal Mulai </b-th>
-              <b-td style="font-size: 10pt;">{{ infodataparticipant.user_start_exam ? $moment(infodataparticipant.user_start_exam).format('DD MMM YYYY, HH:mm') : '-' }}</b-td>
-            </b-tr>
-            <b-tr>
-              <b-th sticky-column style="width: 25%; font-size: 10pt;"> Tanggal Selesai </b-th>
-              <b-td style="font-size: 10pt;">{{ infodataparticipant.user_end_exam ? $moment(infodataparticipant.user_end_exam).format('DD MMM YYYY, HH:mm') : '-' }}</b-td>
-            </b-tr>
-          </b-tbody>
-        </b-table-simple>
-        <b-table-simple bordered responsive="md">
-          <b-thead>
-            <b-tr>
-              <b-th style="width: 5%;" class="text-center">No</b-th>
-              <b-th style="width: 30%;" class="text-left">Soal</b-th>
-              <b-th style="width: 32%;" class="text-center">Jawaban Benar</b-th>
-              <b-th class="text-center" colspan="2">Jawaban User</b-th>
-            </b-tr>
-          </b-thead>
-          <b-tbody v-if="infodataparticipant">
-            <b-tr v-for="(qst, iqst) in infodataparticipant.answers_user" :key="iqst">
-              <td class="text-center">{{ iqst +1 }}</td>
-              <b-td>
-                <div v-if="qst.question.image">
-                  <b-img
-                    v-bind="imgprops"
-                    :src="qst.question.image" /><br>
-                </div>
-                {{ qst.question.text }}
-              </b-td>
-              <b-td>
-                <div v-for="(ao, iao) in qst.answer_options" :key="iao">
-                  <div v-if="ao.value === qst.answer_key">
-                    <div v-if="ao.image">
-                      <b-img
-                        v-bind="imgprops"
-                        :src="ao.image" /><br>
-                    </div>
-                    {{ ao.text }}
-                  </div>
-                </div>
-              </b-td>
-              <b-td>
-                <div v-for="(ao, iao) in qst.answer_options" :key="iao">
-                  <div v-if="ao.value === qst.value">
-                    <div v-if="ao.image">
-                      <b-img
-                        v-bind="imgprops"
-                        :src="ao.image" /><br>
-                    </div>
-                    {{ ao.text }}
-                  </div>
-                </div>
-              </b-td>
-              <b-td style="width: 5%;" class="text-center">
-                <b-icon 
-                  :icon="qst.answer_key === qst.value ? 'check-circle-fill' : 'x-circle-fill'"
-                  :class="qst.answer_key === qst.value ? 'text-success' : 'text-danger'"/>
-              </b-td>
-            </b-tr>
-          </b-tbody>
-        </b-table-simple>
+        <table-result :user-data-exam="infoparticipantprops.data"></table-result>
       </template>
       <template v-slot:modalfooter>
         <b-button
-          @click="infoparticipantprops.show = !infoparticipantprops.show"
-          variant="primary">
+          @click="infoparticipantprops.show = !infoparticipantprops.show;infoparticipantprops.data={}"
+          variant="flat-primary">
           Tutup
         </b-button>
       </template>
@@ -232,23 +150,16 @@ import ScheduleParticipantTable from './_ParticipantTable.vue'
 import AddParticipant from '@/component/utils/Modal.vue'
 import vSelect from 'vue-select'
 import InfoParticipant from '@/component/utils/Modal.vue'
+import TableResult from "./_ParticipantResult"
 
 export default {
   props: {
     participantList: { type: Array }
   },
   components:{
-    DetailSchedule,
-    BRow, BCol,
-    BCard,
-    ScheduleParticipantTable,
-    BButton, BButtonGroup,
-    AddParticipant,
-    vSelect,
-    BBadge,
-    InfoParticipant,
-    BTableSimple, BThead, BTbody, BTr, BTh, BTd,
+    BRow, BCol, BCard, BButton, BButtonGroup, BBadge, BTableSimple, BThead, BTbody, BTr, BTh, BTd,
     BImg, BIcon,
+    DetailSchedule, ScheduleParticipantTable, AddParticipant, vSelect, InfoParticipant, TableResult,
   },
   data(){
     return{
@@ -281,7 +192,8 @@ export default {
       infoparticipantprops: {
         show: false,
         title: 'Info Hasil Ujian User',
-        size: 'lg'
+        size: 'lg',
+        data: {},
       },
       infodataparticipant: null,
       imgprops: { width: 48, height: 36, class: 'm1' },
@@ -395,7 +307,7 @@ export default {
       delete val['answers_user']
       val.answers_user = sortobjs
       this.infoparticipantprops.show = true
-      this.infodataparticipant = val
+      this.infoparticipantprops.data = val
     }
   },
   mounted(){
