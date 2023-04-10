@@ -15,8 +15,8 @@ export default [
           breadcrumb: [
             { text: 'Semua Raport', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKM',
+          action: 'read',
         },
       },
       {
@@ -64,8 +64,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-materials'} },
             { text: 'Materi', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMMaterial',
+          action: 'read',
         },
       },
       {
@@ -79,8 +79,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-materials'} },
             { text: 'Tambah Materi', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMMaterial',
+          action: 'create',
         },
       },
       {
@@ -90,8 +90,8 @@ export default [
         meta: {
           pageTitle: 'Detail Materi',
           title: 'OKM',
-          resource: '',
-          action: '',
+          resource: 'AppOKMMaterial',
+          action: 'read',
         },
       },
       {
@@ -105,8 +105,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-materials'} },
             { text: 'Edit Materi', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMMaterial',
+          action: 'update',
         },
       },
       /** ----------------------------- Question Area ------------------------------------ */
@@ -121,8 +121,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-questions'} },
             { text: 'Soal', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMQuestion',
+          action: 'read',
         },
       },
       {
@@ -136,8 +136,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-questions'} },
             { text: 'Tambah Soal', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMQuestion',
+          action: 'create',
         },
       },
       {
@@ -147,8 +147,8 @@ export default [
         meta: {
           pageTitle: 'Detail Soal',
           title: 'OKM',
-          resource: '',
-          action: '',
+          resource: 'AppOKMQuestion',
+          action: 'update',
         },
       },
       /** ----------------------------- Schedule Area ------------------------------------ */
@@ -163,8 +163,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-schedule'} },
             { text: 'Jadwal Ujian', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMSchedule',
+          action: 'read',
         },
       },
       {
@@ -178,8 +178,8 @@ export default [
             { text: 'OKM', to: { name: 'apps-elearning-schedule'} },
             { text: 'Form Jadwal Ujian', active: true },
           ],
-          resource: '',
-          action: '',
+          resource: 'AppOKMSchedule',
+          action: 'create',
         },
       },
       {
@@ -189,8 +189,8 @@ export default [
         meta: {
           pageTitle: 'Detail Ujian',
           title: 'OKM',
-          resource: '',
-          action: '',
+          resource: 'AppOKMSchedule',
+          action: 'update',
         },
       },
     ]

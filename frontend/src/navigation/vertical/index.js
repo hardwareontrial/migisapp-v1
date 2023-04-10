@@ -101,73 +101,31 @@ export default [
       {
         title: 'Materi',
         route: 'apps-elearning-materials',
+        resource: 'AppOKMMaterial',
+        action: 'read',
       },
       {
         title: 'Soal',
         route: 'apps-elearning-questions',
+        resource: 'AppOKMQuestion',
+        action: 'read',
       },
       {
         title: 'Jadwal Ujian',
         route: 'apps-elearning-schedule',
+        resource: 'AppOKMSchedule',
+        action: 'read',
       },
       {
         title: 'Rekap Raport',
         route: 'apps-elearning-raport-all',
+        resource: 'AppOKM',
+        action: 'read',
       },
-    ]
+    ],
+    resource: 'AppOKM',
+    action: 'read',
   },
-  // {
-  //   title: 'OKM',
-  //   route: 'apps-elearning',
-  //   icon: 'AwardIcon',
-  //   children: [
-  //       {
-  //         title: 'Dashboard',
-  //         route: 'apps-elearning-dashboard',
-  //         resource: 'AppOKM',
-  //         action: 'read',
-  //       },
-  //       {
-  //         title: 'Raport',
-  //         route: 'apps-elearning-raport',
-  //         resource: 'AppOKMRaport',
-  //         action: 'read',
-  //       }
-  //   ]
-  // },
-  // {
-  //   title: 'OKM Admin',
-  //   route: 'apps-elearning-dashboard-admin',
-  //   icon: 'AwardIcon',
-  //   resource: 'AppOKMAdmin',
-  //   action: 'read',
-  //   children: [
-  //     {
-  //       title: 'Materi',
-  //       route: 'apps-elearning-materials',
-  //       resource: 'AppOKMMaterial',
-  //       action: 'read',
-  //     },
-  //     {
-  //       title: 'Soal',
-  //       route: 'apps-elearning-questions',
-  //       resource: 'AppOKMQuestion',
-  //       action: 'read',
-  //     },
-  //     {
-  //       title: 'Ujian',
-  //       route: 'apps-elearning-schedule',
-  //       resource: 'AppOKMSchedule',
-  //       action: 'read',
-  //     },
-  //     {
-  //       title: 'Rekap Raport',
-  //       route: 'apps-elearning-raport',
-  //       resource: 'AppOKMRaport',
-  //       action: 'read',
-  //     },
-  //   ],
-  // },
   /** News */
   {
     title: 'News ',

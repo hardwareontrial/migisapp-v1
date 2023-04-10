@@ -72,20 +72,30 @@ export default [
           {
             title: 'Materi',
             route: 'apps-elearning-materials',
+            resource: 'AppOKMMaterial',
+            action: 'read',
           },
           {
             title: 'Soal',
             route: 'apps-elearning-questions',
+            resource: 'AppOKMQuestion',
+            action: 'read',
           },
           {
             title: 'Jadwal Ujian',
             route: 'apps-elearning-schedule',
+            resource: 'AppOKMSchedule',
+            action: 'read',
           },
           {
             title: 'Rekap Raport',
             route: 'apps-elearning-raport-all',
+            resource: 'AppOKM',
+            action: 'read',
           },
-        ]
+        ],
+        resource: 'AppOKM',
+        action: 'read',
       },
       {
         title: 'Surat Jalan',
