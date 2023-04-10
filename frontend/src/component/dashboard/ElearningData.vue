@@ -2,9 +2,9 @@
   <b-card class="card-transaction" no-body>
     <b-card-header>
       <b-card-title>Elearning</b-card-title>
-      <b-link class="text-secondary">
+      <!-- <b-link class="text-secondary">
         <feather-icon icon="RefreshCwIcon" size="16" @click="refreshFethData()"/>
-      </b-link>
+      </b-link> -->
     </b-card-header>
     <b-card-body>
       <div v-if="exams_schedules.length > 0">
