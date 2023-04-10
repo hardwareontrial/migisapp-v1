@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row>
-      <b-col cols="12" md="6" lg="3">
+      <b-col cols="12" md="6" lg="4">
         <v-select
           label="name"
           v-model="selectedNik"
@@ -64,13 +64,13 @@
         </b-card>
       </b-col>
     </b-row>
-    {{ positionChild.length }}
+<!--    {{ positionChild.length }}-->
   </div>
 </template>
 
 <script>
 import {
-  BRow, BCol, BCard, BTable, BButton,
+  BRow, BCol, BCard, BTable, BButton, BAvatar,
 } from 'bootstrap-vue'
 import http from '@/customs/axios'
 import vSelect from 'vue-select'
@@ -80,7 +80,7 @@ import store from '@/store'
 export default {
   components: {
     InfoExam, vSelect,
-    BRow, BCol, BCard, BTable, BButton,
+    BRow, BCol, BCard, BTable, BButton, BAvatar,
   },
   data(){
     return{
@@ -128,6 +128,15 @@ export default {
         this.userList()
         var paramsid = parseInt(this.$route.params.nik)
         if(paramsid < 8000000){ 
+          this.selectedNik = await paramsid
+          await this.fetchRaport(paramsid)
+        }else{
+          this.selectedNik = 0
+        }
+      }else if(this.userIsAdmin === 0 && this.userNik >= 8000000){
+        this.userList();
+        var paramsid = parseInt(this.$route.params.nik)
+        if(paramsid < 8000000){
           this.selectedNik = await paramsid
           await this.fetchRaport(paramsid)
         }else{
