@@ -42,6 +42,8 @@
       </template>
       <template #cell(tipe)="data">
         <b-badge
+          class="badge-glow"
+          pill
          :variant=" data.item.type === 1 ? 'success':'warning' ">
         {{ data.item.type === 1 ? 'Ujian' : 'Remedial' }}
         </b-badge>
@@ -74,6 +76,14 @@
             type="button"
             variant="flat-danger">
             <feather-icon icon="PowerIcon" size="14" :class="data.item.isactive === 1 ? 'text-danger' : 'text-success'"/>
+          </b-button>
+          <b-button
+            @click="deleteSchedule(data.item.id)"
+            class="btn-icon"
+            size="sm"
+            type="button"
+            variant="flat-danger">
+            <feather-icon icon="Trash2Icon" size="14"/>
           </b-button>
         </b-button-group>
       </template>
@@ -189,6 +199,34 @@ export default {
       })
       .catch((e) => {
         console.error(e)
+      })
+    },
+    deleteSchedule(dataID){
+      this.$swal({
+        title: '<h4><strong>Jadwal ini akan di HAPUS.</strong></h4>',
+        text: '',
+        html:
+          'Ini akan menghapus seluruh data ujian meliputi:' +
+          '<div class="text-left"><ul>' +
+          '<li>Detail Ujian</li>' +
+          '<li>Peserta Ujian</li>' +
+          '<li>Hasil Peserta Ujian</li>' +
+          '<li>Data di Raport</li>' +
+          '</ul></div>' +
+          'Apakah yakin untuk melanjutkan?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Batal',
+        customClass: {
+          confirmButton: 'btn btn-danger',
+          cancelButton: 'btn btn-outline-primary ml-1',
+        },
+        buttonsStyling: false,
+      }).then(result => {
+        if (result.value) {
+          alert('deleted')
+        }
       })
     }
   },
