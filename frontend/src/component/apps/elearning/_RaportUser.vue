@@ -11,17 +11,17 @@
           :clearable="false"
           class="mb-1">
           <template #option="{ avatar, avatarlink, name }">
-            <!-- <b-avatar
+            <b-avatar
               size="26"
               :src="avatar ? avatarlink : null"
-              variant="light-primary"/> -->
+              variant="light-primary"/>
             <span class="ml-50 d-inline-block align-middle"> {{ name }}</span>
           </template>
           <template #selected-option="{ avatar, avatarlink, name }">
-            <!-- <b-avatar
+            <b-avatar
               size="26"
               :src="avatar ? avatarlink : null"
-              variant="light-primary"/> -->
+              variant="light-primary"/>
             <span class="ml-50 d-inline-block align-middle"> {{ name }}</span>
           </template>
         </v-select>
