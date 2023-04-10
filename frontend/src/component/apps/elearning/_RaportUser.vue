@@ -41,10 +41,18 @@
               {{ data.item.schedule.title }}
             </template>
             <template #cell(score)="data">
-              {{ data.item.isdone === 3 ? '0' : data.item.score }} / {{ data.item.schedule.nilai_min}}
+              <span
+                class="font-weight-bolder"
+                :class="`text-${data.item.isdone === 3 ? 'danger' : (data.item.score >= data.item.schedule.nilai_min) ? 'success' : 'danger'}`">
+                {{ data.item.isdone === 3 ? '0' : data.item.score }}
+              </span>
+              / {{ data.item.schedule.nilai_min}}
             </template>
             <template #cell(status)="data">
-              {{ data.item.isdone === 3 ? 'Proses' : (data.item.ispassed === 1 ? 'Lulus' : 'Tidak Lulus') }}
+              <feather-icon
+                :icon="data.item.isdone === 3 ? 'ClockIcon' : (data.item.ispassed === 1 ? 'CheckCircleIcon' : 'XCircleIcon')"
+                :class="`text-${data.item.isdone === 3 ? 'success' : (data.item.ispassed === 1 ? 'primary' : 'danger')}`"
+                size="14"/>
             </template>
             <template #cell(date)="data">
               {{ data.item.user_end_exam ? $moment(data.item.user_end_exam).format('DD/MMM/YYYY'): '-' }}
@@ -64,7 +72,23 @@
         </b-card>
       </b-col>
     </b-row>
-<!--    {{ positionChild.length }}-->
+
+    <detail-result
+      :show="detailResultProps.show"
+      :title="detailResultProps.title"
+      :size="detailResultProps.size">
+      <template v-slot:modalbody>
+        <table-result :user-data-exam="detailResultProps.data"></table-result>
+      </template>
+      <template v-slot:modalfooter>
+        <b-button
+          @click="detailResultProps.show = !detailResultProps.show;detailResultProps.data={}"
+          variant="flat-primary">
+          Tutup
+        </b-button>
+      </template>
+    </detail-result>
+
   </div>
 </template>
 
@@ -76,10 +100,12 @@ import http from '@/customs/axios'
 import vSelect from 'vue-select'
 import InfoExam from '@/component/utils/Modal.vue'
 import store from '@/store'
+import TableResult from '@/component/apps/elearning/_ParticipantResult.vue'
+import DetailResult from '@/component/utils/Modal.vue'
 
 export default {
   components: {
-    InfoExam, vSelect,
+    InfoExam, vSelect, TableResult, DetailResult,
     BRow, BCol, BCard, BTable, BButton, BAvatar,
   },
   data(){
@@ -87,7 +113,7 @@ export default {
       items: [],
       fields: [
         { key: 'exam', label: 'Nama Ujian'},
-        { key: 'score', label: 'Nama Nilai/Nilai Min.', thStyle: { width: "25%" }, thClass: 'text-center', tdClass: 'text-center'},
+        { key: 'score', label: 'Nilai/Nilai Min.', thStyle: { width: "25%" }, thClass: 'text-center', tdClass: 'text-center'},
         { key: 'status', label: 'Status', thStyle: { width: "15%" }, thClass: 'text-center', tdClass: 'text-center'},
         { key: 'date', label: 'Tgl. Pelaksanaan', thStyle: { width: "20%" }, thClass: 'text-center', tdClass: 'text-center'},
         { key: 'opt', label: 'Option', thStyle: { width: "5%" }, thClass: 'text-center', tdClass: 'text-center'},
@@ -98,6 +124,18 @@ export default {
       userDetailProps: { id: null, position: null },
       positionChild: [],
       selectedNik: 0,
+      detailResultProps: {
+        show: false,
+        title: 'Info Hasil Ujian User',
+        size: 'lg',
+        data: {},
+      },
+      badgeStatusProps: [
+        { 1: 'Lulus', 2: 'Tidak Lulus' },
+        { 1: 'primary', 2: 'danger', 3: 'success' },
+        { 1: 'Selesai', 2: 'N/A', 3: 'Proses' },
+        { 1: 'CheckCircleIcon', 2: 'XCircleIcon', 3: 'ClockIcon' },
+      ]
     }
   },
   computed:{
@@ -166,7 +204,7 @@ export default {
       if(this.selectedNik !== 0){
         http.get('okm/userexam/all', { params: {userdataNik: value} })
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           this.items = res.data
         })
         .catch((e) => { console.error(e) })
@@ -175,7 +213,8 @@ export default {
       }
     },
     openDetailExam(value){
-      console.log(value)
+      this.detailResultProps.show = true;
+      this.detailResultProps.data = value;
     },
     loadDataSubordinates(){
       this.fetchRaport(this.selectedNik)  
