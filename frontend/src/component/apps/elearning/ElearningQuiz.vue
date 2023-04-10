@@ -154,7 +154,7 @@
                 <p :class="`h1 ${result.score.variant}`"><strong>{{ result.score.value }}</strong></p>
               </b-col>
               <b-col cols="12" class="mb-0 mt-1">
-                <b-button variant="flat-primary" :to="{ name: 'new-dashboard'}">
+                <b-button variant="flat-primary" :to="{ name: 'dashboard'}">
                   Tutup
                 </b-button>
               </b-col>
