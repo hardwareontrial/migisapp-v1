@@ -69,7 +69,8 @@
           />
         </template>
 
-        <b-dropdown-item 
+        <b-dropdown-item
+          :disabled="userdata.nik >= 8000000 && userdata.admin !== 1"
           :to="{ name: 'apps-usermgt-accountsettings', params: {id: userdata.detailuser.id, nik: userdata.nik } }"
           link-class="d-flex align-items-center">
           <feather-icon
@@ -79,7 +80,8 @@
           />
           <span>Pengaturan</span>
         </b-dropdown-item>
-        <b-dropdown-item 
+        <b-dropdown-item
+          :disabled="userdata.nik >= 8000000 && userdata.admin !== 1"
           :to="{ name: 'apps-elearning-raport-nik', params: {id: userdata.detailuser.id, nik: userdata.nik} }"
           link-class="d-flex align-items-center">
           <feather-icon
