@@ -169,7 +169,7 @@ export default {
         localStorage.setItem('token', JSON.stringify(res.data.token))
         let datauser = JSON.parse(localStorage.getItem('userdata')) 
         this.$ability.update(datauser.ability)
-        this.$router.replace(this.$route.query.redirect || { name: 'new-dashboard' }).then(()=>{
+        this.$router.replace(this.$route.query.redirect || { name: 'dashboard' }).then(()=>{
           this.$toast({
             component: ToastificationContent,
             props: { text: res.data.message, icon: 'CoffeeIcon', variant: 'success', title: `Selamat Datang ${datauser.detailuser.name}`},
