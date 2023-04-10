@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ $can('read', 'AppOKM') }}
-
     <!-- Info Table -->
     <b-table-simple responsive small>
       <b-tbody>
