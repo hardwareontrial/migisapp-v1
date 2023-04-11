@@ -19,18 +19,25 @@ import '@/customs/acl'
 import '@/customs/moment'
 import { BootstrapVueIcons } from 'bootstrap-vue'
 
+// Laravel Websockets
 // import Echo from 'laravel-echo';
 // window.Pusher = require('pusher-js');
+// const token = localStorage.getItem('token');
 // window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.VUE_APP_WEBSOCKETS_KEY,
-//     wsHost: process.env.VUE_APP_WEBSOCKETS_SERVER,
-//     wsPort:6001,
-//     forceTLS: false,
-//     disableStats: true,
-//     // cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     // forceTLS: true
-// });
+//   broadcaster: 'pusher',
+//   key: process.env.VUE_APP_WEBSOCKETS_KEY,
+//   wsHost: process.env.VUE_APP_WEBSOCKETS_SERVER,
+//   wsPort: 6001,
+//   cluster: 'mt1',
+//   forceTLS: false,
+//   disableStats: true,
+//   authEndpoint: process.env.VUE_APP_API_ENDPOINT+'/api/broadcasting/auth',
+//   auth: {
+//     headers: {
+//       Authorization: 'Bearer ' +token,
+//     }
+//   },
+// })
 
 Vue.use(BootstrapVueIcons)
 // BSV Plugin Registration
