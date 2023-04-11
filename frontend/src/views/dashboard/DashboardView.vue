@@ -49,8 +49,8 @@ export default {
     store.commit('appConfig/UPDATE_LAYOUT_TYPE', 'horizontal')
   },
   created(){
-    this.userdata
-  }
+    this.userdata;
+  },
 }
 </script>
 
