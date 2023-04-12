@@ -56,8 +56,8 @@ class AutoSyncPresence extends Command
             $lastdata = AppAttendace::select('id', 'scan_date')->orderBy('scan_date', 'desc')->first();
             $source_lastdata = AppAttendaceSource::where('scan_date', '>', $lastdata->scan_date)->min('scan_date');
             $start = $source_lastdata;
-            // $end = Carbon::now()->format('Y-m-d H:i:s');
-            $end = '2023-03-20 12:00:00';
+            $end = Carbon::now()->format('Y-m-d H:i:s');
+//            $end = '2023-03-20 12:00:00';
         }
 
         $data = AppAttendaceSource::tanpaHarianLepas()
