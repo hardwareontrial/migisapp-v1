@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <b-alert
       :variant="alertresetpass.variant"
       :show="alertresetpass.show">
@@ -9,8 +9,8 @@
       </div>
     </b-alert>
 
-    
-    
+
+
     <Table
       :items="items"
       :fields="fields"
@@ -134,8 +134,8 @@
 </template>
 
 <script>
-import { 
-  BButton, 
+import {
+  BButton,
   BMedia, BAvatar,
   BLink,
   BDropdown, BDropdownItem,
@@ -152,7 +152,7 @@ export default {
     }
   },
   components: {
-    BButton, 
+    BButton,
     BMedia, BAvatar,
     BLink,
     BDropdown, BDropdownItem,
@@ -199,7 +199,7 @@ export default {
     },
     handleSearch(val){
       this.search = val
-      this.fetchData() 
+      this.fetchData()
     },
     handleSort(val){
       this.sortBy = val.sortBy
@@ -238,7 +238,7 @@ export default {
       const datalogin = val2
       const data = val3
       http
-      .patch('user/setactive/'+val3.id, { 
+      .patch('user/setactive/'+val3.id, {
         newvalue: newStatusActive.toString(),
         nik: datalogin ? data.nik : null
       })
@@ -247,7 +247,7 @@ export default {
         this.fetchData()
         this.busy = false
       })
-      .catch((e) => { 
+      .catch((e) => {
         console.error(e)
         this.busy = false
         this.fetchData()
@@ -286,7 +286,7 @@ export default {
       }
       this.busy = true
       http
-      .post('user/auth/update/password/'+nik, { resetpassword: 'mig123!' })
+      .post('user/auth/update/password/'+nik, { resetpassword: 'mig123!' }, { params: { frompage: 'usermgt-resetpassword' } })
       .then((res) => {
         // console.log(res)
         this.alertresetpass = {

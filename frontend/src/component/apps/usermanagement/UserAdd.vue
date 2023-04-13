@@ -54,7 +54,7 @@
               </b-form-radio>
             </div>
           </b-form-group>
-          
+
           <div v-if="addtype === 'A'">
             <b-form-group
               label="Status"
@@ -120,10 +120,10 @@
             </b-form-group>
             <b-form-group
               label="Login Active"
-              label-for="user-active">
+              label-for="login-active">
               <b-form-select
                 v-model="formuser.loginActive"
-                id="user-active"
+                id="login-active"
                 class="form-control">
                 <b-form-select-option value="0">Tidak Aktif</b-form-select-option>
                 <b-form-select-option value="1">Aktif</b-form-select-option>
@@ -185,7 +185,7 @@
             </b-form-group>
           </div>
         </b-form>
-        
+
         <div class="d-flex mt-2 p-2">
           <b-button
             type="button"
@@ -299,7 +299,7 @@ export default {
     getuserlist(){
       http
       .get('misc/list/usernologin')
-      .then((res) => { 
+      .then((res) => {
         // console.log(res)
         this.userlist = res.data
       })
@@ -346,7 +346,7 @@ export default {
       this.processing = true
       http
       .post('user/store', this.formuser)
-      .then((res) => { 
+      .then((res) => {
         this.processing = false
         called.$emit('userlistfetchData')
         this.$toast({
@@ -374,7 +374,7 @@ export default {
       this.processing = true
       http
       .post('user/auth/register', this.formlogin)
-      .then((res) => { 
+      .then((res) => {
         this.processing = false
         called.$emit('userlistfetchData')
         this.$toast({
