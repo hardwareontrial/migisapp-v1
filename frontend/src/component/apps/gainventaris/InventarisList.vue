@@ -1,6 +1,6 @@
 <template>
   <div>
-   
+
     <Table
       v-show="sizescreen === 'lg' || sizescreen === 'xl'"
       :items="items"
@@ -94,14 +94,14 @@
             <feather-icon icon="Edit3Icon" />
             <span class="align-middle ml-50">Edit</span>
           </b-dropdown-item>
-          <b-dropdown-item 
+          <b-dropdown-item
             @click="handleToggleActive(data.item.kd_brg.split(' ').join('-'))"
             :disabled="!$can('archieve', 'AppInventaris')">
             <feather-icon icon="ArchiveIcon" />
             <span class="align-middle ml-50" v-if="data.item.active === 1">Tandai di Gudang</span>
             <span class="align-middle ml-50" v-else>Aktifkan</span>
           </b-dropdown-item>
-          <b-dropdown-item 
+          <b-dropdown-item
             @click="handleOpenSellModal(data.item.id)"
             :disabled="!$can('sell', 'AppInventaris')">
             <feather-icon icon="ShoppingCartIcon" />
@@ -150,7 +150,7 @@
               <b-tr>
                 <b-th sticky-column style="width: 25%; font-size: 10pt;"> Aktif </b-th>
                 <b-td style="font-size: 10pt;">
-                  <b-badge 
+                  <b-badge
                     pill
                     :variant="active[1][data.item.active]"
                     class="badge">
@@ -161,7 +161,7 @@
               <b-tr>
                 <b-th sticky-column style="width: 25%; font-size: 10pt;"> Status </b-th>
                 <b-td style="font-size: 10pt;">
-                  <b-badge 
+                  <b-badge
                     pill
                     :variant="status[1][data.item.status_id]"
                     class="badge">
@@ -171,7 +171,7 @@
               </b-tr>
               <b-tr>
                 <b-th sticky-column style="width: 25%; font-size: 10pt;"> Lokasi </b-th>
-                <b-td style="font-size: 10pt;"> 
+                <b-td style="font-size: 10pt;">
                   <b-link @click="sentDetailLokasi(data.item.locname)">
                     {{ data.item.locname.name }}
                   </b-link>
@@ -179,7 +179,7 @@
               </b-tr>
               <b-tr v-if="data.item.status_id === 2">
                 <b-th sticky-column style="width: 25%; font-size: 10pt;"> User </b-th>
-                <b-td style="font-size: 10pt;"> 
+                <b-td style="font-size: 10pt;">
                   <b-link @click="sentDetailUser(data.item.user1name)">
                     <small>{{ data.item.user1name.name }}</small>
                   </b-link>
@@ -187,7 +187,7 @@
               </b-tr>
               <b-tr v-if="data.item.status_id === 2 && data.item.user2_id">
                 <b-th sticky-column style="width: 25%; font-size: 10pt;"> </b-th>
-                <b-td style="font-size: 10pt;"> 
+                <b-td style="font-size: 10pt;">
                   <b-link @click="sentDetailUser(data.item.user2name)">
                     <small>{{ data.item.user2name.name }}</small>
                   </b-link>
@@ -195,8 +195,8 @@
               </b-tr>
               <b-tr v-show="data.item.status_id === 2">
                 <b-th sticky-column style="width: 25%; font-size: 10pt;"> Dept </b-th>
-                <b-td style="font-size: 10pt;"> 
-                  {{ data.item.status_id === 2 ? (data.item.user1name.position ? data.item.user1name.position.deptname.name : '') : '' }} 
+                <b-td style="font-size: 10pt;">
+                  {{ data.item.status_id === 2 ? (data.item.user1name.position ? data.item.user1name.position.deptname.name : '') : '' }}
                 </b-td>
               </b-tr>
             </b-tbody>
@@ -228,15 +228,15 @@
         </app-collapse-item>
       </template>
     </m-table>
-    
+
     <sell-modal ref="invsellmodal"/>
-    
+
   </div>
 </template>
 
 <script>
-import { 
-  BButton, 
+import {
+  BButton,
   BDropdown, BDropdownItem,
   BLink,
   BBadge,
@@ -252,7 +252,7 @@ export default {
     Table: () => import('@/component/utils/Datatable.vue'),
     mTable: () => import('@/component/utils/MobileDatatable.vue'),
     SellModal: () => import('@/component/apps/gainventaris/_InventarisInputSellPrice.vue'),
-    BButton, 
+    BButton,
     BDropdown, BDropdownItem,
     BLink,
     BBadge,
@@ -265,11 +265,11 @@ export default {
     return{
       fields: [
         { key: 'code', label: 'Kode', thStyle: { width: "20%" } },
-        { key: 'namabrg', label: 'Nama Barang', thClass: 'text-center' },
+        { key: 'namabrg', label: 'Nama Barang', thClass: 'text-left' },
         { key: 'dept', label: 'Departemen', thStyle: { width: "12%" } },
         { key: 'status', label: 'Status', thStyle: { width: "10%" }, thClass: 'text-center', tdClass: 'text-center' },
         { key: 'location', label: 'Lokasi', thStyle: { width: "15%" }, thClass: 'text-center', tdClass: 'text-center' },
-        { key: 'is_active', label: 'Status Aktif', thStyle: { width: "10%" }, thClass: 'text-center', tdClass: 'text-center' },
+        { key: 'is_active', label: 'Status', thStyle: { width: "10%" }, thClass: 'text-center', tdClass: 'text-center' },
         { key: 'opsi', thStyle: { width: "10%" }, thClass: 'text-center', tdClass: 'text-center' },
       ],
       items: [],
@@ -335,7 +335,7 @@ export default {
           to: receivedData.to
         }
       })
-      .catch((e) => { 
+      .catch((e) => {
         console.error(e)
       })
       .finally(() => { this.busy = false })
@@ -347,7 +347,7 @@ export default {
       this.$router.push({ name: 'apps-inventaris-export' }).then(()=> { called.$emit('inventarisexportsetuser', val) })
     },
     sentDetailLokasi(val){
-      this.$router.replace({ name: 'apps-inventaris-export' }).then(()=> { 
+      this.$router.replace({ name: 'apps-inventaris-export' }).then(()=> {
         called.$emit('inventarisexportsetlocation', val)
       })
     },
