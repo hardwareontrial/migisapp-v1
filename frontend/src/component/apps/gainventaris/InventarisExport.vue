@@ -1,6 +1,7 @@
 <template>
   <div>
 
+    <!-- FILTER SELECT -->
     <b-card title="Filter">
       <b-row>
         <b-col cols="12" lg="4">
@@ -67,8 +68,11 @@
       </b-row>
     </b-card>
 
+    <!-- DATA -->
     <div class="mb-2"
       v-show="returndata.length !== 0">
+
+      <!-- OPTION PRINT -->
       <b-dropdown
         class="mb-1"
         :size="sizescreen === 'xl' || sizescreen === 'lg' ? 'md' : 'sm'"
@@ -99,9 +103,13 @@
           Serah Kembali
         </b-dropdown-item>
       </b-dropdown>
-      <b-card no-body
-       v-show="sizescreen === 'lg' || sizescreen === 'xl'">
-        <b-table-simple class="bordered">
+
+      <!-- DATA TABLE -->
+      <b-card
+        no-body
+        v-show="sizescreen === 'lg' || sizescreen === 'xl'">
+        <b-table-simple
+          class="bordered">
           <b-thead>
             <b-tr>
               <b-th class="text-center align-middle">Kode</b-th>
@@ -140,6 +148,7 @@
           </b-tbody>
         </b-table-simple>
       </b-card>
+
       <b-card no-body
        v-show="sizescreen === 'xs' || sizescreen === 'sm' || sizescreen === 'md'">
         <b-table-simple responsive small>
@@ -172,7 +181,8 @@
         </b-table-simple>
       </b-card >
     </div>
-    
+
+    <!-- PRINT DATA NOT RENDERED -->
     <print-list
       ref="printlist"
       v-show="false"
@@ -186,46 +196,32 @@
       :selected-print="selectedPrint"/>
 
     <print-letter
-      ref="printletter"
       v-show="false"
-      :selected-print="selectedPrint"
-      :user-name="selectedUserName"
-      :user-id="selectedUserId"
-      :user-nik="selectedUserNik"
-      :user-level="selectedUserLevel"
-      :user-position="selectedUserPosition"/>
+      ref="printletter"
+      :selected-user="selectedUser"
+      :selected-print="selectedPrint">
 
+    </print-letter>
   </div>
 </template>
 
 <script>
 import {
-  BCard,
-  BRow, BCol,
-  BFormGroup, 
-  BButton, BButtonGroup,
-  BTable, BTableSimple, BThead, BTbody, BTfoot, BTr, BTh, BTd,
-  BFormCheckbox,
-  BDropdown, BDropdownItem,
-  BAvatar,
+  BCard, BRow, BCol, BFormGroup, BButton, BButtonGroup, BTable, BTableSimple, BThead, BTbody,
+  BTfoot, BTr, BTh, BTd, BFormCheckbox, BDropdown, BDropdownItem, BAvatar,
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import http from '@/customs/axios'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import PrintLetter from './_InventarisPrintTurnInLetter.vue'
 
 export default {
-  components: { 
-    BCard,
-    BRow, BCol,
-    BFormGroup, 
-    BButton, BButtonGroup,
-    BTable, BTableSimple, BThead, BTbody, BTfoot, BTr, BTh, BTd,
-    BFormCheckbox,
-    BDropdown, BDropdownItem,
-    BAvatar,
+  components: {
+    BCard, BRow, BCol, BFormGroup, BButton, BButtonGroup, BTable, BTableSimple, BThead, BTbody,
+    BTfoot, BTr, BTh, BTd, BFormCheckbox, BDropdown, BDropdownItem, BAvatar,
     PrintList: () => import('@/component/apps/gainventaris/_InventarisPrintList.vue'),
     PrintQr: () => import('@/component/apps/gainventaris/_InventarisPrintQr.vue'),
-    PrintLetter: () => import('@/component/apps/gainventaris/_InventarisPrintTurnInLetter.vue'),
+    PrintLetter,
     vSelect,
   },
   data(){
@@ -360,7 +356,7 @@ export default {
     },
     printLetter(val){
       this.$refs.printletter.setLetterType(val)
-    }
+    },
   },
   mounted(){
     this.getListLokasi()
@@ -416,7 +412,7 @@ export default {
   computed: {
     sizescreen(){
       return this.$store.getters['app/currentBreakPoint']
-    }
+    },
   }
 }
 </script>
