@@ -7,6 +7,7 @@ export default [
       {
         path: 'dashboard',
         name: 'apps-edoc-dashboard',
+        component: () => import('@/component/apps/edoc/EdocDashboard.vue')
       }
     ]
   }
