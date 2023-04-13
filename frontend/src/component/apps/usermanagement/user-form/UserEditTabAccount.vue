@@ -214,9 +214,9 @@ export default {
         { value: 0, text: 'Non-Aktif'}
       ],
       processing: false,
-      required, 
-      email, 
-      password, 
+      required,
+      email,
+      password,
       confirmed,
       editmode: false
     }
@@ -273,7 +273,7 @@ export default {
     resetpassword(){
       this.processing = true
       http
-      .post('user/auth/update/password/'+this.userNik, { resetpassword: 'mig123!' })
+      .post('user/auth/update/password/'+this.userNik, { resetpassword: 'mig123!' }, { params: { frompage: 'usermgt-resetpassword' } })
       .then((res) => {
         this.processing = false
         called.$emit('userlistfetchData')
