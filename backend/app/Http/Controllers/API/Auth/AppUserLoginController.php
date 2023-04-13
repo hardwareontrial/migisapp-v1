@@ -63,13 +63,27 @@ class AppUserLoginController extends Controller
 
   public function changepassword(Request $request, $nik)
   {
-    $user = AppUserLogin::where('nik', $nik)->first();
-    $password = $request->resetpassword;
-    $resetpassword = Hash::make($password);
-    $user->password = $resetpassword;
-    $user->save();
-    if(!$user) { return response()->json(['message' => 'Reset password gagal.'], 500); }
-    return response()->json(['message' => 'Password berhasil direset, password baru: '.$password.'.'], 200);
+    $frompage = request()->frompage;
+    if($frompage === 'usersettings-resetpassword'){
+      $user = AppUserLogin::where('nik', $nik)->first();
+      if($request->valueRePassword !== $request->valuePasswordNew){ return response()->json(['message' => 'Password Baru tidak sesuai'], 500); }
+      if(!Hash::check($request->valuePasswordOld, $user->password)){ return response()->json(['message' => 'Password tidak sesuai'], 500); }
+      $newpassword = Hash::make($request->valuePasswordNew);
+      $user->password = $newpassword;
+      $user->save();
+      return response()->json(['message' => 'success'], 200);
+    }
+    else if($frompage === 'usermgt-resetpassword'){
+      $user = AppUserLogin::where('nik', $nik)->first();
+      $password = $request->resetpassword;
+      $resetpassword = Hash::make($password);
+      $user->password = $resetpassword;
+      $user->save();
+      if (!$user) {
+        return response()->json(['message' => 'Reset password gagal.'], 500);
+      }
+      return response()->json(['message' => 'Password berhasil direset, password baru: ' . $password . '.'], 200);
+    }
   }
 
   public function changeactive(Request $request, $nik)
