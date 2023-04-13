@@ -1,27 +1,25 @@
 <template>
   <div>
-    <button @click="increment">Count is: {{ count }}</button>
+    <transition :name="transition">
+      <router-view
+        :userdata="userdata">
+      </router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from '@vue/composition-api'
+
+import store from "@/store";
 
 export default {
-  setup(){
-    let count = ref(0);
-    
-    function increment(){
-      count++;
-    }
-
-    onMounted(() => {
-      console.log(`Initial count is ${count.value}.`);
-    })
-
-    return {
-      increment,
-      count,
+  computed: {
+    transition(){
+      return store.state.appConfig.layout.routerTransition
+    },
+    userdata(){
+      let data = JSON.parse(localStorage.getItem('userdata'))
+      return data
     }
   }
 }
