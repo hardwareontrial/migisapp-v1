@@ -84,14 +84,14 @@
               </tr>
               <tr>
                 <td colspan="2" style="font-size:10pt;">
-                  <u>{{ letterType === 1 ? selectedUserProps.name : userdata.detailuser.name }}</u> <br />
-                  {{ letterType === 1 ? selectedUserProps.position : userdata.detailuser.position.name }}
+                  <u>{{ letterType === 1 ? selectedUserProps.name : (userIsAdmin === 1 ? 'ADMINISTRATOR' : userdata.detailuser.name) }}</u> <br />
+                  {{ letterType === 1 ? selectedUserProps.position : (userIsAdmin === 1 ? '' : userdata.detailuser.position.name) }}
                 </td>
                 <td></td>
                 <td></td>
                 <td colspan="2" style="font-size:10pt;">
-                  <u>{{ letterType === 1 ? userdata.detailuser.name : selectedUserProps.name }}</u> <br />
-                  {{ letterType === 1 ? userdata.detailuser.position.name : selectedUserProps.position }}
+                  <u>{{ letterType === 1 ? (userIsAdmin === 1 ? 'ADMINISTRATOR' : userdata.detailuser.name) : selectedUserProps.name }}</u> <br />
+                  {{ letterType === 1 ? (userIsAdmin === 1 ? '' : userdata.detailuser.position.name) : selectedUserProps.position }}
                 </td>
               </tr>
               <tr v-if="positionParent.length > 0">
@@ -115,13 +115,13 @@
                   {{ positionParent[0].position_name }}
                 </td>
               </tr>
-              <tr v-else-if="(positionParent.length >= 0) && userIsAdmin === 1">
-                <td colspan="6" style="font-size:10pt;" id="signoff-three">
-                  <u>User</u> <br />
-                  HRM Manager
-                </td>
-              </tr>
-              <tr v-else-if="(positionParent.length === 0) && userIsAdmin === 0">
+<!--              <tr v-else-if="(positionParent.length >= 0)">-->
+<!--                <td colspan="6" style="font-size:10pt;" id="signoff-three">-->
+<!--                  <u>User</u> <br />-->
+<!--                  HRM Manager-->
+<!--                </td>-->
+<!--              </tr>-->
+              <tr v-else-if="positionParent.length === 0">
                 <td colspan="6" style="font-size:10pt;" id="signoff-three"></td>
               </tr>
             </tbody>
