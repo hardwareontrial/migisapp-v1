@@ -91,7 +91,7 @@
                 <td></td>
                 <td colspan="2" style="font-size:10pt;">
                   <u>{{ letterType === 1 ? (userIsAdmin === 1 ? 'ADMINISTRATOR' : userdata.detailuser.name) : selectedUserProps.name }}</u> <br />
-                  {{ letterType === 1 ? (userIsAdmin === 1 ? '' : userdata.detailuser.position.name) : selectedUserProps.position }}
+                  {{ letterType === 1 ? (userIsAdmin === 1 ? '' : (userdata.detailuser.position ? userdata.detailuser.position.name : '') )  : selectedUserProps.position }}
                 </td>
               </tr>
               <tr v-if="positionParent.length > 0">
