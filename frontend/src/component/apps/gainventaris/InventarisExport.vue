@@ -9,7 +9,7 @@
             label="Berdasarkan Code"
             label-for="f-code">
             <v-select
-              id="f-code" 
+              id="f-code"
               label="kd_brg"
               multiple
               :options="listCode"
@@ -28,13 +28,13 @@
             label="Berdasarkan User"
             label-for="f-user">
             <v-select
-              id="f-user" 
+              id="f-user"
               label="name"
               @input="setInputUser"
               :options="listUser"
               v-model="selectedUser">
               <template #option="{ name, avatar, avatarlink }">
-                <b-avatar 
+                <b-avatar
                   variant="info"
                   size="24"
                   :src="avatar ? avatarlink : null"/>
@@ -51,7 +51,7 @@
             label="Berdasarkan Lokasi"
             label-for="f-lokasi">
             <v-select
-              id="f-lokasi" 
+              id="f-lokasi"
               label="name"
               @input="setInputLocation"
               :options="listLokasi"
@@ -189,8 +189,8 @@
       :location-name="selectedLokasiName"
       :user-name="selectedUserName"
       :selected-print="selectedPrint" />
-    
-    <print-qr 
+
+    <print-qr
       ref="printqr"
       v-show="false"
       :selected-print="selectedPrint"/>
@@ -424,7 +424,7 @@ export default {
 <style lang="scss" scoped>
   @import '~@core/scss/base/bootstrap-extended/include';
   .center-check-box {
-    text-align:center; 
+    text-align:center;
     vertical-align:middle;
   }
 </style>
