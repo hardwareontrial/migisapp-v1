@@ -18,11 +18,6 @@ export default [
         action: 'read',
       },
       {
-        title: 'E-Doc',
-        route: 'apps-edoc-dashboard',
-        icon: 'ServerIcon',
-      },
-      {
         title: 'HR',
         route: 'apps-hris-index',
         icon: 'BriefcaseIcon',

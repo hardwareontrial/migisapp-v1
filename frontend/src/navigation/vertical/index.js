@@ -43,11 +43,6 @@ export default [
       */
     ]
   },
-  {
-    title: 'E-Doc',
-    route: 'apps-edoc-dashboard',
-    icon: 'ServerIcon',
-  },
   /** HRIS */
   {
     title: 'HR',
