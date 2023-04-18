@@ -12,17 +12,6 @@ export default [
     path: '/apps',
     component: () => import('@/views/apps/AppView.vue'),
     children: [
-      {
-        path: 'testpage',
-        name: 'testpage',
-        component: () => import('@/views/TestPage.vue'),
-        meta: {
-          pageTitle: 'Tespage',
-          breadcrumb: [
-            { text: 'Test', active: true },
-          ],
-        },
-      },
       ...elearning,
       ...todo,
       ...gainventaris,

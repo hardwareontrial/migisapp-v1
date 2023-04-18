@@ -207,9 +207,4 @@ export default [
       },
     ]
   },
-  {
-    title: 'Test Page',
-    route: 'testpage',
-    icon: 'SettingsIcon',
-  },
 ]
