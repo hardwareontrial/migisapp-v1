@@ -78,7 +78,7 @@ Route::group(['prefix' => 'inventaris', 'middleware' => 'auth:sanctum'], functio
   });
   Route::get('user', [AppGaInventarisController::class, 'detailbyuser']);
   Route::get('data', [AppGaInventarisController::class, 'index']);
-  Route::get('data/{id}', [AppGaInventarisController::class, 'detail']);
+  Route::get('data/{id}', [AppGaInventarisController::class, 'detail'])->withoutMiddleware('auth:sanctum');
   Route::post('new', [AppGaInventarisController::class, 'store']);
   Route::post('new-merk', [AppGaInventarisController::class, 'addmerk']);
   Route::post('new-location', [AppGaInventarisController::class, 'addlocation']);
