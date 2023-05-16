@@ -41,7 +41,7 @@
         {{ data.item.deptname.name }}
       </template>
       <template #cell(w_material)="data">
-        {{ data.item.m_duration }} Menit
+        {{ levelOptions[1][data.item.m_level] }}
       </template>
       <template #cell(total_question)="data">
         {{ data.item.questionslist ? data.item.questionslist.length : 0 }} Soal
@@ -97,6 +97,9 @@ import vSelect from 'vue-select'
 export default {
   props: {
     deptList: {
+      type: Array,
+    },
+    levelOptions: {
       type: Array,
     }
   },
@@ -155,7 +158,7 @@ export default {
     handleFetchData(){
       this.busy = true
       http
-      .get('okm/material/all', { 
+      .get('okm/material/all', {
         params: {
           page: this.current_page,
           per_page: this.per_page,
@@ -163,7 +166,7 @@ export default {
           sortby: this.sortBy,
           sortbydesc: this.sortByDesc ? 'DESC' : 'ASC',
           isactive: this.isactivefilter,
-        } 
+        }
       })
       .then((res) => {
         var datamaterial = res.data.message
