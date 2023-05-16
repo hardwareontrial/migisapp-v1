@@ -87,7 +87,7 @@ class ElearningScheduleController extends Controller
     if($frompage == 'elearningschedule'){
       $condition = request()->category;
       $q = request()->q;
-      $data = AppElearningSchedule::with('dataquestion')
+      $data = AppElearningSchedule::with('dataquestion', 'creator')
         ->where(function ($query) use ($condition, $q){
           $query->whereHas('dataquestion', function($query2) use ($q){
             $query2->where(function($query3) use ($q){
@@ -116,7 +116,7 @@ class ElearningScheduleController extends Controller
       //     ->orderBy('id', 'desc')
       //     ->get();
       // $data = $tmps;
-      $data = AppElearningSchedule::with('dataquestion.questions', 'participants_exam')
+      $data = AppElearningSchedule::with('dataquestion.questions', 'participants_exam', 'creator')
         ->where('startdate_exam', '<=', date('Y-m-d H:i:s'))
         ->where('enddate_exam', '>=', date('Y-m-d H:i:s'))
         ->where('isactive', 1)
