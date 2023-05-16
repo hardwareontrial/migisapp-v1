@@ -50,7 +50,7 @@
       </template>
       <template #cell(date)="data">
         <strong> {{ $moment(data.item.startdate_exam).format('DD MMM YYYY HH:mm') }} </strong>
-        <br> <em>s/d</em> <br> 
+        <br> <em>s/d</em> <br>
         <strong> {{ $moment(data.item.enddate_exam).format('DD MMM YYYY HH:mm') }} </strong>
       </template>
       <template #cell(duration)="data">
@@ -160,7 +160,7 @@ export default {
     handleFetchData(){
       this.busy = true
       http
-      .get('okm/schedule/data', { 
+      .get('okm/schedule/data', {
         params: {
           page: this.current_page,
           per_page: this.per_page,
@@ -169,7 +169,7 @@ export default {
           sortbydesc: this.sortByDesc ? 'DESC' : 'ASC',
           category: this.timingFilter,
           frompage: 'elearningschedule',
-        } 
+        }
       })
       .then((res) => {
         let receivedData = res.data.message
@@ -228,7 +228,7 @@ export default {
           called.$emit('showloading', {show: true, text: 'Sedang proses...'})
           http.delete('okm/schedule/'+dataID)
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             this.$toast({ component: ToastificationContent, props: { icon: 'AlertTriangleIcon', variant: 'warning', title: 'Data berhasil dihapus!' }, }, { position: 'top-right' })
             this.handleFetchData()
             called.$emit('hideloading')
