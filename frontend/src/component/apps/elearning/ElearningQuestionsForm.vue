@@ -66,9 +66,9 @@
             <b-form-group
               label="Level Soal"
               label-for="i-level">
-              <select 
+              <select
                 v-model="form.exam_level"
-                id="selectlevel" 
+                id="selectlevel"
                 class="form-control">
                 <option
                   :value="opt"
@@ -112,17 +112,22 @@
           </b-col>
           <b-col cols="12">
             <qst-file-upload
-              @sendfile="handlefile" 
+              @sendfile="handlefile"
               @deletefile="handledelfile"
               acceptext=".xlsx"
               ref="uploadfile"/>
           </b-col>
-          <b-col cols="12">
+          <b-col cols="12" class="mt-50">
             <b-link
               @click="showaddqstmodal()"
-              class="text-primary mt-5">
+              class="text-primary">
               Tambah Manual ?
             </b-link>
+          </b-col>
+          <b-col cols="12" class="mt-50">
+            <a href="/data-app/app-elearning/files/TemplateSoalOKM_v2.xlsx" download>
+              <feather-icon icon="FileIcon" /> Unduh Templete Disini!
+            </a>
           </b-col>
         </b-row>
       </tab-content>
@@ -173,8 +178,8 @@
                 id="s-point"
                 :value="form.exam_point"
                 plaintext/>
-            </b-form-group> -->
-          </b-col>
+            </b-form-group>
+          </b-col> -->
           <b-col cols="12" v-if="detailfile">
             <b-form-group
               label="Nama File"
@@ -225,7 +230,7 @@
         slot="prev">
         <feather-icon icon="ChevronsLeftIcon"/>
       </b-button>
-      <b-button 
+      <b-button
         variant="primary"
         size="sm"
         slot="next">
@@ -440,6 +445,9 @@ export default {
         dataqst: null,
       }
     },
+    downloadTemplate(){
+      alert('downloadTemplate')
+    },
   },
   computed:{
     disabledprocess(){
@@ -449,14 +457,14 @@ export default {
        * exam_add_upload && !exam_add_manual = false
        * !exam_add_upload && !exam_add_manual = true
        */
-      if(this.form.exam_title && 
-        this.form.exam_material && 
+      if(this.form.exam_title &&
+        this.form.exam_material &&
         // this.form.exam_point &&
         // this.form.exam_duration &&
-        this.form.exam_level && 
-        this.qstsource && 
-        this.validationfile){ 
-        return false 
+        this.form.exam_level &&
+        this.qstsource &&
+        this.validationfile){
+        return false
       }
       return true
     },
