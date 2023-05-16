@@ -27,8 +27,9 @@
           <b-col cols="4">
             <p class="small hint-text m-0"><b>Bobot Materi</b></p>
             <p class="font-montserrat bold">
-              <feather-icon icon="ShieldIcon" class="mx-25"/>
-              {{ materialdata.w_materi }} Menit
+              <feather-icon icon="StarIcon" class="mx-25"/>
+<!--              {{ materialdata.w_materi }} Menit-->
+              {{ levelOptions[1][materialdata.level] }}
             </p>
           </b-col>
         </b-row>
@@ -43,14 +44,14 @@
         </b-button>
       </template>
     </material-detail-card>
-    
+
     <b-card
       v-if="!materialdata.data && $can('update', 'AppOKMMaterial')"
       title="Upload File">
       <b-row>
         <b-col cols="9">
-          <materi-upload-input 
-            @sendfile="handlefile" 
+          <materi-upload-input
+            @sendfile="handlefile"
             @deletefile="handledeletefile"
             acceptext=".pdf, .odp"/>
         </b-col>
@@ -65,7 +66,7 @@
         </b-col>
       </b-row>
     </b-card>
-    
+
     <app-collapse
       accordion
       type="margin">
@@ -90,7 +91,7 @@
         </div>
       </app-collapse-item>
     </app-collapse>
-    
+
     <b-card class="mt-1" no-body>
       <b-card-header>
         <b-card-title>Soal</b-card-title>
@@ -102,7 +103,7 @@
           class="cursor-pointer"
         />
       </b-card-header>
-      
+
       <b-card-body>
         <div v-if="qstlist.length <= 0">Tidak ada data.</div>
         <div v-else>
@@ -248,7 +249,7 @@ export default {
       addfile.append('filematerial', this.datafile)
       http
       .post('okm/material/file/'+this.materialdata.id, addfile, {
-        headers: { 'content-type': 'multipart/form-data' } 
+        headers: { 'content-type': 'multipart/form-data' }
       })
       .then((res) => {
         this.datafile = null
@@ -289,7 +290,7 @@ export default {
             this.$toast({
             component: ToastificationContent,
             props: { icon: 'CheckCircleIcon', variant: 'success', title: res.data.message },
-            }, 
+            },
             { position: 'top-right' })
             this.loaddata()
             called.$emit('hideloading')
