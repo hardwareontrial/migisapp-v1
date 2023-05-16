@@ -47,4 +47,9 @@ class AppElearningSchedule extends Model
     $x = AppElearningUserdataExam::where('schedule_id', $this->attributes['id'])->get();
     return count($x);
   }
+
+  public function creator()
+  {
+    return $this->hasOne(AppUser::class, 'id', 'created_by');
+  }
 }
