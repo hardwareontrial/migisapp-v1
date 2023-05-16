@@ -3,13 +3,13 @@
     <transition :name="transition">
       <router-view
         :userdata="userdata"
-        :participant-list="participantsList" 
+        :participant-list="participantsList"
         :level-options="levelOptions"
         :dept-list="deptlist"
         :materials-list="materialsList">
       </router-view>
     </transition>
-    
+
     <pop-up />
   </div>
 </template>
@@ -84,6 +84,9 @@ export default {
     this.loadDeptList()
     this.loadMaterial()
     this.loadParticipant()
+  },
+  beforeCreate() {
+    store.commit('appConfig/UPDATE_LAYOUT_TYPE', 'vertical')
   },
   created(){
     called.$on('loadDeptList', () => this.loadDeptList())
