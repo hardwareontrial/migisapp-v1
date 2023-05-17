@@ -31,7 +31,8 @@
         > li > a i {
           height: 20px;
           width: 20px;
-          font-size: 1.45rem;
+          // font-size: 1.45rem;
+          font-size: 1rem;
           margin-right: 1.1rem;
           flex-shrink: 0;
         }
@@ -40,7 +41,8 @@
           > li > a svg,
           > li > a i {
             margin-right: 1.45rem;
-            font-size: 11px;
+            // font-size: 11px;
+            font-size: 1rem;
             height: 11px;
             width: 11px;
           }
@@ -66,7 +68,8 @@
                 &:before {
                   height: 20px;
                   width: 20px;
-                  font-size: 1.45rem;
+                  // font-size: 1.45rem;
+                  font-size: inherit;
                 }
               }
             }
@@ -121,7 +124,8 @@
             }
             .feather-more-horizontal {
               display: block;
-              font-size: 1.285rem;
+              // font-size: 1.285rem;
+              font-size: inherit;
               width: 18px;
               height: 18px;
             }

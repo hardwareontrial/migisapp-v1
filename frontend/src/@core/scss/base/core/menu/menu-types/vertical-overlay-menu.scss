@@ -48,7 +48,8 @@
             width: 20px;
             &:before {
               transition: 200ms ease all;
-              font-size: 1.429rem;
+              // font-size: 1.429rem;
+              font-size: inherit;
             }
           }
         }

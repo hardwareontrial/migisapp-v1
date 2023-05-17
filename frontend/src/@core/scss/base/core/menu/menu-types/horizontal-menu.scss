@@ -103,7 +103,8 @@
             margin-bottom: 0;
             font-weight: 600;
             letter-spacing: 0.01rem;
-            font-size: 1.45rem;
+            // font-size: 1.45rem;
+            font-size: inherit;
           }
         }
       }
@@ -149,7 +150,8 @@
           background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $body-color), '#', '%23'));
         }
         .dropdown-item {
-          font-size: 1rem;
+          // font-size: 1rem;
+          font-size: inherit;
           padding-top: 0.68rem;
           padding-bottom: 0.68rem;
           display: flex;
@@ -177,7 +179,8 @@
             svg {
               height: 11px !important;
               width: 11px !important;
-              font-size: 11px !important;
+              // font-size: 11px !important;
+              font-size: inherit;
             }
           }
         }
@@ -219,7 +222,8 @@
           margin-right: 0.5rem;
           height: 17px;
           width: 17px;
-          font-size: 1.2rem;
+          // font-size: 1.2rem;
+          font-size: inherit;
         }
         > a {
           padding: 0.715rem 1.25rem;
@@ -248,7 +252,8 @@
     font-family: inherit;
     color: #929292;
     padding: 8px 20px;
-    font-size: 1rem;
+    // font-size: 1rem;
+    font-size: inherit;
     text-transform: uppercase;
   }
 
@@ -548,7 +553,8 @@
               svg {
                 height: 1rem;
                 width: 1rem;
-                font-size: 1rem;
+                // font-size: 1rem;
+                font-size: inherit;
               }
             }
           }
