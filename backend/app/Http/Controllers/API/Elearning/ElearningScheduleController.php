@@ -111,11 +111,13 @@ class ElearningScheduleController extends Controller
         ->orderBy(request()->sortby, request()->sortbydesc)
         ->paginate(request()->per_page);
     }elseif($frompage == 'elearningdashboard'){
+
       // $tmps = AppElearningSchedule::where('isactive', 1)
       //     ->with('dataquestion.questions', 'participants_exam')
       //     ->orderBy('id', 'desc')
       //     ->get();
       // $data = $tmps;
+
       $data = AppElearningSchedule::with('dataquestion.questions', 'participants_exam', 'creator')
         ->where('startdate_exam', '<=', date('Y-m-d H:i:s'))
         ->where('enddate_exam', '>=', date('Y-m-d H:i:s'))
