@@ -103,7 +103,7 @@
       </template>
     </detail-result>
 
-    <certificate-user :propImgCertificate="userCert" ref="printCert" v-show="false" v-if="userCert"/>
+    <certificate-user :prop-img-certificate.sync="userCert" ref="printCert" v-show="false" v-if="userCert"/>
 
   </div>
 </template>
