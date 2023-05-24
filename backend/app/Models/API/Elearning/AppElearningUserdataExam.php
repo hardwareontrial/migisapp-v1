@@ -29,6 +29,10 @@ class AppElearningUserdataExam extends Model
     'answers_user' => 'array',
   ];
 
+  protected $appends = [
+    'certificatelink'
+  ];
+
   public function schedule()
   {
     // return $this->hasOne(AppElearningSchedule::class, 'schedule_id', 'id');
@@ -39,6 +43,11 @@ class AppElearningUserdataExam extends Model
   {
     // return $this->hasOne(AppUser::class, 'nik', 'user_nik');
     return $this->hasOne(AppUser::class, 'nik', 'user_nik');
+  }
+
+  public function getCertificatelinkAttribute()
+  {
+    return url('storage/app_elearning/quiz').'/'.$this->attributes['certificate'];
   }
 
 }
