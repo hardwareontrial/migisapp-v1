@@ -58,15 +58,29 @@
               {{ data.item.user_end_exam ? $moment(data.item.user_end_exam).format('DD/MMM/YYYY'): '-' }}
             </template>
             <template #cell(opt)="data">
-              <b-button
-                :disabled="data.item.isdone === 3"
-                @click="openDetailExam(data.item)"
-                class="btn-icon"
-                size="sm"
-                type="button"
-                variant="flat-primary">
-                <feather-icon icon="InfoIcon" size="18"/>
-              </b-button>
+              <b-dropdown
+                variant="link"
+                no-caret>
+                <template #button-content>
+                  <feather-icon
+                    icon="MoreVerticalIcon"
+                    size="16"
+                    class="align-middle text-body"/>
+                </template>
+                <b-dropdown-item 
+                  @click="openDetailExam(data.item)"
+                  :disabled="data.item.isdone === 3"
+                  >
+                  <feather-icon icon="InfoIcon"/>
+                  <span class="align-middle ml-50">Hasil Tes</span>
+                </b-dropdown-item>
+                <b-dropdown-item
+                  v-if="data.item.schedule.certificate_id"
+                  @click="setPrintCertificate(data.item.certificatelink)">
+                  <feather-icon icon="PrinterIcon"/>
+                  <span class="align-middle ml-50">Cetak Sertifikat</span>
+                </b-dropdown-item>
+              </b-dropdown>
             </template>
           </b-table>
         </b-card>
@@ -89,12 +103,14 @@
       </template>
     </detail-result>
 
+    <certificate-user :propImgCertificate="userCert" ref="printCert" v-show="false" v-if="userCert"/>
+
   </div>
 </template>
 
 <script>
 import {
-  BRow, BCol, BCard, BTable, BButton, BAvatar,
+  BRow, BCol, BCard, BTable, BButton, BAvatar, BDropdown, BDropdownItem,
 } from 'bootstrap-vue'
 import http from '@/customs/axios'
 import vSelect from 'vue-select'
@@ -102,11 +118,13 @@ import InfoExam from '@/component/utils/Modal.vue'
 import store from '@/store'
 import TableResult from '@/component/apps/elearning/_ParticipantResult.vue'
 import DetailResult from '@/component/utils/Modal.vue'
+import CertificateUser from './_CertificateUser.vue'
 
 export default {
   components: {
     InfoExam, vSelect, TableResult, DetailResult,
     BRow, BCol, BCard, BTable, BButton, BAvatar,
+    CertificateUser, BDropdown, BDropdownItem,
   },
   data(){
     return{
@@ -116,7 +134,7 @@ export default {
         { key: 'score', label: 'Nilai/Nilai Min.', thStyle: { width: "25%" }, thClass: 'text-center', tdClass: 'text-center'},
         { key: 'status', label: 'Status', thStyle: { width: "15%" }, thClass: 'text-center', tdClass: 'text-center'},
         { key: 'date', label: 'Tgl. Pelaksanaan', thStyle: { width: "20%" }, thClass: 'text-center', tdClass: 'text-center'},
-        { key: 'opt', label: 'Option', thStyle: { width: "5%" }, thClass: 'text-center', tdClass: 'text-center'},
+        { key: 'opt', label: 'Option', thStyle: { width: "10%" }, thClass: 'text-center', tdClass: 'text-center'},
       ],
       userIsAdmin: 0,
       userIsActive: 1,
@@ -135,7 +153,8 @@ export default {
         { 1: 'primary', 2: 'danger', 3: 'success' },
         { 1: 'Selesai', 2: 'N/A', 3: 'Proses' },
         { 1: 'CheckCircleIcon', 2: 'XCircleIcon', 3: 'ClockIcon' },
-      ]
+      ],
+      userCert: '',
     }
   },
   computed:{
@@ -236,6 +255,12 @@ export default {
       })
       .catch((e) => { console.error(e) })
     },
+    setPrintCertificate(data){
+      this.userCert = data;
+      setTimeout(() => {
+        this.$refs.printCert.printCert();
+    }, 750)
+    }
   },
   mounted(){
     this.setUserProp();
