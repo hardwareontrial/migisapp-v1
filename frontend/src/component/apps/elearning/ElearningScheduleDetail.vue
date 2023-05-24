@@ -155,6 +155,25 @@ import {
   BCard,
   BButton, BButtonGroup,
   BBadge,
+<<<<<<< Updated upstream
+=======
+// <<<<<<< HEAD
+//   BTableSimple,
+//   BThead,
+//   BTbody,
+//   BTr,
+//   BTh,
+//   BTd,
+//   BImg,
+//   BIcon,
+// } from "bootstrap-vue";
+// import ScheduleParticipantTable from "./_ParticipantTable.vue";
+// import AddParticipant from "@/component/utils/Modal.vue";
+// import vSelect from "vue-select";
+// import InfoParticipant from "@/component/utils/Modal.vue";
+// import TableResult from "./_ParticipantResult";
+// =======
+>>>>>>> Stashed changes
   BTableSimple, BThead, BTbody, BTr, BTh, BTd,
   BImg, BIcon, 
   VBTooltip,
@@ -164,6 +183,10 @@ import AddParticipant from '@/component/utils/Modal.vue'
 import vSelect from 'vue-select'
 import InfoParticipant from '@/component/utils/Modal.vue'
 import TableResult from "./_ParticipantResult"
+<<<<<<< Updated upstream
+=======
+// >>>>>>> elearning
+>>>>>>> Stashed changes
 
 export default {
   props: {
@@ -174,11 +197,22 @@ export default {
     BImg, BIcon,
     DetailSchedule, ScheduleParticipantTable, AddParticipant, vSelect, InfoParticipant, TableResult,
   },
+<<<<<<< Updated upstream
+=======
+// <<<<<<< HEAD
+//   data() {
+//     return {
+// =======
+>>>>>>> Stashed changes
   directives: {
     'b-tooltip': VBTooltip,
   },
   data(){
     return{
+<<<<<<< Updated upstream
+=======
+// >>>>>>> elearning
+>>>>>>> Stashed changes
       dataschedule: {
         scheduleid: null,
         questionid: null,
@@ -188,7 +222,15 @@ export default {
         total_participants: 0,
         participants: [],
         isactive: null,
+<<<<<<< Updated upstream
         hasCertificate: null,
+=======
+// <<<<<<< HEAD
+        score_min: null,
+// =======
+        hasCertificate: null,
+// >>>>>>> elearning
+>>>>>>> Stashed changes
       },
       breadcrumbs: [],
       toolbarbtns: [],
@@ -220,6 +262,39 @@ export default {
     getdata(val){
       called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       http
+<<<<<<< Updated upstream
+=======
+// <<<<<<< HEAD
+//         .get("okm/schedule/detail/" + val)
+//         .then((res) => {
+//           this.dataschedule = {
+//             scheduleid: res.data.id,
+//             questionid: res.data.question_id,
+//             title: res.data.title,
+//             title_question: res.data.dataquestion
+//               ? res.data.dataquestion.title
+//               : "",
+//             // total_questions: res.data.dataquestion ? res.data.dataquestion.qstcount : 0,questions_count
+//             total_questions: res.data.questions_count,
+//             total_participants: res.data.participants_exam
+//               ? res.data.participantscount
+//               : 0,
+//             participants:
+//               res.data.participants_exam.length > 0
+//                 ? res.data.participants_exam
+//                 : [],
+//             isactive: res.data.isactive,
+//             score_min: res.data.nilai_min,
+//           };
+//           this.getcounting(res.data.participants_exam);
+//           this.setBreadcrumbs(this.dataschedule.title);
+//           called.$emit("hideloading");
+//         })
+//         .catch((e) => {
+//           console.error(e);
+//         });
+// =======
+>>>>>>> Stashed changes
       .get('okm/schedule/detail/'+val)
       .then((res) => {
         // console.log(res.data)
@@ -240,6 +315,10 @@ export default {
         called.$emit('hideloading')
       })
       .catch((e) => { console.error(e) })
+<<<<<<< Updated upstream
+=======
+// >>>>>>> elearning
+>>>>>>> Stashed changes
     },
     setBreadcrumbs(title){
       this.breadcrumbs = [
