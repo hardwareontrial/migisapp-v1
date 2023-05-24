@@ -185,7 +185,7 @@ export default [
       {
         path: 'schedule/detail/:id',
         name: 'apps-elearning-schedule-detail',
-        component: () => import('@/component/apps/elearning/ElearningScheduleDetail.vue'),
+        component: () => import('@/component/apps/elearning/old_ElearningScheduleDetail.vue'),
         meta: {
           pageTitle: 'Detail Ujian',
           title: 'OKM',

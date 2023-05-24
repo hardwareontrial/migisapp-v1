@@ -189,22 +189,6 @@ import {
   BButton,
   BButtonGroup,
   BBadge,
-<<<<<<< HEAD
-  BTableSimple,
-  BThead,
-  BTbody,
-  BTr,
-  BTh,
-  BTd,
-  BImg,
-  BIcon,
-} from "bootstrap-vue";
-import ScheduleParticipantTable from "./_ParticipantTable.vue";
-import AddParticipant from "@/component/utils/Modal.vue";
-import vSelect from "vue-select";
-import InfoParticipant from "@/component/utils/Modal.vue";
-import TableResult from "./_ParticipantResult";
-=======
   BTableSimple, BThead, BTbody, BTr, BTh, BTd,
   BImg, BIcon, 
   VBTooltip,
@@ -214,7 +198,6 @@ import AddParticipant from '@/component/utils/Modal.vue'
 import vSelect from 'vue-select'
 import InfoParticipant from '@/component/utils/Modal.vue'
 import TableResult from "./_ParticipantResult"
->>>>>>> elearning
 
 export default {
   props: {
@@ -242,16 +225,11 @@ export default {
     InfoParticipant,
     TableResult,
   },
-<<<<<<< HEAD
-  data() {
-    return {
-=======
   directives: {
     'b-tooltip': VBTooltip,
   },
   data(){
     return{
->>>>>>> elearning
       dataschedule: {
         scheduleid: null,
         questionid: null,
@@ -261,11 +239,8 @@ export default {
         total_participants: 0,
         participants: [],
         isactive: null,
-<<<<<<< HEAD
         score_min: null,
-=======
         hasCertificate: null,
->>>>>>> elearning
       },
       breadcrumbs: [],
       toolbarbtns: [],
@@ -297,36 +272,6 @@ export default {
     getdata(val) {
       called.$emit("showloading", { show: true, text: "Sedang memproses..." });
       http
-<<<<<<< HEAD
-        .get("okm/schedule/detail/" + val)
-        .then((res) => {
-          this.dataschedule = {
-            scheduleid: res.data.id,
-            questionid: res.data.question_id,
-            title: res.data.title,
-            title_question: res.data.dataquestion
-              ? res.data.dataquestion.title
-              : "",
-            // total_questions: res.data.dataquestion ? res.data.dataquestion.qstcount : 0,questions_count
-            total_questions: res.data.questions_count,
-            total_participants: res.data.participants_exam
-              ? res.data.participantscount
-              : 0,
-            participants:
-              res.data.participants_exam.length > 0
-                ? res.data.participants_exam
-                : [],
-            isactive: res.data.isactive,
-            score_min: res.data.nilai_min,
-          };
-          this.getcounting(res.data.participants_exam);
-          this.setBreadcrumbs(this.dataschedule.title);
-          called.$emit("hideloading");
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-=======
       .get('okm/schedule/detail/'+val)
       .then((res) => {
         // console.log(res.data)
@@ -335,19 +280,18 @@ export default {
           questionid: res.data.question_id,
           title: res.data.title,
           title_question: res.data.dataquestion ? res.data.dataquestion.title : '',
-          // total_questions: res.data.dataquestion ? res.data.dataquestion.qstcount : 0,questions_count
           total_questions: res.data.questions_count,
           total_participants: res.data.participants_exam ? res.data.participantscount : 0,
           participants: res.data.participants_exam.length > 0 ? res.data.participants_exam : [],
           isactive: res.data.isactive,
+          score_min: res.data.nilai_min,
           hasCertificate: res.data.certificate_data
         }
         this.getcounting(res.data.participants_exam)
         this.setBreadcrumbs(this.dataschedule.title)
         called.$emit('hideloading')
       })
-      .catch((e) => { console.error(e) })
->>>>>>> elearning
+      .catch((e) => { console.error(e) });
     },
     setBreadcrumbs(title) {
       this.breadcrumbs = [
