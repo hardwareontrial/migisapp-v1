@@ -23,6 +23,7 @@ class AppElearningSchedule extends Model
     'questions_count',
     'created_by',
     'isactive',
+    'certificate_id',
   ];
   protected $casts = [
     'participant_id' => 'array',
@@ -51,5 +52,9 @@ class AppElearningSchedule extends Model
   public function creator()
   {
     return $this->hasOne(AppUser::class, 'id', 'created_by');
+  }
+
+  public function certificate_data(){
+    return $this->hasOne(AppElearningCertificate::class, 'schedule_id', 'id');
   }
 }

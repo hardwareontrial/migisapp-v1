@@ -213,6 +213,37 @@
             </validation-provider>
           </b-form-group>
         </b-col>
+        <!-- Certificate -->
+        <b-col cols="12">
+          <b-form-group
+            label="Sertifikat"
+            label-for="h-materi"
+            label-cols-md="4">
+            <b-row>
+              <b-col cols="3">
+                <validation-provider
+                  #default="{errors}"
+                  name="Certificate"
+                  vid="elr-f-opt-cert"
+                  rules="required">
+                  <b-form-radio-group 
+                    :options="hasCertificate"
+                    v-model="form.useCertificate"
+                    class="inline-spacing mt-50"/>
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-col>
+              <b-col cols="5" v-if="form.useCertificate == 1">
+                <v-select
+                  v-model="form.certificateSigner"
+                  :options="list_user"
+                  :reduce="name=>name.id"
+                  :clearable="false"
+                  label="name" />
+              </b-col>
+            </b-row>
+          </b-form-group>
+        </b-col>
         <!-- Button -->
         <b-col cols="12">
           <b-form-group
@@ -287,16 +318,25 @@ export default {
         frompage: 'elearningscheduleform',
         duration: null,
         nilai_min: null,
+        useCertificate: 0,
+        certificateSigner: 20,
       },
       qstlist: [],
-      required, max
+      required, max,
+      hasCertificate: [
+        { value: 1, text: 'Ya' },
+        { value: 0, text: 'Tidak' },
+      ],
+      list_user: [],
     }
   },
   methods: {
     getqstlist(){
       http
       .get('okm/question/list')
-      .then((res) => { this.qstlist = res.data })
+      .then((res) => { 
+        this.qstlist = res.data 
+      })
       .catch((e) => { console.error(e) })
     },
     storeschedule(){
@@ -313,6 +353,8 @@ export default {
       schedule.append('frompage', this.form.frompage)
       schedule.append('duration', this.form.duration)
       schedule.append('nilai_min', this.form.nilai_min)
+      schedule.append('hasCertificate', this.form.useCertificate)
+      schedule.append('idSigner', this.form.certificateSigner)
       http
       .post('okm/schedule/new', schedule)
       .then((res) => {
@@ -345,10 +387,19 @@ export default {
         this.form.qstcount_exam_max = 0
       }
     },
+    getUserList(){
+      http
+      .get('misc/list/userlist')
+      .then(({data}) => {
+        this.list_user = data
+      })
+      .catch((e) => { console.error(e) })
+    },
   },
   mounted(){
     this.getqstlist()
     // this.getparticipant()
+    this.getUserList()
   },
   computed: {
     disablebtn(){

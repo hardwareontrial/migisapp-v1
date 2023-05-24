@@ -56,7 +56,7 @@ class QuestionFromExcel implements ShouldQueue
     $reader = new Xlsx();
     $spreadsheet = $reader->load(storage_path('app/public/app_elearning/soal/s-').$newid.'/'.$filename);
     $sheet = $spreadsheet->getActiveSheet();
-    $row_limit    = $sheet->getHighestDataRow();
+    $row_limit = $sheet->getHighestDataRow();
     $update = AppElearningQuestionStatusUpload::find($statusid);
     $initializeform = $sheet->getCell('A1')->getValue();
     if($initializeform != 'Form_by_IT'){

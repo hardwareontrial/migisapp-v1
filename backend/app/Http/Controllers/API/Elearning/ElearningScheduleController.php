@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\Elearning;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\API\Elearning\CreateSignQr;
+use App\Jobs\API\Elearning\GenerateCertificate;
 use App\Models\API\Elearning\AppElearningQuestionCollection;
 use App\Models\API\Elearning\AppElearningSchedule;
 use App\Models\API\Elearning\AppElearningUserdataExam;
@@ -87,7 +89,7 @@ class ElearningScheduleController extends Controller
     if($frompage == 'elearningschedule'){
       $condition = request()->category;
       $q = request()->q;
-      $data = AppElearningSchedule::with('dataquestion', 'creator')
+      $data = AppElearningSchedule::with('dataquestion', 'creator', 'certificate_data')
         ->where(function ($query) use ($condition, $q){
           $query->whereHas('dataquestion', function($query2) use ($q){
             $query2->where(function($query3) use ($q){
@@ -131,8 +133,9 @@ class ElearningScheduleController extends Controller
   public function detailschedule($id)
   {
     $tmp =  AppElearningSchedule::where('id', $id)
-      ->with('participants_exam.datauser.position.deptname', 'dataquestion.questions', 'dataquestion.material.materialfile')
+      ->with('participants_exam.datauser.position.deptname', 'dataquestion.questions', 'dataquestion.material.materialfile', 'certificate_data')
       ->first();
+
     // $count = count($tmp->dataquestion->questions);
     // $tmp->dataquestion->qstcount = $count;
     // unset($tmp->dataquestion->questions);
@@ -157,10 +160,12 @@ class ElearningScheduleController extends Controller
           // $reorder2->push($au);
           array_push($reorder2, $au);
         }
+
         // usort($reorder2, function($a, $b){
         //   if($a['id'] == $b['id']) return (0);
         //   return (($a['id'] < $b['id']) ? -1 : 1);
         // });
+
         unset($px->answers_user);
         $px->answers_user = $reorder2;
       }else{
@@ -193,6 +198,9 @@ class ElearningScheduleController extends Controller
     $soalid = $request->input('soal_id');
     $questionmax = $request->input('qstnumrandoms');
 
+    $hasCertificate = $request->input('hasCertificate');
+    $certificateSignerId = $request->input('idSigner');
+
     if($frompage == 'elearningscheduleform'){
       $data = AppElearningSchedule::create([
         'title' => strtoupper($request->input('title')),
@@ -205,15 +213,22 @@ class ElearningScheduleController extends Controller
         'created_by' => auth('sanctum')->user()->detailuser->id,
         'isactive' => 1,
         'duration' => $request->input('duration'),
-        'nilai_min' => $request->input('nilai_min')
+        'nilai_min' => $request->input('nilai_min'),
       ]);
       $scheduleid = $data->id;
+
+      if($hasCertificate === '1'){ 
+        CreateSignQr::dispatch($scheduleid, $certificateSignerId); 
+      }
+
       if(!$data){ return response()->json(['message' => 'Data gagal ditambah.'], 500); }
+
     }else if($frompage == 'elearningscheduledetail'){
       $scheduleid = $request->input('schedule_id');
     }
 
     // $this->setuserdataexams($scheduleid, $filteredparticipants, $soalid);
+
     $this->setuserdataexams($scheduleid, $filteredparticipants, $soalid, $questionmax);
     return response()->json(['message' => 'Data berhasil ditambah.'], 200);
   }
@@ -235,17 +250,24 @@ class ElearningScheduleController extends Controller
       }
     }
 
+    $passed = $request->input('ispassed');
+    $done = $request->input('isdone');
+
     $data = AppElearningUserdataExam::find($id);
     $data->update([
       'answers_user' => $outputansw,
       'user_start_exam' => $request->input('userstartexam'),
       'user_end_exam' => $request->input('userendexam'),
       'timeleft_seconds' => $request->input('timeleft'),
-      'isdone' => $request->input('isdone'),
-      'ispassed' => $request->input('ispassed'),
+      'isdone' => $done,
+      'ispassed' => $passed,
       'score' => $request->input('score'),
-      'certificate' => $request->input('certificate'),
+      'certificate' => null,
     ]);
+
+    if($done === '1' && $passed === '1'){
+      GenerateCertificate::dispatch($id);
+    }
   }
 
   public function setactive(Request $request, $id)
