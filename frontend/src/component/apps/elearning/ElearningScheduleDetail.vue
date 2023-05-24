@@ -44,6 +44,18 @@
               </b-badge>
             </p>
           </b-col>
+          <b-col cols="4" v-if="dataschedule.hasCertificate">
+            <p class="small hint-text m-0"><b>Sertifikat</b></p>
+            <p class="font-montserrat bold">
+              <b-badge 
+                variant="light-success" 
+                v-b-tooltip.hover.v-success
+                :title="`Sign by ${dataschedule.hasCertificate.signer_name}`">
+                <feather-icon icon="AwardIcon" class="mr-25"/>
+                <span>Tersedia</span>
+              </b-badge>
+            </p>
+          </b-col>
         </b-row>
       </template>
     </detail-schedule>
@@ -144,7 +156,8 @@ import {
   BButton, BButtonGroup,
   BBadge,
   BTableSimple, BThead, BTbody, BTr, BTh, BTd,
-  BImg, BIcon,
+  BImg, BIcon, 
+  VBTooltip,
 } from 'bootstrap-vue'
 import ScheduleParticipantTable from './_ParticipantTable.vue'
 import AddParticipant from '@/component/utils/Modal.vue'
@@ -161,6 +174,9 @@ export default {
     BImg, BIcon,
     DetailSchedule, ScheduleParticipantTable, AddParticipant, vSelect, InfoParticipant, TableResult,
   },
+  directives: {
+    'b-tooltip': VBTooltip,
+  },
   data(){
     return{
       dataschedule: {
@@ -172,6 +188,7 @@ export default {
         total_participants: 0,
         participants: [],
         isactive: null,
+        hasCertificate: null,
       },
       breadcrumbs: [],
       toolbarbtns: [],
@@ -205,6 +222,7 @@ export default {
       http
       .get('okm/schedule/detail/'+val)
       .then((res) => {
+        // console.log(res.data)
         this.dataschedule = {
           scheduleid: res.data.id,
           questionid: res.data.question_id,
@@ -215,6 +233,7 @@ export default {
           total_participants: res.data.participants_exam ? res.data.participantscount : 0,
           participants: res.data.participants_exam.length > 0 ? res.data.participants_exam : [],
           isactive: res.data.isactive,
+          hasCertificate: res.data.certificate_data
         }
         this.getcounting(res.data.participants_exam)
         this.setBreadcrumbs(this.dataschedule.title)
