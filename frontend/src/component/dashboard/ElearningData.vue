@@ -41,11 +41,13 @@
               </h6>
               <small>
                 <feather-icon icon="EditIcon" size="12" />
-                {{ exam.type === 1 ? "Ujian" : "Remedial" }} |
+                {{ exam.type === 1 ? "Ujian" : "Remedial" }} <br />
                 <feather-icon icon="ListIcon" size="12" />
-                {{ exam.questions_count }} Soal |
+                {{ exam.questions_count }} Soal <br />
                 <feather-icon icon="ClockIcon" size="12" />
-                {{ exam.duration }} Menit |
+                <!-- {{ exam.duration }} Menit | -->
+                {{ $moment(exam.startdate_exam).format("DD MMMM Y H:mm") }} -
+                {{ $moment(exam.enddate_exam).format("DD MMMM Y H:mm") }} <br />
                 <feather-icon icon="UserIcon" size="12" />
                 {{ exam.creator.name }}
               </small>

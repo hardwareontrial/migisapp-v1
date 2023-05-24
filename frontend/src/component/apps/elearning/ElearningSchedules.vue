@@ -80,7 +80,7 @@
           >
             <feather-icon icon="InfoIcon" size="14" />
           </b-button>
-          <b-button
+          <!-- <b-button
             :disabled="data.item.participantscount > 0"
             v-if="
               data.item.participantscount <= 0 ||
@@ -99,7 +99,7 @@
               size="14"
               :class="data.item.isactive === 1 ? 'text-danger' : 'text-success'"
             />
-          </b-button>
+          </b-button> -->
           <b-button
             @click="deleteSchedule(data.item.id)"
             class="btn-icon"
