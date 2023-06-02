@@ -37,7 +37,15 @@
                     <flat-pickr
                       v-model="form.startdate"
                       class="form-control"
-                      :config="{ enableTime: true,dateFormat: 'Y-m-d H:i'}"/>
+                      read-only
+                      :config="{ 
+                        enableTime: true,
+                        enableSeconds:true,
+                        altFormat: 'd M Y H:i',
+                        altInput: true,
+                        dateFormat: 'Y-m-d H:i:S',
+                        minDate: form.startdate,
+                        locale: Indonesian }"/>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12" md="6">
@@ -47,8 +55,14 @@
                     <flat-pickr
                       v-model="form.enddate"
                       class="form-control"
-                      :config="{ enableTime: true,dateFormat: 'Y-m-d H:i'}"
-                    />
+                      :config="{ 
+                        enableTime: true,
+                        enableSeconds:true,
+                        altFormat: 'd M Y H:i',
+                        altInput: true,
+                        dateFormat: 'Y-m-d H:i',
+                        minDate: form.startdate,
+                        locale: Indonesian }"/>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12">
@@ -73,9 +87,17 @@
                     label="Tanggal & Jam Mulai"
                     label-for="v-start-date">
                     <flat-pickr
-                      v-model="form.startdate"
+                      v-model="dataEndDate"
                       class="form-control"
-                      :config="{ enableTime: true,dateFormat: 'Y-m-d H:i'}"/>
+                      :config="{ 
+                        enableTime: true,
+                        enableSeconds:true,
+                        altFormat: 'd M Y H:i',
+                        altInput: true,
+                        dateFormat: 'Y-m-d H:i:S',
+                        minDate: dataEndDate,
+                        maxDate: dataStartDate,
+                        locale: Indonesian }"/>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12" md="6">
@@ -83,10 +105,17 @@
                     label="Tanggal & Jam Akhir"
                     label-for="v-end-date">
                     <flat-pickr
-                      v-model="form.enddate"
+                      v-model="dataStartDate"
                       class="form-control"
-                      :config="{ enableTime: true,dateFormat: 'Y-m-d H:i'}"
-                    />
+                      :config="{ 
+                        enableTime: true,
+                        enableSeconds:true,
+                        altFormat: 'd M Y H:i',
+                        altInput: true,
+                        dateFormat: 'Y-m-d H:i:S',
+                        minDate: dataEndDate,
+                        maxDate: dataStartDate,
+                        locale: Indonesian }"/>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12">
@@ -120,7 +149,9 @@ import {
   BButton,
 } from 'bootstrap-vue'
 import flatPickr from 'vue-flatpickr-component'
+import { Indonesian } from 'flatpickr/dist/l10n/id'
 import http from '@/customs/axios'
+import http2 from '@/customs/axios/http2'
 
 export default {
   components: {
@@ -133,9 +164,11 @@ export default {
   },
   data(){
     return{
+      dataStartDate: null,
+      dataEndDate: null,
       form: {
-        startdate: this.$moment().format('YYYY-MM-DD HH:mm'),
-        enddate: this.$moment().format('YYYY-MM-DD HH:mm'),
+        startdate: this.$moment().format('YYYY-MM-DD HH:mm:ss'),
+        enddate: this.$moment().format('YYYY-MM-DD HH:mm:ss'),
       },
       dataabsensi: [],
       alert: {
@@ -144,13 +177,14 @@ export default {
         message: '<b-icon icon="stopwatch" font-scale="1.5" animation="fade" variant="primary" class="mr-1"> Sedang Memuat...</b-icon>'
       },
       generatedata: [],
+      Indonesian,
     }
   },
   methods: {
     fetchinfo(){
       called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       this.alert = { show: false, variant: '', message: '' }
-      http
+      http2
       .get('hr/attendace/sync-data')
       .then((data) => {
         this.dataabsensi = data.data
@@ -167,13 +201,15 @@ export default {
             variant: 'primary',
             message: `
               <ul>
-                <li>Data Terakhir: <strong>${this.$moment(last.scan_date).format('DD-MMM-YYYY, HH:mm')}</strong></li>
+                <li>Data Terakhir: <strong>${this.$moment(last.scan_date).format('DD-MMM-YYYY, HH:mm:ss')}</strong></li>
                 <li>Sync Terakhir pada: <strong>${this.$moment(last.created_at).format('DD-MMM-YYYY, HH:mm')}</strong></li>
                 <li>Total Data: <strong>${this.dataabsensi.length}</strong></li>
               </ul>`
           }
-          this.form.startdate = this.$moment(last.scan_date).format('YYYY-MM-DD HH:mm')
-          this.form.enddate = this.$moment().format('YYYY-MM-DD HH:mm')
+          this.form.startdate = this.$moment(last.scan_date).toISOString()
+          this.form.enddate = this.$moment().toISOString()
+          this.dataStartDate = this.$moment(last.scan_date).toISOString()
+          this.dataEndDate = this.$moment(this.dataabsensi[this.dataabsensi.length -1].scan_date).toISOString()
         }
         called.$emit('hideloading')
       })
@@ -187,11 +223,12 @@ export default {
       })
     },
     handleSync(){
-      // console.log(this.form)
       called.$emit('showloading', {show: true, text: 'Sedang memproses...'})
       this.alert = { show: false, variant: '', message: '' }
-      http
-      .get('hr/attendace/sync', { params: this.form })
+      // http
+      // .get('hr/attendace/sync', { params: this.form })
+      http2
+      .post('hr/attendace/sync', null, { params: this.form })
       .then((data) => { 
         // console.log(data.data.message) 
         this.fetchinfo()
@@ -213,8 +250,9 @@ export default {
     handleGetGenerate(){
       this.alert = { show: false, variant: '', message: '' }
       var filename = this.form.startdate.replace(" ","").replace(":","").replace("-","").replace("-","")+'-'+this.form.enddate.replace(" ","").replace(":","").replace("-","").replace("-","")+'.txt'
-      http
-      .get('hr/attendace/generate-data', { params: this.form })
+      // http
+      // .get('hr/attendace/generate-data', { params: this.form })
+      http2.post('hr/attendace/generate-data', null, { params: {startdate: this.dataEndDate, enddate: this.dataStartDate} })
       .then((data) => {
         // console.log(data.data)
         this.generatedata = data.data
